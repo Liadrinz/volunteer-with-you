@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "activity": "/pages/activity/activity"
+    "activity": "/pages/activity/activity",
+    "personal": "/pages/personal/personal"
   }
 }
