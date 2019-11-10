@@ -20,16 +20,8 @@ Page({
             }
             return list;
         })(),
-        keywords: ''
-    },
-    // 搜索输入
-    handleSearchInput(e) {
-        this.setData({
-            keywords: e.detail.value
-        })
-    },
-    // 触发搜索
-    search() {
-        console.log(this.data.keywords)
+        search: (k) => {
+            console.log(k);
+        }
     }
 })

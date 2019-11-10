@@ -1,8 +1,5 @@
 <view>
-    <view class="cu-form-group margin">
-		<input placeholder="搜索" bindinput="handleSearchInput"></input>
-        <button class="title" bindtap="search"><text class="cuIcon-search"></text></button>
-	</view>
+    <search onSearch="{{search}}"/>
     <view class="cu-list menu">
         <view class="cu-item" wx:for="{{activityList}}" wx:for-index="idx" wx:for-item="act">
             <view class="content padding-tb-sm">
