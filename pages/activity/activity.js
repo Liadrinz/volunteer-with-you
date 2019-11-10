@@ -5,7 +5,13 @@ app.globalData.getSplit = function (dateTime, splitter) {
 }
 
 
-Page({
+Component({
+    properties: {
+        actType: {
+            type: String,
+            value: ''
+        }
+    },
     data: {
         // 活动列表
         activityList: (() => {
@@ -22,5 +28,8 @@ Page({
         search: (k) => {
             console.log(k);
         }
+    },
+    methods: {
+
     }
 })
