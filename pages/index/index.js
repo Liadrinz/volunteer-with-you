@@ -8,7 +8,7 @@ Page({
     workClr: 'grey',
     userType: ''
   },
-  onReady() {
+  onLoad() {
     let userType = app.globalData.userInfo.userType;
     this.setData({
       userType: userType

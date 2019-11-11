@@ -48,7 +48,7 @@ App({
   },
   globalData: {
     userInfo: {
-      userType: 'stf'  // vol = 志愿者, stf = 工作人员
+      userType: 'vol'  // vol = 志愿者, stf = 工作人员
     }
   },
   _privateData: {
