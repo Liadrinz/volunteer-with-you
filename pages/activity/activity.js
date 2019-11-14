@@ -1,9 +1,8 @@
 const app = getApp();
 
-app.globalData.getSplit = function (dateTime, splitter) {
+app.globalData.getSplit = function(dateTime, splitter) {
     return dateTime.split(splitter);
 }
-
 
 Page({
     data: {

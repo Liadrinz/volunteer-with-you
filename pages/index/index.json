@@ -1,6 +1,6 @@
 {
-  "usingComponents": {
-    "activity": "/pages/activity/activity",
-    "users":"/pages/users/users"
-  }
+    "usingComponents": {
+        "activity": "/pages/activity/activity",
+        "users": "/pages/users/users"
+    }
 }
