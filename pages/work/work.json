@@ -1,5 +1,6 @@
 {
     "usingComponents": {
-        "publish": "/pages/publish/publish"
+        "publish": "/pages/publish/publish",
+        "handleApply": "/pages/handleApply/handleApply"
     }
 }
