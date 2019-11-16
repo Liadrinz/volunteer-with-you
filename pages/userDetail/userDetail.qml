@@ -30,6 +30,6 @@
     <view slot="backText">返回</view><view slot="content">未完成</view>
   </cu-custom>
   <view>
-      <activity id="ongoingActs" actType="work"/>
+      <activity id="ongoingActs" actType="work" activityList="{{infos2show}}"/>
   </view>
 </block>

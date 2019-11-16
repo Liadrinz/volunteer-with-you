@@ -16,7 +16,9 @@ Page({
     },
     onShow:function(){
         usersComp.updateData()
-        infos2show = usersComp.getAct2Show(this.data.type)
+        this.setData({
+            infos2show : usersComp.getInfo2Show(this.data.type)
+        })
         switch(this.data.type){
             case 0:
                 this.showFinished()
@@ -29,13 +31,8 @@ Page({
         }
     },
     showOnGoing(){
-        this.selectComponent("#ongoingActs").setActivityList(infos2show)
     },
     showFinished(){
-        console.log(infos2show)
-        this.setData({
-            infos2show:infos2show
-        })
     },
 
 })
