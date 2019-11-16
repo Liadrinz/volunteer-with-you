@@ -1,20 +1,17 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/activityDetail/activityDetail"
-  ],
-  "components": [
-    "components/search/search",
-    "components/filter/filter"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "QQ小程序",
-    "navigationBarTextStyle": "black",
-    "navigationStyle": "custom"
-  },
-  "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom"
-  }
+    "pages": [
+        "pages/index/index",
+        "pages/activityDetail/activityDetail",
+        "pages/userDetail/userDetail"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "QQ小程序",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+    },
+    "usingComponents": {
+        "cu-custom": "/colorui/components/cu-custom"
+    }
 }
