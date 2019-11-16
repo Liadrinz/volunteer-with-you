@@ -2,7 +2,7 @@
   <view class="cu-bar fixed bg-gradual-red" style="height: 4rem;"></view>
   <view class="body">
     <view wx:if="{{router === 'vol'}}" style="margin-top: 5rem;"><activity/></view>
-    <view wx:elif="{{router === 'me'}}" style="margin-top: 4rem;" ><users /></view>
+    <view wx:elif="{{router === 'me'}}" style="margin-top: 4rem;" ><users id="users" /></view>
   </view>
   <view class="cu-bar tabbar bg-white foot">
     <view class="action" bindtap="toVol">
