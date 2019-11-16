@@ -1,6 +1,7 @@
 Component({
   data: {
     userInfo:null ,
+    postToShow:null,
   },
   options: {
     addGlobalClass: true,
@@ -14,6 +15,8 @@ Component({
     },
   },
   methods: {
-    
+      updateData:function(){
+        userInfo : getApp().globalData.userInfo
+      },
   }
 })

@@ -119,6 +119,11 @@ App({
         { id: 3, actID: 2, name: "站岗", descript: "跑步", condition: "会机器学习", plan: 20, current: 0, },
         { id: 4, actID: 3, name: "test1", descript: "跑步", condition: "会机器学习", plan: 20, current: 0, },
     ],
+    postRewards:[
+        {id:0,uid:0,postid:0,type:"团体录入",state:"已生效",recordTime:"2019-7-20 19:20:10"},
+        {id:1,uid:0,postid:2,type:"团体录入",state:"已生效",recordTime:"2019-7-20 19:20:10"},
+    ]
+    ,
     volunteerInfo: {
         id: 0,
         finishedTime: 10,
