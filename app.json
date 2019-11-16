@@ -3,6 +3,10 @@
     "pages/index/index",
     "pages/activityDetail/activityDetail"
   ],
+  "components": [
+    "components/search/search",
+    "components/filter/filter"
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

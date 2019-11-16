@@ -4,8 +4,16 @@ Component({
     behaviors: [],
     properties: {
         onSearch: {
-            type: null,
-            value: () => { }
+            type: Function,
+            value: (keywords) => { }
+        },
+        onFilter: {
+            type: Function,
+            value: (filter) => { }
+        },
+        filterFields: {
+            type: Array,
+            value: null
         }
     },
     data: {

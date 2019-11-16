@@ -1,6 +1,6 @@
 <view>
     <view style="padding-top: .5rem;">
-        <search onSearch="{{search}}" />
+        <search onSearch="{{search}}" filterFields="{{filterFields}}"/>
     </view>
     <view class="cu-list menu" style="padding-bottom: 4rem;">
         <navigator class="cu-item" wx:for="{{activityList}}" wx:for-index="idx" wx:for-item="act"

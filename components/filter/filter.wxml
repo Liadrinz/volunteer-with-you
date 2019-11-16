@@ -1,0 +1,29 @@
+<view>
+    <view class="text-xl padding" bindtap="showFilterModal"><text class="cuIcon-filter"></text></view>
+    <view class="cu-modal drawer-modal justify-start {{showFilter ? 'show' : ''}}" bindtap="hideFilterModal">
+        <view class="cu-dialog basis-lg" catchtap>
+            <view style="margin-top: 5rem;">
+                <view class="bg-white solid-bottom margin-top" wx:for="{{fields}}" wx:for-item="field">
+                    <view class="text-xl text-bold padding"><text class="cuIcon-title text-orange"></text>{{field.name}}</view>
+                    <view class="padding">
+                    <view wx:if="{{field.type === 'date'}}">
+                        <picker mode="date" bindchange="allChangeHandler" data-name="{{field.name}}">{{filters[field.name]}}</picker>
+                    </view>
+                    <view wx:if="{{field.type === 'single'}}">
+                        <view class="cu-form-group" wx:for="{{field.choices}}" wx:for-item="choice">
+                            <view class="title">{{choice}}</view>
+                            <checkbox></checkbox>
+                        </view>
+                    </view>
+                    <view wx:if="{{field.type === 'multiple'}}">
+                    </view>
+                    <view wx:if="{{field.type === 'text'}}">
+                        <view class="title">{{field.name}}</view>
+                        <input bindinput="allChangeHandler" data-name="{{field.name}}">{{filters[field.name]}}</input>
+                    </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -10,7 +10,6 @@ Component({
         attached() {
             // let f = app.globalData.getSplit;
             let list = app.GetActivities(10);
-            console.log(list);
             let actList = this.data.actList;
             // for (let i = 0; i < list.length; ++i) {
             //     if (f(list[i]['beginRegTime'], " ")[0] === f(list[i]['endRegTime'], " ")[0])

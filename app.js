@@ -57,6 +57,7 @@ App({
   },
   _privateData: {
     curActivityID: 0,
+    curApplyID: 0
   },
   //自定义函数
 
@@ -74,6 +75,10 @@ App({
     for (let i in activity.posts) { posts.push(this.postList[i]) }
     return posts;
   },
+  GetApplies: function (n) {
+    return this.applyList.slice(this._privateData.curApplyID, this._privateData.curApplyID + n - 1)
+    this._privateData.curApplyID = this._privateData.curApplyID + n
+  },
 
   activityList: [
     { id: 0, title: '教小朋友学Python', publishTime: '2019-10-01', beginRegTime: '2019-10-01', endRegTime: '2019-10-07', beginTime: '2020-01-15', endTime: '2020-03-01', location: '北邮幼儿园', detail: "2019年10月28日下午3:00至4:00", posts: [0, 1], picture: '/images/u=3615214809,3485655572&fm=11&gp=0.jpg' },
@@ -83,6 +88,11 @@ App({
   postList: [
     { id: 0, name: "企业支持", descript: "协助企业进行参会服务", condition: "会python", plan: 10, current: 0 },
     { id: 1, name: "run", descript: "跑步", condition: "并不会python", plan: 20, current: 0 },
+  ],
+  applyList: [
+    {id: 0, activity: {id: 0, title: "教小朋友学Python"}, applier: {name: "蔡宇昂", buptId: "2017211872"}, applyTime: "2019-10-01"},
+    {id: 1, activity: {id: 1, title: "地铁志愿"}, applier: {name: "陈凌云", buptId: "2017211868"}, applyTime: "2019-10-01"},
+    {id: 2, activity: {id: 1, title: "地铁志愿"}, applier: {name: "吴志镛", buptId: "2017211869"}, applyTime: "2019-10-01"}
   ]
 
 })
