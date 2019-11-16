@@ -1,7 +1,5 @@
 {
-    "component": true,
     "usingComponents": {
-        "search": "/components/search/search",
         "cu-custom": "/colorui/components/cu-custom"
     }
 }

@@ -4,7 +4,7 @@
 <cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">详情</view></cu-custom>
 
 <view class="flex justify-center align-center flex-direction" bindtap="hideModal">
-  <view class="margin-xs cu-card case text-bold text-xl">{{"【"+activity.id+"】"+activity.title}}     </view>
+  <view class="margin-xs cu-card case text-bold text-xl">{{"【"+activity.id+"】"+activity.title}}     </view>{{activity.isDone == true?"【已结项】":""}}
     <image class="padding-lg"  style="width:{{autoSize.width}}px;height:{{autoSize.height}}px" src="{{activity.picture?activity.picture:'/images/noimg_opp.jpg'}}" bindload="autoImage"/> 
   <view class="response padding-sm">
     <view class="flex margin-xs">
@@ -33,7 +33,10 @@
       <view class="text-df">
       {{"岗位"+ (index+1)+":" + item.name+"   计划招募:"+item.plan+"   已招募:"+item.current}} 
       </view>
-      <button wx:if="{{!item.isApplyed}}" class="cu-btn round bg-red df" bindtap="applyPost" data-post="{{item}}">
+      <view wx:if="{{activity.isDone == true}}" class="cu-btn round bg-gray df">
+        已结项
+      </view>
+      <button wx:elif="{{!item.isApplyed}}" class="cu-btn round bg-red df" bindtap="applyPost" data-post="{{item}}">
         我要报名
       </button>
       <button wx:else class="cu-btn round bg-gray df" bindtap="canclePost" data-post="{{item}}">
