@@ -14,6 +14,14 @@ Component({
         filterFields: {
             type: Array,
             value: null
+        },
+        onFilterOpen: {
+            type: Function,
+            value: () => {}
+        },
+        onFilterClose: {
+            type: Function,
+            value: () => {}
         }
     },
     data: {

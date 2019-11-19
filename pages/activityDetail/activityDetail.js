@@ -8,7 +8,7 @@ Page({
         applySuccess: true,
     },
     onLoad: function(option) {
-        let activity = app.GetActivity(option.id);
+        let activity = app.db.getActivity(option.id);
         this.setData({
             activity: activity,
             posts: this.updatePost(activity),
@@ -29,7 +29,7 @@ Page({
     },
     updatePost: function(activity = this.data.activity) {
         // 由于post 可能随时更新（剩余职位数量）
-        let posts = app.GetActivityPosts(activity)
+        let posts = app.db.getActivityPosts(activity)
         for (let p in posts) {
             posts[p].isApplyed = (app.globalData.userInfo.volunteerInfo.ongoingPosts.indexOf(posts[p].id) != -1)
         }
@@ -37,7 +37,7 @@ Page({
     },
     // 回调app方法访问数据库
     applyPost: function(e) {
-        let success = app.applyPost(e.target.dataset.post)
+        let success = app.db.applyPost(e.target.dataset.post)
         if (!success) {
             this.setData({
                 applySuccess: false,

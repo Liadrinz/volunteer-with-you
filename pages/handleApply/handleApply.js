@@ -9,7 +9,7 @@ Component({
     },
     lifetimes: {
         attached() {
-            let list = app.GetApplies(10);
+            let list = app.db.getApplies(10);
             let applyList = this.data.applyList;
             for (let item of list)
                 applyList.push(item);

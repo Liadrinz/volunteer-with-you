@@ -36,9 +36,9 @@ Component({
         _packRewardInfo: function(rewardids) {
             var rewards = []
             for (let i in rewardids) {
-                let reward = app.getReawrdInfo(rewardids[i])
-                reward.post = app.getPost(reward.postid)
-                reward.activity = app.GetActivity(reward.post.actID)
+                let reward = app.db.getReawrdInfo(rewardids[i])
+                reward.post = app.db.getPost(reward.postid)
+                reward.activity = app.db.getActivity(reward.post.actID)
                 rewards.push(reward)
             }
             return rewards
@@ -46,8 +46,8 @@ Component({
         _getActbyPosts: function(postIds) {
             var acts = []
             for (let i in postIds) {
-                let post = app.getPost(postIds[i])
-                acts.push(app.GetActivity(post.actID))
+                let post = app.db.getPost(postIds[i])
+                acts.push(app.db.getActivity(post.actID))
             }
             return acts
         },
@@ -57,7 +57,7 @@ Component({
 const calTotalTime = function(rewards) {
     let totalTime = 0
     for (let i in rewards) {
-        let reward = app.getReawrdInfo(rewards[i])
+        let reward = app.db.getReawrdInfo(rewards[i])
         totalTime += reward.rewardTime
     }
     return totalTime

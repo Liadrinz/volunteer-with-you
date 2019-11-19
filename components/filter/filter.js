@@ -9,8 +9,15 @@ Component({
         onFilter: {
             type: Function,
             value: (filters) => { }
-        }
-
+        },
+        onFilterOpen: {
+            type: Function,
+            value: () => { }
+        },
+        onFilterClose: {
+            type: Function,
+            value: () => { }
+        },
     },
     data: {
         showFilter: false,
@@ -38,11 +45,13 @@ Component({
             this.properties.onFilter(filters);
         },
         showFilterModal() {
+            this.properties.onFilterOpen();
             this.setData({
                 showFilter: true
             })
         },
         hideFilterModal() {
+            this.properties.onFilterClose();
             this.setData({
                 showFilter: false
             })

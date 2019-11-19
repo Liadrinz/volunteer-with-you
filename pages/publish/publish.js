@@ -9,7 +9,7 @@ Component({
     lifetimes: {
         attached() {
             // let f = app.globalData.getSplit;
-            let list = app.GetActivities(10);
+            let list = app.db.getActivities(10);
             let actList = this.data.actList;
             // for (let i = 0; i < list.length; ++i) {
             //     if (f(list[i]['beginRegTime'], " ")[0] === f(list[i]['endRegTime'], " ")[0])
