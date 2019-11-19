@@ -4,7 +4,8 @@ const that = this;
 
 Component({
     data: {
-        actList: []
+        actList: [],
+        showFloatBtn: true
     },
     lifetimes: {
         attached() {
@@ -20,6 +21,18 @@ Component({
             for (let item of list)
                 actList.push(item);
             this.setData({ actList: actList });
+        }
+    },
+    methods: {
+        showBtn() {
+            this.setData({
+                showFloatBtn: true
+            })
+        },
+        hideBtn() {
+            this.setData({
+                showFloatBtn: false
+            })
         }
     }
 })

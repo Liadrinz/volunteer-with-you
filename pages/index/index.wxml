@@ -6,6 +6,7 @@
     </view>
     <view wx:elif="{{router === 'me'}}" style="margin-top: 4rem;">
       <users id="users" wx:if="{{userType === 'vol'}}" />
+      <team wx:elif="{{userType === 'stf'}}" />
     </view>
     <view wx:elif="{{router === 'work'}}" style="margin-top: 4rem">
       <work />

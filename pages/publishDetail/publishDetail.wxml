@@ -2,7 +2,7 @@
     <view slot="backText">返回</view>
     <view slot="content">发布活动</view>
 </cu-custom>
-<view>
+<view bindtouchmove="hidePubBtn" bindtouchend="showPubBtn">
     <form>
         <view class="margin-top">
             <view class="cu-form-group">
@@ -45,7 +45,7 @@
             </view>
             <view class="cu-form-group">
                 <view class="title">岗位描述</view>
-                <textarea data-index="{{i}}" data-prop="description" value="{{post.description}}" bindinput="handlePostChanges" auto-height="true" maxlength="-1">{{post.description}}</textarea>
+                <textarea data-index="{{i}}" data-prop="description" value="{{post.description}}" bindinput="handlePostChanges" auto-height="true" maxlength="-1"></textarea>
             </view>
         </view>
         <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="addPost">

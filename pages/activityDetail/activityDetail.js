@@ -6,6 +6,7 @@ Page({
         posts: null,
         autoSize: {},
         applySuccess: true,
+        actType: '',  // work/vol
     },
     onLoad: function(option) {
         let activity = app.db.getActivity(option.id);
@@ -13,6 +14,7 @@ Page({
             activity: activity,
             posts: this.updatePost(activity),
             applySuccess: true,
+            actType: option.actType
         })
     },
     // 事件函数
@@ -56,6 +58,21 @@ Page({
     hideModal: function(e) {
         this.setData({
             applySuccess: true,
+        })
+    },
+    deleteAct: function() {
+        qq.showModal({
+            title: '确认',
+            content: '确定要删除此活动吗?',
+            success () {
+                qq.showToast({
+                    icon: 'success',
+                    title: '删除成功'
+                })
+            },
+            fail () {
+
+            }
         })
     }
 })

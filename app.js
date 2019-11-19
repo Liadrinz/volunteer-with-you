@@ -51,7 +51,7 @@ App({
     globalData: {
         userInfo: {
             qqUserInfo: null,
-            userType: 'stf',
+            userType: 'vol',
             volunteerInfo: null,
         },
         openId: null,

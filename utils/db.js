@@ -57,6 +57,9 @@ var getData = {
         post.current--
         this.setPost(post)
     },
+    getTeamInfo: function () {
+        return this.teamInfo;
+    },
 
     //testing datas
     activityList: [
@@ -85,6 +88,16 @@ var getData = {
         id: 0,
         postRewards: [0, 1],
         ongoingPosts: [3, 4],
+    },
+    teamInfo: {
+        name: "爱是志愿者协会",
+        totalTime: 23333,
+        activities: {
+            doing: [],
+            done: [
+                {}
+            ]
+        }
     }
 }
 

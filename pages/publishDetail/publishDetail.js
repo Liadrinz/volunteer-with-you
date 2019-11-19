@@ -46,6 +46,9 @@ Page({
         posts[ds.index][ds.prop] = e.detail.value;
         this.setData({posts: posts});
     },
+    hidePubBtn() {
+        
+    },
     publishAct() {
         console.log("活动字段: ", this.data.activity);
         console.log("岗位列表", this.data.posts);

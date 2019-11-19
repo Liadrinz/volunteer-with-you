@@ -4,6 +4,10 @@ var that;
 
 Component({
     properties: {
+        showFloatBtn: {
+            type: Boolean,
+            value: true
+        },
         actType: {
             type: String,
             value: ''
@@ -19,19 +23,8 @@ Component({
         }
     },
     data: {
-        showFloatBtn: true,
         search: (k) => {
             console.log(k);
-        },
-        filterOpen: () => {
-            that.setData({
-                showFloatBtn: false
-            })
-        },
-        filterClose: () => {
-            that.setData({
-                showFloatBtn: true
-            })
         },
         filterFields: [
             { name: "地区", type: "single", choices: ["海淀区", "昌平区"] },

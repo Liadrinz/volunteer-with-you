@@ -60,7 +60,7 @@
   </view>
 </view> 
 
-
+<button class="margin bg-red" bindtap="deleteAct" wx:if="{{actType === 'work'}}"><text class="cuIcon-delete"></text>删除活动</button>
 
 <view hidden="{{applySuccess}}" class="cu-modal show">
   <view class="cu-dialog">
