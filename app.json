@@ -2,7 +2,8 @@
     "pages": [
         "pages/index/index",
         "pages/activityDetail/activityDetail",
-        "pages/userDetail/userDetail"
+        "pages/userDetail/userDetail",
+        "pages/infoSetting/infoSetting"
     ],
     "window": {
         "backgroundTextStyle": "light",

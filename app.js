@@ -110,7 +110,12 @@ App({
             post.current--
             this.setPost(post)
     },
-
+    // volInfo
+    setVolInfo:function(volInfo){
+        for(let key in volInfo){
+            this.volunteerInfo[key] = volInfo[key]
+        }
+    },
     //testing datas
     activityList: [
         { id: 0, title: '教小朋友学Python', beginRegTime: '2019-10-01', endRegTime: '2019-10-07', beginTime: '2020-01-15', endTime: '2020-03-01', location: '北邮幼儿园', detail: "2019年10月28日下午3:00至4:00", posts: [0, 1], picture: '/images/u=3615214809,3485655572&fm=11&gp=0.jpg', isDone: true },
@@ -131,6 +136,15 @@ App({
     ],
     volunteerInfo: {
         id: 0,
+        name:"陈凌云",
+        schoolid:2017211868,
+        grade:2017211501,
+        tel:null,
+        qq:null,
+        description:null,
+        username:null,
+        password:null,
+        credit:100,//信誉积分
         postRewards: [0, 1],
         ongoingPosts: [3, 4],
     }

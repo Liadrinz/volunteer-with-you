@@ -3,6 +3,7 @@ Component({
     data: {
         userInfo: null,
         totalTime: 0,
+        
     },
     options: {
         addGlobalClass: true,
@@ -14,7 +15,6 @@ Component({
         },
     },
     methods: {
-
         updateData: function() {
             let userInfo = app.globalData.userInfo
             let volInfo = userInfo.volunteerInfo
@@ -22,6 +22,9 @@ Component({
                 userInfo: userInfo,
                 totalTime: calTotalTime(volInfo.postRewards),
             })
+        },
+        submitVolInfo:function(volInfo){
+            app.setVolInfo(volInfo)
         },
         getInfo2Show: function(type) {
             switch (type) {
@@ -33,6 +36,15 @@ Component({
                     break
             }
         },
+        // 跳转逻辑
+        toInfoSetting:function(){
+            qq.navigateTo({
+                url:"pages/infoSetting/infoSetting"
+            })
+        },
+        
+
+        // privates
         _packRewardInfo: function(rewardids) {
             var rewards = []
             for (let i in rewardids) {

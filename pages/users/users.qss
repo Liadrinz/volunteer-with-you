@@ -6,7 +6,7 @@
   padding-top: 40rpx;
   overflow: hidden;
   position: relative;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   color: #fff;
   font-weight: 300;
