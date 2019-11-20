@@ -2,7 +2,7 @@ const db = require("./utils/db.js").default;
 
 //app.js
 App({
-    onLaunch: function () {
+    onLaunch: function() {
         // 展示本地存储能力
         var logs = qq.getStorageSync('logs') || []
         logs.unshift(Date.now())
@@ -10,11 +10,11 @@ App({
 
         // 登录
         qq.login({
-            success: res => {
-                this.globalData.userInfo.volunteerInfo = this.db.getUserVolunteerInfos()
-            }
-        })
-        // 获取用户信息
+                success: res => {
+                    this.globalData.userInfo.volunteerInfo = this.db.getUserVolunteerInfos()
+                }
+            })
+            // 获取用户信息
         qq.getSetting({
             success: res => {
                 if (res.authSetting['scope.userInfo']) {

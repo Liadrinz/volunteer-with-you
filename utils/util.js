@@ -1,19 +1,20 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+var Validator = {
+  checkPhoneNum:function (phoneNumber) {
+    if(phoneNumber.length != 11) return false
+    let str = /^1\d{10}$/
+    if (str.test(phoneNumber)) {
+      return true
+    } else {
+      qq.showToast({
+        title: '手机号不正确',
+      })
+      return false
+    }
+  }
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
 
 module.exports = {
-  formatTime: formatTime
+  Validator : Validator,
 }

@@ -4,7 +4,8 @@
         "pages/activityDetail/activityDetail",
         "pages/userDetail/userDetail",
         "pages/publishDetail/publishDetail",
-        "pages/teamDetail/teamDetail"
+        "pages/teamDetail/teamDetail",
+        "pages/infoSetting/infoSetting"
     ],
     "window": {
         "backgroundTextStyle": "light",

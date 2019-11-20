@@ -4,60 +4,65 @@ var getData = {
         curApplyID: 0
     },
     // 返回下n个活动
-    getActivities: function (n) {
+    getActivities: function(n) {
         return this.activityList.slice(this._privateData.curActivityID, this._privateData.curActivityID + n - 1)
         this._privateData.curActivityID = this._privateData.curActivityID + n
     },
     // 通过id 返回 对应的活动
-    getActivity: function (id) {
+    getActivity: function(id) {
         return this.activityList[id]
     },
-    getActivityPosts: function (activity) {
+    getActivityPosts: function(activity) {
         var posts = []
         for (let i in activity.posts) { posts.push(this.postList[activity.posts[i]]) }
         return posts;
     },
-    getApplies: function (n) {
+    getApplies: function(n) {
         return this.applyList.slice(this._privateData.curApplyID, this._privateData.curApplyID + n - 1)
         this._privateData.curApplyID = this._privateData.curApplyID + n
     },
-    getUserVolunteerInfos: function (code) {
+    getUserVolunteerInfos: function(code) {
         //通过 qq.request 来使用 code请求用户信息
         //test
         return this.volunteerInfo;
     },
-    getReawrdInfo: function (id) {
+    getReawrdInfo: function(id) {
         return this.postRewards[id]
     },
     //Post 相关
-    getPost: function (id) {
+    getPost: function(id) {
         return this.postList[id]
     },
-    setPost: function (post) {
+    setPost: function(post) {
         this.postList[post.id] = post
     },
-    applyPost: function (post) {
+    applyPost: function(post) {
         post = this.getPost(post.id)
         if (post.current < post.plan) {
             this.volunteerInfo.ongoingPosts.push(post.id)
             post.current++
-            this.setPost(post)
+                this.setPost(post)
             return true
         } else {
             return false
         }
     },
-    canclePost: function (post) {
+    canclePost: function(post) {
         post = this.getPost(post.id)
         let i = this.volunteerInfo.ongoingPosts.indexOf(post.id)
         for (let j = i + 1; j < this.volunteerInfo.ongoingPosts.length; j++) {
             this.volunteerInfo.ongoingPosts[j - 1] = this.volunteerInfo.ongoingPosts[j]
         }
         this.volunteerInfo.ongoingPosts.length--
-        post.current--
-        this.setPost(post)
+            post.current--
+            this.setPost(post)
     },
-    getTeamInfo: function () {
+    setVolInfo: function(volInfo) {
+        for (let key in volInfo) {
+            this.volunteerInfo[key] = volInfo[key]
+        }
+    },
+    getTeamInfo: function() {
         return this.teamInfo;
     },
 
@@ -86,6 +91,15 @@ var getData = {
     ],
     volunteerInfo: {
         id: 0,
+        name: "陈凌云",
+        schoolid: 2017211868,
+        grade: 2017211501,
+        tel: null,
+        qq: null,
+        description: null,
+        username: null,
+        password: null,
+        credit: 100, //信誉积分
         postRewards: [0, 1],
         ongoingPosts: [3, 4],
     },
