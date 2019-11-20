@@ -3,7 +3,8 @@
         "pages/index/index",
         "pages/activityDetail/activityDetail",
         "pages/userDetail/userDetail",
-        "pages/publishDetail/publishDetail"
+        "pages/publishDetail/publishDetail",
+        "pages/teamDetail/teamDetail"
     ],
     "window": {
         "backgroundTextStyle": "light",

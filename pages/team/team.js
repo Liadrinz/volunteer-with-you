@@ -16,6 +16,8 @@ Component({
         }
     },
     methods: {
-
+        getTeamInfo() {
+            return this.data.teamInfo;
+        }
     }
 })

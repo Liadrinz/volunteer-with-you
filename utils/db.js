@@ -93,10 +93,8 @@ var getData = {
         name: "爱是志愿者协会",
         totalTime: 23333,
         activities: {
-            doing: [],
-            done: [
-                {}
-            ]
+            doing: [1],
+            done: [0, 2, 3]
         }
     }
 }

@@ -8,20 +8,20 @@
     </view>
 </view>
 <view class="padding flex text-center text-grey bg-white shadow-warp">
-    <navigator url="/pages/userDetail/userDetail?type=0" class="flex flex-sub flex-direction solid-right">
+    <navigator url="/pages/teamDetail/teamDetail?type=0" class="flex flex-sub flex-direction solid-right">
         <view class="text-xxl text-orange">{{teamInfo.totalTime}}</view>
         <view class="margin-top-sm">
-            <text class="cuIcon-attentionfill"></text> 总时长</view>
-    </navigator>
-    <navigator url="/pages/userDetail/userDetail?type=0" class="flex flex-sub flex-direction solid-right">
+            <text class="cuIcon-attentionfill"></text>团队总时长</view>
+        </navigator>
+    <navigator url="/pages/teamDetail/teamDetail?type=1" class="flex flex-sub flex-direction solid-right">
         <view class="text-xxl text-blue">{{teamInfo.activities.done.length}}</view>
         <view class="margin-top-sm">
-            <text class="cuIcon-favorfill"></text>完成数量</view>
+            <text class="cuIcon-favorfill"></text>已完成活动</view>
     </navigator>
-    <navigator url="/pages/userDetail/userDetail?type=1" class="flex flex-sub flex-direction">
+    <navigator url="/pages/teamDetail/teamDetail?type=2" class="flex flex-sub flex-direction">
         <view class="text-xxl text-green">{{teamInfo.activities.doing.length}}</view>
         <view class="margin-top-sm">
-            <text class="cuIcon-fork"></text>未完成</view>
+            <text class="cuIcon-fork"></text>进行中活动</view>
     </navigator>
 </view>
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">

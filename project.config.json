@@ -1,41 +1,50 @@
 {
-    "projectid": "1108100302_volunteer",
-    "setting": {
-        "urlCheck": true,
-        "es6": true,
-        "postcss": true,
-        "minified": true,
-        "newFeature": true,
-        "autoAudits": false
-    },
-    "qqLibVersion": "1.8.0",
-    "compileType": "miniprogram",
-    "createTime": 1573118594855,
-    "accessTime": 1573118594855,
-    "packOptions": {
-        "ignore": []
-    },
-    "debugOptions": {
-        "hidedInDevtools": []
-    },
-    "qqappid": "1108100302",
-    "projectname": "volunteer",
-    "condition": {
-        "search": {
-            "current": -1,
-            "list": []
-        },
-        "conversation": {
-            "current": -1,
-            "list": []
-        },
-        "game": {
-            "currentL": -1,
-            "list": []
-        },
-        "miniprogram": {
-            "current": -1,
-            "list": []
-        }
-    }
+	"projectid": "1108100302_volunteer",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false,
+		"remoteDebugLogEnable": false,
+		"uploadWithSourceMap": true,
+		"nodeModules": true,
+		"uglifyFileName": true
+	},
+	"qqLibVersion": "1.8.0",
+	"compileType": "miniprogram",
+	"createTime": 1573118594855,
+	"accessTime": 1573118594855,
+	"packOptions": {
+		"ignore": []
+	},
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"qqappid": "1108100302",
+	"projectname": "volunteer",
+	"scripts": {
+		"beforeCompile": "",
+		"beforePreview": "",
+		"beforeUpload": ""
+	},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": []
+		}
+	}
 }

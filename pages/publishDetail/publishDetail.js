@@ -29,7 +29,6 @@ Page({
         let index = e.currentTarget.dataset.index;
         let posts = this.data.posts;
         posts.splice(index, 1);
-        console.log(posts);
         this.setData({
             posts: posts
         })
