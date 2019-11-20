@@ -4,13 +4,13 @@ const that = this;
 
 Component({
     data: {
-        actList: []
+        actList: [],
+        showFloatBtn: true
     },
     lifetimes: {
         attached() {
             // let f = app.globalData.getSplit;
-            let list = app.GetActivities(10);
-            console.log(list);
+            let list = app.db.getActivities(10);
             let actList = this.data.actList;
             // for (let i = 0; i < list.length; ++i) {
             //     if (f(list[i]['beginRegTime'], " ")[0] === f(list[i]['endRegTime'], " ")[0])
@@ -21,6 +21,18 @@ Component({
             for (let item of list)
                 actList.push(item);
             this.setData({ actList: actList });
+        }
+    },
+    methods: {
+        showBtn() {
+            this.setData({
+                showFloatBtn: true
+            })
+        },
+        hideBtn() {
+            this.setData({
+                showFloatBtn: false
+            })
         }
     }
 })

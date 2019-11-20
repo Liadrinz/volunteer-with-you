@@ -1,5 +1,7 @@
 {
+    "component": true,
     "usingComponents": {
-        "cu-custom": "/colorui/components/cu-custom"
+        "cu-custom": "/colorui/components/cu-custom",
+        "filter": "../filter/filter"
     }
 }

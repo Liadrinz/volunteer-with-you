@@ -1,10 +1,20 @@
 <view>
     <view style="padding-top: .5rem;">
-        <search onSearch="{{search}}" />
+        <search onSearch="{{search}}" filterFields="{{filterFields}}"/>
     </view>
+
+    <!-- 发布活动按钮 -->
+    <view wx:if="{{actType === 'work' && showFloatBtn}}" class="margin" style="z-index: 2; position: fixed; bottom: 2.5rem; display: inline;">
+        <navigator url="/pages/publishDetail/publishDetail" class="cu-btn round bg-gradual-green lg">
+            <view class="text-xl">
+                <text class="cuIcon-add"></text>
+                发布活动
+            </view>
+        </navigator>
+    </view>
+
     <view class="cu-list menu" style="padding-bottom: 4rem;">
-        <navigator class="cu-item" wx:for="{{activityList}}" wx:for-index="idx" wx:for-item="act"
-            url="/pages/activityDetail/activityDetail?id={{act.id}}">
+        <navigator class="cu-item" wx:for="{{activityList}}" wx:for-index="idx" wx:for-item="act" url="/pages/activityDetail/activityDetail?id={{act.id}}&actType={{actType}}">
             <view class="content padding-tb-sm">
                 <view>
                     <text class="text-xl text-bold padding">{{act.title}}</text>
@@ -21,9 +31,6 @@
                     </view>
                 </view>
                 <view wx:elif="{{actType === 'work'}}">
-                    <view class="text-sm">
-                        <text class="text-grey padding">发布时间: {{act.publishTime}}</text>
-                    </view>
                     <view class="text-sm">
                         <text class="text-grey padding">报名时间: {{act.beginRegTime}}</text>
                     </view>

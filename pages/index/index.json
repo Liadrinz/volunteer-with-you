@@ -2,6 +2,7 @@
     "usingComponents": {
         "activity": "/pages/activity/activity",
         "users": "/pages/users/users",
-        "work": "/pages/work/work"
+        "work": "/pages/work/work",
+        "team": "/pages/team/team"
     }
 }

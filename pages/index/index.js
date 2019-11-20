@@ -9,7 +9,7 @@ Page({
     userType: app.globalData.userInfo.userType,
     actList: (() => {
       // let f = app.globalData.getSplit;
-      let list = app.GetActivities(10)
+      let list = app.db.getActivities(10)
       // for (let i = 0; i < list.length; ++i) {
       //   if (f(list[i]['beginRegTime'], " ")[0] === f(list[i]['endRegTime'], " ")[0])
       //     list[i]['endRegTime'] = f(list[i]['endRegTime'], " ")[1];
