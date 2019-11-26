@@ -2,25 +2,29 @@ const db = require("./utils/db.js").default;
 
 //app.js
 App({
-    onLaunch: function() {
-        // 展示本地存储能力
-        var logs = qq.getStorageSync('logs') || []
-        logs.unshift(Date.now())
-        qq.setStorageSync('logs', logs)
-
-        // 登录
+    onLaunch: function () {
+        this.db.qq = qq;
+        this.db.app = this;
+        //this.db.getVolInfo();
+        // 登录 并获取一些信息
         qq.login({
-                success: res => {
-                    this.globalData.userInfo.volunteerInfo = this.db.getUserVolunteerInfos()
-                }
-            })
-            // 获取用户信息
+            success: res => {
+                var that = this
+                that.globalData.code = res.code
+                this.db.getVolInfo(res.code).then((value)=>{
+                    that.globalData.userInfo.volunteerInfo = value
+                })
+            }
+        })
+
+        // 获取用户信息
         qq.getSetting({
             success: res => {
                 if (res.authSetting['scope.userInfo']) {
                     // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                     qq.getUserInfo({
                         success: res => {
+                            //this.globalData.indexPageModel.onLoaded();
                             // 可以将 res 发送给后台解码出 unionId
                             this.globalData.userInfo.qqUserInfo = res.userInfo
 
@@ -51,11 +55,13 @@ App({
     globalData: {
         userInfo: {
             qqUserInfo: null,
-            userType: 'stf',
+            userType: 'vol',
             volunteerInfo: null,
         },
         openId: null,
-
+        indexPageModel: null,
+        volToken:null,
+        code :null,
     },
     db: db
 })

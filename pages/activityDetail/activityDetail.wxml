@@ -17,11 +17,11 @@
     </view>
     <view class="flex margin-xs">
       <view class="flex-sub text-bold">项目日期</view>
-      <view class="flex-twice">{{activity.beginTime +" 至 "+ activity.endTime}}</view>
+      <view class="flex-twice">{{activity.startTime +" 至 "+ activity.endTime}}</view>
     </view>
     <view class="flex margin-xs">
       <view class="flex-sub text-bold">服务时间</view>
-      <view class="flex-twice">{{activity.detail}}</view>
+      <view class="flex-twice">{{activity.projectDetail}}</view>
     </view>
   </view>
 </view> 
@@ -31,7 +31,7 @@
   <view class="cu-item shadow">
     <view class="bg-grey text-black text-lg padding-xs flex justify-between align-center">
       <view class="text-df">
-      {{"岗位"+ (index+1)+":" + item.name+"   计划招募:"+item.plan+"   已招募:"+item.current}} 
+      {{"岗位"+ (index+1)+":" + item.postname+"   计划招募:"+item.max+"   已招募:"+item.volunteerList.length}} 
       </view>
       <view wx:if="{{activity.isDone == true}}" class="cu-btn round bg-gray df">
         已结项
@@ -51,27 +51,13 @@
       <view class="text-green">
         岗位描述:
       </view>
-      {{item.descript}}\n
+      {{item.postDetail}}\n
       <view class="text-green">
         岗位条件:
       </view>
-      {{item.condition}}
+      {{item.requirement}}
     </view>
   </view>
 </view> 
 
 <button class="margin bg-red" bindtap="deleteAct" wx:if="{{actType === 'work'}}"><text class="cuIcon-delete"></text>删除活动</button>
-
-<view hidden="{{applySuccess}}" class="cu-modal show">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content">报名失败</view>
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-red"></text>
-      </view>
-    </view>
-    <view class="padding-xl">
-      报名人数到达上限
-    </view>
-  </view>
-</view>

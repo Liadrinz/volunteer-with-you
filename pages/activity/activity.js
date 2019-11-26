@@ -15,7 +15,15 @@ Component({
         activityList: {
             type: Array,
             value: []
-        }
+        },
+        loading:{
+            type:Boolean,
+            value:false,
+        },
+        isrunout:{
+            type:Boolean,
+            value:false,
+        },
     },
     lifetimes: {
         attached() {

@@ -1,84 +1,294 @@
+const regeneratorRuntime = require("/runtime.js")
+
 var getData = {
+    qq: null,
+    app: null,
     _privateData: {
         curActivityID: 0,
-        curApplyID: 0
+        curApplyID: 0,
+        serverUrl: "http://10.28.205.190:8080/",
+        spiderUrl:
+            "http://buptse.cn/",
     },
-    // 返回下n个活动
-    getActivities: function(n) {
-        return this.activityList.slice(this._privateData.curActivityID, this._privateData.curActivityID + n - 1)
-        this._privateData.curActivityID = this._privateData.curActivityID + n
+    getVolInfo: function () {
+        qq.showLoading({
+            title: "同步志愿者信息"
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.serverUrl + "v/login/" + getData.app.globalData.code,
+            success: function (e) {
+                console.log(e)
+                resolve(e.data.data)
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
     },
-    // 通过id 返回 对应的活动
-    getActivity: function(id) {
-        return this.activityList[id]
+    // 返回下n个活动 
+    getActivities: function (startId, n) {
+        return new Promise((resolve, reject) => {
+            getData.qq.request({
+                url: getData._privateData.serverUrl + "project/getRange",
+                data: { startId: startId, amount: n },
+                success: function (res) {
+                    console.log(res)
+                    var recvList = res.data.data
+                    if (recvList == "null")
+                        reject()
+                    resolve(recvList, recvList.length == n)
+                }
+            })
+        })
     },
-    getActivityPosts: function(activity) {
+    // 通过id 返回 对应的活动 
+    getActivity: async function (id) {
+        return await new Promise((resolve, reject) => {
+            getData.qq.request({
+                url: getData._privateData.serverUrl + "project/get/" + id,
+                success: function (res) {
+                    var act = res.data.data
+                    console.log(res)
+                    resolve(act)
+                }
+            })
+        })
+        return getData.activityList[id]
+    },
+    getActivityPosts: function (activity) {
         var posts = []
-        for (let i in activity.posts) { posts.push(this.postList[activity.posts[i]]) }
+        for (let i in activity.posts) { posts.push(getData.postList[activity.posts[i]]) }
         return posts;
     },
-    getApplies: function(n) {
-        return this.applyList.slice(this._privateData.curApplyID, this._privateData.curApplyID + n - 1)
-        this._privateData.curApplyID = this._privateData.curApplyID + n
+    getApplies: function (n) {
+        return getData.applyList.slice(getData._privateData.curApplyID, getData._privateData.curApplyID + n - 1)
+        getData._privateData.curApplyID = getData._privateData.curApplyID + n
     },
-    getUserVolunteerInfos: function(code) {
+    getUserVolunteerInfos: function (code) {
         //通过 qq.request 来使用 code请求用户信息
         //test
-        return this.volunteerInfo;
+        return getData.volunteerInfo;
     },
-    getReawrdInfo: function(id) {
-        return this.postRewards[id]
+    getReawrdInfo: function (id) {
+        return getData.postRewards[id]
     },
     //Post 相关
-    getPost: function(id) {
-        return this.postList[id]
+    getPost: function (id) {
+        return getData.postList[id]
     },
-    setPost: function(post) {
-        this.postList[post.id] = post
+    setPost: function (post) {
+        getData.postList[post.id] = post
     },
-    applyPost: function(post) {
-        post = this.getPost(post.id)
-        if (post.current < post.plan) {
-            this.volunteerInfo.ongoingPosts.push(post.id)
-            post.current++
-                this.setPost(post)
-            return true
+    applyPost: function (post) {
+        qq.showLoading({
+            title: "申请中",
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.serverUrl + "post/volunteer/add",
+            data: {
+                volunteer_id: this.app.globalData.userInfo.volunteerInfo.id,
+                post_id: post.id
+            },
+            method: "POST",
+            header: { "content-type": "application/x-www-form-urlencoded" },
+            success: function (e) {
+                if(e.data.code == 0)
+                    resolve(e.data.error)
+                else
+                    reject(e.data.msg)
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    canclePost: function (post) {
+        qq.showLoading({
+            title: "申请中",
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.serverUrl,
+            success: function (e) {
+                if(e.data.code == 0)
+                    resolve()
+                else
+                    reject(e.data.msg)
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    setVolInfo: function (volInfo) {
+        qq.showLoading({
+            title: "提交中",
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.serverUrl + "",
+            success: function (e) {
+                // 如果服务器响应成功
+                if (e.data.code == 0)
+                    resolve()
+                else
+                    reject(e.data.msg)
+                //
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    getTeamInfo: function () {
+        return getData.teamInfo;
+    },
+    getTimeCodes: function () {
+        var result = []
+        for (let t in getData.timeCode) {
+            if (getData.timeCode[t].volID == getData.volunteerInfo.id) {
+                result.push(getData.timeCode[t])
+            }
+        }
+        return result;
+    },
+    /// Spider
+    loginBJVol(loginForm) {
+        qq.showLoading({
+            title: "登录中",
+            mask: true,
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.spiderUrl + "login",
+            data: loginForm,
+            header: {
+                'content-type': "application/x-www-form-urlencoded"
+            },
+            method: "POST",
+            success: function (e) {
+                if (e.data == "forbidden")
+                    reject(false)
+                else {
+                    resolve(resolve, reject)
+                    getData.app.globalData.volToken = e.data.token
+                }
+
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        })).then(getData.getBJProjectInfo).then(getData.getBjTiemInfo)
+    },
+    getBJProjectInfo() {
+        qq.showLoading({
+            title: "同步项目数据",
+            mask: true
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.spiderUrl + "my_projects",
+            data: { token: getData.app.globalData.volToken },
+            success: function (e) {
+                getData.bjvolProjects.push(...e.data)
+                resolve()
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    getBjTiemInfo() {
+        qq.showLoading({
+            title: "同步时长数据",
+            mask: true
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.spiderUrl + "my_hour",
+            data: { token: getData.app.globalData.volToken },
+            success: function (e) {
+                getData.bjvolRewards.push(...e.data)
+                resolve()
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    // 确定每一个
+    logExistCodes: function (timecodes) {
+        for (let i in timecodes) {
+            if (getData.timeCode.indexOf(timecodes[i]) != -1) {
+                getData._logCodes(timecodes[i])
+            }
+        }
+    },
+    /// 模拟 页面中的提交操作
+    logInputCodes: function (timecodeInput) {
+        qq.showLoading({ title: "提交中" })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.spiderUrl + "use_code",
+            method: "POST",
+            header: { 'content-type': 'application/json' },
+            data: { code: timecodeInput },
+            success: function (e) {
+                if (e.data == "forbidden") {
+                    reject()
+                } else {
+                    resolve()
+                }
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+
+    },
+    /// 模拟成功提交之后的 操作（更新数据库的数据）
+    _logCodes: function (codes) {
+        let date = new Date()
+        var dateString = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
+        if (codes.length != null) {
+            for (let i in codes) {
+                let id = getData.postRewards.length
+                getData.postRewards.push({ id: id, postid: codes[i].postid, type: "时长码录入", state: "已生效", recordTime: dateString, rewardTime: codes[i].rewardTime })
+                getData.volunteerInfo.postRewards.push(id)
+
+            }
         } else {
-            return false
+            let id = getData.postRewards.length
+            getData.postRewards.push({ id: id, postid: codes.postid, type: "时长码录入", state: "已生效", recordTime: dateString, rewardTime: codes.rewardTime, uid: 0 })
+            getData.volunteerInfo.postRewards.push(id)
         }
     },
-    canclePost: function(post) {
-        post = this.getPost(post.id)
-        let i = this.volunteerInfo.ongoingPosts.indexOf(post.id)
-        for (let j = i + 1; j < this.volunteerInfo.ongoingPosts.length; j++) {
-            this.volunteerInfo.ongoingPosts[j - 1] = this.volunteerInfo.ongoingPosts[j]
-        }
-        this.volunteerInfo.ongoingPosts.length--
-            post.current--
-            this.setPost(post)
-    },
-    setVolInfo: function(volInfo) {
-        for (let key in volInfo) {
-            this.volunteerInfo[key] = volInfo[key]
-        }
-    },
-    getTeamInfo: function() {
-        return this.teamInfo;
-    },
+
+
 
     //testing datas
     activityList: [
-        { id: 0, title: '教小朋友学Python', beginRegTime: '2019-10-01', endRegTime: '2019-10-07', beginTime: '2020-01-15', endTime: '2020-03-01', location: '北邮幼儿园', detail: "2019年10月28日下午3:00至4:00", posts: [0, 1], picture: '/images/u=3615214809,3485655572&fm=11&gp=0.jpg', isDone: true },
+        { id: 0, title: '教小朋友学Python', beginRegTime: '2019-10-01', endRegTime: '2019-10-07', beginTime: '2020-01-15', endTime: '2020-03-01', location: '北邮幼儿园', projectDetail: "2019年10月28日下午3:00至4:00", posts: [0, 1], picture: '/images/u=3615214809,3485655572&fm=11&gp=0.jpg', isDone: true },
         { id: 1, title: '地铁志愿', beginRegTime: '2019-10-01', endRegTime: '2019-10-01', beginTime: '2020-10-03', endTime: '2020-10-03', location: '地铁西土城站', detail: "	2019年11月9日上午9:00至2019年11月9日上午11:00", posts: [2], picture: null, isDone: true },
         { id: 2, title: 'QCon', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [3], picture: null, isDone: false },
         { id: 3, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 4, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 5, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 6, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 7, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 8, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 9, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 10, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 11, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
+        { id: 12, title: 'test1', beginRegTime: '2019-10-01', endRegTime: '2019-11-01', beginTime: '2020-12-15', endTime: '2020-12-19', location: '北京国际会议中心', detail: "2019年11月7日至2019年11月8日通过志愿服务服务于2020届毕业生双选会参会企业", posts: [4], picture: null, isDone: false },
     ],
     postList: [
-        { id: 0, actID: 0, name: "企业支持", descript: "协助企业进行参会服务", condition: "会python", plan: 10, current: 10, },
-        { id: 1, actID: 0, name: "run", descript: "跑步", condition: "并不会python", plan: 20, current: 0, },
-        { id: 2, actID: 1, name: "站岗", descript: "站岗帮忙", condition: "有腿", plan: 10, current: 0, },
-        { id: 3, actID: 2, name: "站岗", descript: "跑步", condition: "会机器学习", plan: 20, current: 0, },
-        { id: 4, actID: 3, name: "test1", descript: "跑步", condition: "会机器学习", plan: 20, current: 0, },
+        { id: 1, postname: "run", postDetail: "跑步", requirement: "并不会python", maxNum: 20, },
+        { id: 2, actID: 1, name: "站岗", descript: "站岗帮忙", condition: "有腿", plan: 10, },
+        { id: 3, actID: 2, name: "站岗", descript: "跑步", condition: "会机器学习", plan: 20, },
+        { id: 4, actID: 3, name: "test1", descript: "跑步", condition: "会机器学习", plan: 20, },
     ],
     applyList: [
         { id: 0, activity: { id: 0, title: "教小朋友学Python" }, applier: { name: "蔡宇昂", buptId: "2017211872", credit: 100, totalLength: 100 }, applyTime: "2019-10-01" },
@@ -91,6 +301,7 @@ var getData = {
     ],
     volunteerInfo: {
         id: 0,
+        viableTimeCode: 2,
         name: "陈凌云",
         schoolid: 2017211868,
         grade: 2017211501,
@@ -100,8 +311,8 @@ var getData = {
         username: null,
         password: null,
         credit: 100, //信誉积分
-        postRewards: [0, 1],
-        ongoingPosts: [3, 4],
+        timeCodeList: [0, 1],
+        projects: [1, 2],
     },
     teamInfo: {
         name: "爱是志愿者协会",
@@ -110,7 +321,19 @@ var getData = {
             doing: [1],
             done: [0, 2, 3]
         }
-    }
+    },
+    timeCode: [
+        { code: "12ui3yxc4z56", postid: 3, volID: 0, rewardTime: 5, detail: "test" },
+        { code: "12u3ixyc4z65", postid: 4, volID: 0, rewardTime: 4, detail: "test1" },
+        { code: "12u3i1111111", postid: 4, volID: 1, rewardTime: 10, detail: "test1" },
+    ],
+    // 后端数据
+    serverprojects: [],
+
+    //
+    bjvolProjects: [],
+    bjvolRewards: [],
+
 }
 
 export default getData;

@@ -28,28 +28,32 @@ Page({
     },
     formSubmit: function (e) {
         if (this.data.canSubmit) {
-            usersComp.submitVolInfo(e.detail.value)
-            for (let i in inputs) {
-                inputs[i].reset(inputs[i].data.value)
-            }
-            qq.showToast({
-                title: '提交成功',
-                icon:"success",
-            })
+            usersComp.submitVolInfo(e.detail.value).then(() => {
+
+                for (let i in inputs) {
+                    inputs[i].reset(inputs[i].data.value)
+                }
+                qq.showToast({
+                    title: '提交成功',
+                    icon: "success",
+                })
+            }).catch((msg)=>{qq.showToast({
+                title: msg,
+                image:"/images/icons/失败.png"
+            })})
         } else {
             qq.showToast({
                 title: '格式不正确',
                 image: "/images/icons/失败.png",
             })
         }
-
     },
     formReset: function (e) {
         for (let i in inputs) {
             inputs[i].reset()
         }
         qq.showToast({
-            title:"重置成功",
+            title: "重置成功",
         })
     }
 

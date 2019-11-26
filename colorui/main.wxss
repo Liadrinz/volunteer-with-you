@@ -1617,6 +1617,7 @@ button.icon.lg {
 .cu-bar .action text.text-cut {
 	text-align: left;
 	width: 100%;
+	
 }
 
 .cu-bar .cu-avatar:first-child {

@@ -1,4 +1,5 @@
 const app = getApp();
+var endIndex = 1;
 
 Page({
   data: {
@@ -7,21 +8,20 @@ Page({
     meClr: 'grey',
     workClr: 'grey',
     userType: app.globalData.userInfo.userType,
-    actList: (() => {
-      // let f = app.globalData.getSplit;
-      let list = app.db.getActivities(10)
-      // for (let i = 0; i < list.length; ++i) {
-      //   if (f(list[i]['beginRegTime'], " ")[0] === f(list[i]['endRegTime'], " ")[0])
-      //     list[i]['endRegTime'] = f(list[i]['endRegTime'], " ")[1];
-      //   if (f(list[i]['beginTime'], " ")[0] === f(list[i]['endTime'], " ")[0])
-      //     list[i]['endTime'] = f(list[i]['endTime'], " ")[1];
-      // }
-      return list;
-    })()
+    isReady: false,
+    actList: [],
   },
   onLoad() {
     if (this.data.userType === 'vol') this.toVol()
     else this.toWork()
+    app.globalData.indexPageModel = this
+    this.onLoaded()
+  },
+  onLoaded() {
+    this.getNextActs(10)
+  },
+  onReachBottom(prop) {
+    this.getNextActs(10)
   },
   toVol() {
     this.setData({
@@ -45,6 +45,34 @@ Page({
       volClr: 'grey',
       meClr: 'red',
       workClr: 'grey'
+    })
+  },
+
+  //database
+  getNextActs(n) {
+    var that = this
+    let act = this.selectComponent("#acts")
+    act.setData({
+      loading: true
+    })
+    app.db.getActivities(endIndex, n).then((list, hasmore) => {
+      if (hasmore)
+        act.setData({
+          loading: false,
+        })
+      else
+        act.setData({
+          isrunout: true,
+        })
+      this.data.actList.push(...list)
+      that.setData({
+        actList: this.data.actList,
+      })
+      endIndex = this.data.actList.length + 1
+    }).catch(() => {
+      act.setData({
+        isrunout: true,
+      })
     })
   }
 })
