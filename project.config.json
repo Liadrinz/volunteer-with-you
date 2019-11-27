@@ -3,10 +3,10 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
-		"postcss": true,
+		"postcss": false,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
+		"autoAudits": true,
 		"remoteDebugLogEnable": false,
 		"uploadWithSourceMap": true,
 		"nodeModules": true,
@@ -22,7 +22,7 @@
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"qqappid": "1108100302",
+	"qqappid": "1109949663",
 	"projectname": "volunteer",
 	"scripts": {
 		"beforeCompile": "",

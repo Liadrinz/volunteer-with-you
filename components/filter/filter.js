@@ -10,6 +10,10 @@ Component({
             type: Function,
             value: (filters) => { }
         },
+        onCancel: {
+            type: Function,
+            value: () => { }
+        },
         onFilterOpen: {
             type: Function,
             value: () => { }
@@ -20,6 +24,7 @@ Component({
         },
     },
     data: {
+        filtered: false,
         showFilter: false,
         filters: {}
     },
@@ -30,6 +35,9 @@ Component({
                 switch (field.type) {
                     case 'date':
                         filters[field.name] = new Date().toLocaleDateString().replace(/[^0-9]/g, '-');
+                        break;
+                    case 'multiple':
+                        filters[field.name] = [];
                         break;
                     default:
                         filters[field.name] = '';
@@ -42,7 +50,18 @@ Component({
     },
     methods: {
         filter() {
-            this.properties.onFilter(filters);
+            this.setData({
+                filtered: true
+            })
+            this.properties.onFilter(this.data.filters);
+            this.hideFilterModal();
+        },
+        cancelFilter() {
+            this.setData({
+                filtered: false
+            })
+            this.properties.onCancel();
+            this.hideFilterModal();
         },
         showFilterModal() {
             this.properties.onFilterOpen();
@@ -58,11 +77,16 @@ Component({
         },
         // 处理所有过滤表单值的变化
         allChangeHandler(e) {
+            console.log(e);
             let value = e.detail.value;
             let name = e.currentTarget.dataset.name;
             let filters = this.data.filters;
             filters[name] = value;
             this.setData({ filters: filters });
+        },
+
+        handleMultiple(e) {
+
         }
     }
 })

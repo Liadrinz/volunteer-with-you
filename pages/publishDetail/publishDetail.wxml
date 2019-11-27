@@ -6,20 +6,24 @@
     <form>
         <view class="margin-top">
             <view class="cu-form-group">
+                <view class="title">项目名称</view>
+                <input data-prop="title" bindinput="handleActChanges"></input>
+            </view>
+            <view class="cu-form-group">
                 <view class="title">项目地点</view>
                 <input data-prop="location" bindinput="handleActChanges"></input>
             </view>
             <view class="cu-form-group">
                 <view class="title">开始时间</view>
-                <picker data-prop="beginTime" bindchange="handleActChanges" mode="date"></picker>
+                <picker data-prop="startTime" bindchange="handleActChanges" mode="date">{{activity.startTime}}</picker>
             </view>
             <view class="cu-form-group">
                 <view class="title">结束时间</view>
-                <picker data-prop="endTime" bindchange="handleActChanges" mode="date"></picker>
+                <picker data-prop="endTime" bindchange="handleActChanges" mode="date">{{activity.endTime}}</picker>
             </view>
             <view class="cu-form-group">
                 <view class="title">项目详情</view>
-                <textarea data-prop="detail" bindinput="handleActChanges" auto-height="true" maxlength="-1"></textarea>
+                <textarea data-prop="projectDetail" bindinput="handleActChanges" auto-height="true" maxlength="-1"></textarea>
             </view>
         </view>
         <view wx:for="{{posts}}" wx:for-item="post" wx:for-index="i" class="margin-top">
@@ -37,15 +41,19 @@
             </view>
             <view class="cu-form-group">
                 <view class="title">岗位名称</view>
-                <input data-index="{{i}}" data-prop="name" value="{{post.name}}" bindinput="handlePostChanges">{{post.name}}</input>
+                <input data-index="{{i}}" data-prop="postname" value="{{post.postname}}" bindinput="handlePostChanges">{{post.postname}}</input>
             </view>
             <view class="cu-form-group">
                 <view class="title">岗位条件</view>
-                <input data-index="{{i}}" data-prop="condition" value="{{post.condition}}" bindinput="handlePostChanges">{{post.condition}}</input>
+                <input data-index="{{i}}" data-prop="requirement" value="{{post.requirement}}" bindinput="handlePostChanges">{{post.requirement}}</input>
             </view>
             <view class="cu-form-group">
+                    <view class="title">最大人数</view>
+                    <input data-index="{{i}}" data-prop="max" value="{{post.max}}" bindinput="handlePostChanges">{{post.max}}</input>
+                </view>
+            <view class="cu-form-group">
                 <view class="title">岗位描述</view>
-                <textarea data-index="{{i}}" data-prop="description" value="{{post.description}}" bindinput="handlePostChanges" auto-height="true" maxlength="-1"></textarea>
+                <textarea data-index="{{i}}" data-prop="postDetail" value="{{post.postDetail}}" bindinput="handlePostChanges" auto-height="true" maxlength="-1"></textarea>
             </view>
         </view>
         <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="addPost">

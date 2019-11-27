@@ -21,7 +21,7 @@
       当前工作 
     </view>
   </view>
-  <view class="action" bindtap="toVol">
+  <view wx:if="{{userType === 'vol'}}" class="action" bindtap="toVol">
     <view class="text-{{volClr}}">
       <text class="cuIcon-like"></text>
       志愿活动

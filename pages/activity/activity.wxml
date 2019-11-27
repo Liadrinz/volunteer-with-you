@@ -1,17 +1,17 @@
 <view>
     <view style="padding-top: .5rem;">
-        <search onSearch="{{search}}" filterFields="{{filterFields}}"/>
+        <search onSearch="{{search}}" onFilter="{{filter}}" filterFields="{{filterFields}}"/>
     </view>
-
-    <!-- 发布活动按钮 -->
-    <view wx:if="{{actType === 'work' && showFloatBtn}}" class="margin" style="z-index: 2; position: fixed; bottom: 2.5rem; display: inline;">
+    <!-- (封装了的)发布活动按钮 -->
+    <floatButton title="发布活动" wx:if="{{actType === 'work' && showFloatBtn}}" url="/pages/publishDetail/publishDetail" btnClass="cu-btn round bg-gradual-green lg" iconClass="cuIcon-add"/>
+    <!-- <view wx:if="{{actType === 'work' && showFloatBtn}}" class="margin" style="z-index: 2; position: fixed; bottom: 2.5rem; display: inline;">
         <navigator url="/pages/publishDetail/publishDetail" class="cu-btn round bg-gradual-green lg">
             <view class="text-xl">
                 <text class="cuIcon-add"></text>
                 发布活动
             </view>
         </navigator>
-    </view>
+    </view> -->
 
     <view class="cu-list menu" style="padding-bottom: 4rem;">
         <navigator class="cu-item" wx:for="{{activityList}}" wx:for-index="idx" wx:for-item="act" url="/pages/activityDetail/activityDetail?id={{act.id}}&actType={{actType}}">

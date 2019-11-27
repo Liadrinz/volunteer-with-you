@@ -1,0 +1,38 @@
+<view>
+    <cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}">
+        <view slot="backText">返回</view>
+        <view slot="content">详情</view>
+    </cu-custom>
+    <form>
+        <view class="cu-form-group">
+            <view class="title">姓名</view>
+            <input value="{{apply.applier.name}}" disabled></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">学号</view>
+            <input value="{{apply.applier.buptId}}" disabled></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">信用分</view>
+            <input value="{{apply.applier.credit}}" disabled></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">总时长</view>
+            <input value="{{apply.applier.totalLength}}" disabled></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">申请留言</view>
+            <textarea>{{apply.comment}}</textarea>
+        </view>
+        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="admit">
+            <view class="text-xl">
+                录用
+            </view>
+        </button>
+        <button class="flex justify-center cu-btn round bg-gradual-red lg margin" bindtap="reject">
+            <view class="text-xl">
+                拒绝
+            </view>
+        </button>
+    </form>
+</view>
