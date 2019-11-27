@@ -3,7 +3,7 @@ var infos2show = null //要求显示的活动条目
 
 Page({
     data:{
-        type:null,// 0 时间记录 1 未完成项目查看
+        type:null,// 0 时间记录 1 未完成项目查看 2 完成项目信息
         infos2show:null,
     },
     onLoad:function(option){
@@ -15,10 +15,12 @@ Page({
         usersComp = pages[pages.length-2].selectComponent("#users")
     },
     onShow:function(){
+        console.log(this.data.type)
         usersComp.updateData()
         this.setData({
             infos2show : usersComp.getInfo2Show(this.data.type)
         })
+        console.log(this.data.infos2show)
         switch(this.data.type){
             case 0:
                 this.showFinished()

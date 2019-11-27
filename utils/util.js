@@ -12,7 +12,7 @@ var Validator = {
       return false
     }
   }
-}
+} 
 
 
 module.exports = {

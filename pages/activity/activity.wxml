@@ -44,6 +44,7 @@
             </view>
             <image style="width: 200rpx; height: 200rpx;" src="/images/vol.jpg" mode="aspectFill" />
         </navigator>
-        <view class="text-grey margin-top" style="text-align: center;">无更多活动</view>
+        <view wx:if="{{loading}}" class="cu-load bg-gradual-red {{!isrunout?'loading':'over'}}"></view>
+        <!-- <view class="text-grey margin-top" style="text-align: center;">无更多活动</view> -->
     </view>
 </view>
