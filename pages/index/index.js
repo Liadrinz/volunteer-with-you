@@ -1,5 +1,6 @@
 const app = getApp();
 var endIndex = 1;
+var act;
 
 Page({
   data: {
@@ -16,8 +17,13 @@ Page({
     else this.toWork()
     app.globalData.indexPageModel = this
     this.onLoaded()
+
   },
   onLoaded() {
+    if (this.data.userType == "vol")
+      act = this.selectComponent("#acts")
+    else
+      act = this.selectComponent("#work").data.activityComp;
     this.getNextActs(10)
   },
   onReachBottom(prop) {
@@ -30,6 +36,7 @@ Page({
       meClr: 'grey',
       workClr: 'grey'
     })
+    console.log(app.globalData.userInfo.userType)
   },
   toWork() {
     this.setData({
@@ -51,7 +58,6 @@ Page({
   //database
   getNextActs(n) {
     var that = this
-    let act = this.selectComponent("#acts")
     act.setData({
       loading: true
     })
@@ -65,7 +71,7 @@ Page({
           isrunout: true,
         })
       this.data.actList.push(...list)
-      that.setData({
+      this.setData({
         actList: this.data.actList,
       })
       endIndex = this.data.actList.length + 1

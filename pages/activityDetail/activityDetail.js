@@ -33,9 +33,14 @@ Page({
         // 由于post 可能随时更新（剩余职位数量）
         app.db.getActivity(activity.id).then((act) => {
             let posts = act.posts
+
             for (let p in posts) {
+                console.log(p)
+                console.log(posts[p])
                 posts[p].isApplyed = (posts[p].volunteerList.indexOf(app.globalData.userInfo.volunteerInfo.id) != -1)
+                console.log(posts[p])
             }
+            console.log(posts) 
             this.setData({
                 posts: posts
             })

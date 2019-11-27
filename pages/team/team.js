@@ -9,15 +9,21 @@ Component({
     },
     lifetimes: {
         attached() {
-            let teamInfo = app.db.getTeamInfo();
-            this.setData({
-                teamInfo: teamInfo
-            })
+            this.getTeamInfo()
+            // let teamInfo = app.db.getTeamInfo();
+            // this.setData({
+            //     teamInfo: teamInfo
+            // })
         }
     },
     methods: {
         getTeamInfo() {
-            return this.data.teamInfo;
+            app.db.getTeamInfo().then((teamInfo) => {
+                this.setData({
+                    teamInfo: teamInfo
+                })
+            })
+            //return this.data.teamInfo;
         }
     }
 })

@@ -11,14 +11,14 @@
     <team id="team" wx:elif="{{userType === 'stf'}}" />
   </view>
   <view wx:elif="{{router === 'work'}}" style="margin-top: 4rem">
-    <work />
+    <work id="work" activityList ="{{actList}}"/>
   </view>
 </view>
 <view class="cu-bar tabbar bg-white foot">
   <view wx:if="{{userType === 'stf'}}" class="action" bindtap="toWork">
     <view class="text-{{workClr}}">
       <text class="cuIcon-activity"></text>
-      当前工作
+      当前工作 
     </view>
   </view>
   <view class="action" bindtap="toVol">
