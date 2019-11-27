@@ -27,6 +27,6 @@
 <block wx:if="{{type == 1}}">
     <cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}"> <view slot="backText">返回</view><view slot="content">未完成</view> </cu-custom>
     <view>
-        <activity id="ongoingActs" actType="work" activityList="{{infos2show}}" />
+        <activity id="ongoingActs" actType="vol" activityList="{{infos2show}}" />
     </view>
 </block>

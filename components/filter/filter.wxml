@@ -1,5 +1,5 @@
 <view>
-    <view class="text-xl padding" bindtap="showFilterModal"><text class="cuIcon-filter"></text></view>
+    <view class="text-xl padding" bindtap="showFilterModal"><text class="cuIcon-filter text-{{filtered ? 'orange' : ''}}"></text></view>
     <view class="cu-modal drawer-modal justify-start {{showFilter ? 'show' : ''}}" bindtap="hideFilterModal">
         <view class="cu-dialog bg-white basis-lg" catchtap>
             <view style="margin-top: 2rem;">
@@ -7,28 +7,30 @@
                     <text class="cuIcon-filter"></text>条件过滤
                 </view>
                 <view class="bg-white solid-bottom margin-top" wx:for="{{fields}}" wx:for-item="field">
-                    <view class="text-xl text-bold padding"><text class="cuIcon-title text-orange"></text>{{field.name}}</view>
-                    <view class="text-xl padding">
-                    <view wx:if="{{field.type === 'date'}}">
-                        <picker mode="date" bindchange="allChangeHandler" data-name="{{field.name}}">{{filters[field.name]}}</picker>
+                    <view class="text-xl text-bold padding"><text class="cuIcon-title text-orange"></text>{{field.name}}
                     </view>
-                    <view wx:if="{{field.type === 'single'}}">
-                        <view class="cu-form-group" wx:for="{{field.choices}}" wx:for-item="choice">
-                            <view class="title">{{choice}}</view>
-                            <checkbox></checkbox>
+                    <view class="text-xl padding">
+                        <view wx:if="{{field.type === 'date'}}">
+                            <picker mode="date" bindchange="allChangeHandler" data-name="{{field.name}}">
+                                {{filters[field.name]}}</picker>
+                        </view>
+                        <view wx:if="{{field.type === 'multiple'}}">
+                            <checkbox-group bindchange="allChangeHandler" data-name="{{field.name}}">
+                                <view class="cu-form-group" wx:for="{{field.choices}}" wx:for-item="choice">
+                                    <view class="title">{{choice}}</view>
+                                    <checkbox value="{{choice}}"></checkbox>
+                                </view>
+                            </checkbox-group>
+                        </view>
+                        <view wx:if="{{field.type === 'text'}}">
+                            <view class="title">{{field.name}}</view>
+                            <input bindinput="allChangeHandler"
+                                data-name="{{field.name}}">{{filters[field.name]}}</input>
                         </view>
                     </view>
-                    <view wx:if="{{field.type === 'multiple'}}">
-                    </view>
-                    <view wx:if="{{field.type === 'text'}}">
-                        <view class="title">{{field.name}}</view>
-                        <input bindinput="allChangeHandler" data-name="{{field.name}}">{{filters[field.name]}}</input>
-                    </view>
-                    </view>
                 </view>
-                <view class="margin">
-                    <button class="cu-btn bg-gradual-green lg">确定</button>
-                </view>
+                    <button class="cu-btn bg-gradual-green lg margin-left" bindtap="filter">确定</button>
+                    <button class="cu-btn bg-gradual-red lg margin-left" bindtap="cancelFilter">取消过滤</button>
             </view>
         </view>
     </view>

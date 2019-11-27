@@ -5,6 +5,7 @@
         "pages/userDetail/userDetail",
         "pages/publishDetail/publishDetail",
         "pages/teamDetail/teamDetail",
+        "pages/applyDetail/applyDetail",
         "pages/infoSetting/infoSetting"
     ],
     "window": {

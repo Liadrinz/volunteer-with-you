@@ -17,6 +17,9 @@ var getData = {
         for (let i in activity.posts) { posts.push(this.postList[activity.posts[i]]) }
         return posts;
     },
+    getApply: function(id) {
+        return this.applyList[id];
+    },
     getApplies: function(n) {
         return this.applyList.slice(this._privateData.curApplyID, this._privateData.curApplyID + n - 1)
         this._privateData.curApplyID = this._privateData.curApplyID + n
@@ -65,7 +68,9 @@ var getData = {
     getTeamInfo: function() {
         return this.teamInfo;
     },
-
+    getAllLocations: function () {
+        return ['北邮幼儿园', '地铁西土城站', '北京国际会议中心'];
+    },
     //testing datas
     activityList: [
         { id: 0, title: '教小朋友学Python', beginRegTime: '2019-10-01', endRegTime: '2019-10-07', beginTime: '2020-01-15', endTime: '2020-03-01', location: '北邮幼儿园', detail: "2019年10月28日下午3:00至4:00", posts: [0, 1], picture: '/images/u=3615214809,3485655572&fm=11&gp=0.jpg', isDone: true },
@@ -81,9 +86,9 @@ var getData = {
         { id: 4, actID: 3, name: "test1", descript: "跑步", condition: "会机器学习", plan: 20, current: 0, },
     ],
     applyList: [
-        { id: 0, activity: { id: 0, title: "教小朋友学Python" }, applier: { name: "蔡宇昂", buptId: "2017211872", credit: 100, totalLength: 100 }, applyTime: "2019-10-01" },
-        { id: 1, activity: { id: 1, title: "地铁志愿" }, applier: { name: "陈凌云", buptId: "2017211868", credit: 100, totalLength: 100 }, applyTime: "2019-10-01" },
-        { id: 2, activity: { id: 1, title: "地铁志愿" }, applier: { name: "吴志镛", buptId: "2017211869", credit: 100, totalLength: 100 }, applyTime: "2019-10-01" }
+        { id: 0, activity: { id: 0, title: "教小朋友学Python" }, applier: { name: "蔡宇昂", buptId: "2017211872", credit: 100, totalLength: 100 }, applyTime: "2019-10-01", comment: "您好，我想参加这个志愿活动" },
+        { id: 1, activity: { id: 1, title: "地铁志愿" }, applier: { name: "陈凌云", buptId: "2017211868", credit: 100, totalLength: 100 }, applyTime: "2019-10-01", comment: "您好，我想参加这个志愿活动" },
+        { id: 2, activity: { id: 1, title: "地铁志愿" }, applier: { name: "吴志镛", buptId: "2017211869", credit: 100, totalLength: 100 }, applyTime: "2019-10-01", comment: "您好，我想参加这个志愿活动" }
     ],
     postRewards: [
         { id: 0, uid: 0, postid: 0, type: "团体录入", state: "已生效", recordTime: "2019-7-20 19:20:10", rewardTime: 10 },
