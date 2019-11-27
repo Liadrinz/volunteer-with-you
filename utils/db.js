@@ -268,15 +268,9 @@ var getData = {
             getData.volunteerInfo.postRewards.push(id)
         }
     },
-<<<<<<< HEAD
     getAllLocations: function () {
         return ['北邮幼儿园', '地铁西土城站', '北京国际会议中心'];
     },
-=======
-
-
-
->>>>>>> d0c0ed1b6c4f2d64d3eaffbd006a4850d6d3445c
     //testing datas
     activityList: [
         { id: 0, title: '教小朋友学Python', beginRegTime: '2019-10-01', endRegTime: '2019-10-07', beginTime: '2020-01-15', endTime: '2020-03-01', location: '北邮幼儿园', projectDetail: "2019年10月28日下午3:00至4:00", posts: [0, 1], picture: '/images/u=3615214809,3485655572&fm=11&gp=0.jpg', isDone: true },
