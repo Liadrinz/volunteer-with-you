@@ -1,21 +1,25 @@
 const app = getApp();
 
+var today = new Date().toLocaleDateString().replace(/[^0-9]/g, '-');
+
 Page({
     data: {
         posts: [],
         activity: {
+            title: '',
             location: '',
-            startTime: '',
-            endTime: '',
-            detail: ''
+            startTime: today,
+            endTime: today,
+            projectDetail: ''
         }
     },
     _getPostForm() {
         return {
             id: '',
-            name: '',
-            condition: '',
-            description: ''
+            postname: '',
+            requirement: '',
+            postDetail: '',
+            max: '',
         };
     },
     addPost() {
@@ -49,22 +53,10 @@ Page({
         
     },
     publishAct() {
-        let done = true;
-        console.log("活动字段: ", this.data.activity);
-        console.log("岗位列表", this.data.posts);
-        if (done) {
-            qq.showToast({
-                icon: 'success',
-                title: "发布成功",
-                success() {
-                    qq.navigateBack();
-                }
-            })
-        } else {
-            qq.showToast({
-                icon: 'none',
-                title: "发布失败, 请稍后重试"
-            })
-        }
+        let act = {};
+        Object.assign(act, this.data.activity);
+        act['startTime'] += " 00:00:00";
+        act['endTime'] += " 00:00:00";
+        app.db.publishEvent(act, this.data.posts);
     }
 })

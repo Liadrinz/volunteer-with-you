@@ -1,6 +1,12 @@
 const app = getApp();
 
 Component({
+    properties: {
+        actList: {
+            type: Array,
+            value: []
+        }
+    },
     data: {
         tabCur: 0,
         scrollLeft: 0,

@@ -8,12 +8,12 @@ var getData = {
         curApplyID: 0,
         serverUrl: "http://10.28.205.190:8080/",
         spiderUrl:
-            "http://buptse.cn/",
+            "http://lego24.cn/",
     },
     getVolInfo: function () {
-        qq.showLoading({
-            title: "同步志愿者信息"
-        })
+        // qq.showLoading({
+        //     title: "同步志愿者信息"
+        // })
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.serverUrl + "v/login/" + getData.app.globalData.code,
             success: function (e) {
@@ -146,7 +146,18 @@ var getData = {
         }))
     },
     getTeamInfo: function () {
-        return getData.teamInfo;
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.serverUrl + 'team/get/',
+            method: 'GET',
+            success: function (res) {
+                let data = res.data;
+                console.log('team', data);
+                resolve(data);
+            },
+            fail: function () {
+                reject();
+            },
+        }));
     },
     getTimeCodes: function () {
         var result = []
@@ -270,6 +281,47 @@ var getData = {
     },
     getAllLocations: function () {
         return ['北邮幼儿园', '地铁西土城站', '北京国际会议中心'];
+    },
+    publishEvent: function (opp_form, job_list) {
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.serverUrl + "project/add",
+            method: 'POST' ,
+            header: { 'content-type': 'application/x-www-form-urlencoded' },
+            data: {
+                ...opp_form,
+                ...job_list[0]
+            },
+            success: function (e) {
+                if (e.data == "forbidden") {
+                    reject();
+                } else {
+                    resolve();
+                }
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    updateEvent: function (opp_form, job_list) {
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.serverUrl + "project/update",
+            method: 'PUT' ,
+            header: { 'content-type': 'application/x-www-form-urlencoded' },
+            data: opp_form,
+            success: function (e) {
+                if (e.data == "forbidden") {
+                    reject();
+                } else {
+                    resolve();
+                }
+            },
+            fail: function () {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
     },
     //testing datas
     activityList: [

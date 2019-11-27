@@ -16,6 +16,14 @@ App({
                 })
             }
         })
+        
+        let newUser = 0;  // 新用户
+        let multiUser = 0;  //多重身份的用户
+        if (newUser || multiUser) {
+            qq.navigateTo({
+                url: '/pages/welcome/welcome?registered=' + (1 - newUser)
+            })
+        }
 
         // 获取用户信息
         qq.getSetting({
@@ -64,4 +72,4 @@ App({
         code :null,
     },
     db: db
-})
+}) 

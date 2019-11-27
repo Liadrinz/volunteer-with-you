@@ -28,7 +28,7 @@
     <view class="cu-item arrow">
         <view class="content" bindtap="CopyLink" data-link="https://github.com/weilanwl/ColorUI">
             <text class="cuIcon-formfill text-green"></text>
-            <text class="text-grey">历史数据</text>
+            <text class="text-grey">生成时长码</text>
         </view>
     </view>
     <view class="cu-item arrow">

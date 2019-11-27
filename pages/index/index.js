@@ -10,6 +10,7 @@ Page({
     userType: app.globalData.userInfo.userType,
     isReady: false,
     actList: [],
+    onGetAct: null,
   },
   onLoad() {
     if (this.data.userType === 'vol') this.toVol()
@@ -51,11 +52,11 @@ Page({
   //database
   getNextActs(n) {
     var that = this
-    let act = this.selectComponent("#acts")
+    let act = this.selectComponent("#acts");
     act.setData({
       loading: true
     })
-    app.db.getActivities(endIndex, n).then((list, hasmore) => {
+    return app.db.getActivities(endIndex, n).then((list, hasmore) => {
       if (hasmore)
         act.setData({
           loading: false,
@@ -75,4 +76,5 @@ Page({
       })
     })
   }
+  
 })
