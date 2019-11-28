@@ -1,0 +1,48 @@
+<cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">时长码分配</view>
+</cu-custom>
+<view bindtouchmove="hidePubBtn" bindtouchend="showPubBtn">
+    <form>
+        <view class="margin-top">
+            <view class="cu-form-group">
+                <view class="title">个数</view>
+                <input data-prop="count" bindinput="handleChanges"></input>
+            </view>
+            <view class="cu-form-group">
+                <view class="title">时长</view>
+                <input data-prop="time" bindinput="handleChanges"></input>
+            </view>
+        </view>
+        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="genCodeSubmit">
+            <view class="text-xl">
+                生成时长码
+            </view>
+        </button>
+    </form>
+    <view wx:for="{{codeGroups}}" wx:for-index="i" wx:for-item="code">
+        <view class="cu-bar bg-white solid-bottom">
+            <view class="action text-xl">
+                <text class="cuIcon-title text-orange"></text>时长码组{{i + 1}}
+            </view>
+            <view class="action">
+                <button class="cu-btn bg-green shadow" data-code="{{code.code}}" bindtap="assignCode"><text
+                        class="cuIcon-people"></text>分配给志愿者</button>
+            </view>
+        </view>
+        <form>
+            <view class="cu-form-group text-sm">
+                <view class="title">时长码</view>
+                <text wx:for="{{code.codes}}" wx:for-item="code">{{code}};<br/></text>
+            </view>
+            <view class="cu-form-group">
+                <view class="title">时长</view>
+                <text>{{code.time}}</text>
+            </view>
+            <view class="cu-form-group">
+                <view class="title">数量</view>
+                <text>{{code.codes.length}}</text>
+            </view>
+        </form>
+    </view>
+</view>

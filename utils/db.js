@@ -313,7 +313,7 @@ var getData = {
             },
             data: formData,
             success: function(e) {
-                if (e.data == "forbidden")
+                if (e.data == "forbidden" || e.data === 'bad request')
                     reject(false)
                 else {
                     resolve(resolve, reject)
@@ -323,6 +323,26 @@ var getData = {
                 console.log('fail')
             },
             complete: this.qq.hideLoading
+        }))
+    },
+    getCodes(opp_id, job_id) {
+        return new Promise((resolve, reject) => this.qq.request({
+            url: getData._privateData.spiderUrl + "get_code_list",
+            data: {
+                token: getData.app.globalData.volToken,
+                opp_id: opp_id,
+                job_id: job_id
+            },
+            success: function(e) {
+                if (e.data == "forbidden")
+                    reject(false)
+                else {
+                    resolve(e.data)
+                }
+            },
+            fail: function(e) {
+                console.log('fail')
+            }
         }))
     },
     // 确定每一个

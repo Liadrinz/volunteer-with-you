@@ -8,7 +8,8 @@
         "pages/publishDetail/publishDetail",
         "pages/teamDetail/teamDetail",
         "pages/applyDetail/applyDetail",
-        "pages/infoSetting/infoSetting"
+        "pages/infoSetting/infoSetting",
+        "pages/code/code"
     ],
     "window": {
         "backgroundTextStyle": "light",
