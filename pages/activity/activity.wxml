@@ -1,9 +1,10 @@
 <view>
     <view style="padding-top: .5rem;">
-        <search onSearch="{{search}}" onFilter="{{filter}}" filterFields="{{filterFields}}"/>
+        <search onSearch="{{search}}" onFilter="{{filter}}" filterFields="{{filterFields}}" />
     </view>
     <!-- (封装了的)发布活动按钮 -->
-    <floatButton title="发布活动" wx:if="{{actType === 'work' && showFloatBtn}}" url="/pages/publishDetail/publishDetail" btnClass="cu-btn round bg-gradual-green lg" iconClass="cuIcon-add"/>
+    <floatButton title="发布活动" wx:if="{{actType === 'work' && showFloatBtn}}" url="/pages/publishDetail/publishDetail"
+        btnClass="cu-btn round bg-gradual-green lg" iconClass="cuIcon-add" />
     <!-- <view wx:if="{{actType === 'work' && showFloatBtn}}" class="margin" style="z-index: 2; position: fixed; bottom: 2.5rem; display: inline;">
         <navigator url="/pages/publishDetail/publishDetail" class="cu-btn round bg-gradual-green lg">
             <view class="text-xl">
@@ -14,7 +15,8 @@
     </view> -->
 
     <view class="cu-list menu" style="padding-bottom: 4rem;">
-        <navigator class="cu-item" wx:for="{{activityList}}" wx:for-index="idx" wx:for-item="act" url="/pages/activityDetail/activityDetail?id={{act.id}}&actType={{actType}}">
+        <navigator wx:if="{{actType !== 'bv'}}" class="cu-item" wx:for="{{activityList}}" wx:for-index="idx"
+            wx:for-item="act" url="/pages/activityDetail/activityDetail?id={{act.id}}&actType={{actType}}">
             <view class="content padding-tb-sm">
                 <view>
                     <text class="text-xl text-bold padding">{{act.title}}</text>
@@ -44,7 +46,46 @@
             </view>
             <image style="width: 200rpx; height: 200rpx;" src="/images/vol.jpg" mode="aspectFill" />
         </navigator>
+        <view class="cu-list menu">
+            <view class="cu-item" wx:elif="{{actType === 'bv'}}" wx:for="{{activityList}}" wx:for-index="idx"
+                wx:for-item="act">
+                <view class="content padding-tb-sm">
+                    <view>
+                        <text class="text-xl text-bold padding">{{act.name}}</text>
+                    </view>
+                    <view wx:for="{{act.jobs}}" wx:for-item="job" wx:for-index="idx">
+                        <view class="flex justify-between action text-xl margin-top">
+                            <text class="cuIcon-title text-orange"><text class="text-black">{{job.name}}</text></text>
+                            <button class="justify-end cu-btn bg-green shadow" data-opp="{{act.id}}" data-job="{{job.id}}" bindtap="genCode" ><text class="cuIcon-barcode"></text>记时</button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
         <view wx:if="{{loading}}" class="cu-load bg-gradual-red {{!isrunout?'loading':'over'}}"></view>
         <!-- <view class="text-grey margin-top" style="text-align: center;">无更多活动</view> -->
+    </view>
+</view>
+
+<view class="cu-modal {{modalShown?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">生成时长码</view>
+            <view class="action" bindtap="hideModal">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <form bindsubmit="genCodeSubmit">
+            <view class="padding-xl">
+                <customInput name="count" placeholder="时长码个数" title="个数" />
+                <customInput name="time" placeholder="时长码可用时长（小时）" title="时长" />
+            </view>
+            <view class="cu-bar bg-white justify-end">
+                <view class="action">
+                    <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+                    <button class="cu-btn bg-green margin-left" form-type="submit">确定</button>
+                </view>
+            </view>
+        </form>
     </view>
 </view>

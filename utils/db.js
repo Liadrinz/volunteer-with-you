@@ -6,7 +6,7 @@ var getData = {
     _privateData: {
         curActivityID: 0,
         curApplyID: 0,
-        serverUrl: "http://localhost:8080/",
+        serverUrl: "http://10.28.205.190:8081/",
         spiderUrl: "http://lego24.cn/",
     },
     getVolInfo: function() {
@@ -156,9 +156,9 @@ var getData = {
         }))
     },
     getTeamInfo: function() {
-        qq.showLoading({
-            title: "同步中",
-        })
+        // qq.showLoading({
+        //     title: "同步中",
+        // })
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.serverUrl + "",
             data: {
@@ -216,7 +216,34 @@ var getData = {
                 console.log("fail")
             },
             complete: qq.hideLoading
-        })).then(getData.getBJProjectInfo).then(getData.getBjTiemInfo)
+        })).then(getData.getBJProjectInfo).then(getData.getBjTimeInfo)
+    },
+    loginBJTeam(loginForm) {
+        qq.showLoading({
+            title: "登录中",
+            mask: true
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.spiderUrl + "login",
+            data: loginForm,
+            header: {
+                'content-type': "application/x-www-form-urlencoded"
+            },
+            method: "POST",
+            success: function(e) {
+                if (e.data == "forbidden")
+                    reject(false)
+                else {
+                    resolve(resolve, reject)
+                    getData.app.globalData.volToken = e.data.token
+                }
+
+            },
+            fail: function() {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        })).then(getData.getBJTeamProjectInfo).then(getData.getBjTeamTimeInfo)
     },
     getBJProjectInfo() {
         qq.showLoading({
@@ -236,7 +263,7 @@ var getData = {
             complete: qq.hideLoading
         }))
     },
-    getBjTiemInfo() {
+    getBjTimeInfo() {
         qq.showLoading({
             title: "同步时长数据",
             mask: true
@@ -252,6 +279,50 @@ var getData = {
                 console.log("fail")
             },
             complete: qq.hideLoading
+        }))
+    },
+    getBjTeamTimeInfo() {
+        qq.showLoading({
+            title: "同步时长数据",
+            mask: true
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.spiderUrl + "team_hour",
+            data: { token: getData.app.globalData.volToken },
+            success: function(e) {
+                getData.teamInfo.totalTime = e.data;
+                resolve()
+            },
+            fail: function() {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    generateCode(formData) {
+        this.qq.showLoading({
+            title: "生成中",
+            mask: true
+        });
+        formData['memo'] = '[志愿邮你]';
+        return new Promise((resolve, reject) => this.qq.request({
+            url: getData._privateData.spiderUrl + "generate_code?token=" + getData.app.globalData.volToken,
+            method: 'POST',
+            header: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: formData,
+            success: function(e) {
+                if (e.data == "forbidden")
+                    reject(false)
+                else {
+                    resolve(resolve, reject)
+                }
+            },
+            fail: function(e) {
+                console.log('fail')
+            },
+            complete: this.qq.hideLoading
         }))
     },
     // 确定每一个
@@ -283,6 +354,26 @@ var getData = {
             complete: qq.hideLoading
         }))
 
+    },
+    // 调/get_projects
+    getBJTeamProjectInfo: function() {
+        qq.showLoading({
+            title: "同步项目数据",
+            mask: true
+        })
+        return new Promise((resolve, reject) => qq.request({
+            url: getData._privateData.spiderUrl + "get_projects",
+            data: { token: getData.app.globalData.volToken },
+            success: function(e) {
+                getData.bjteamProjects.splice(0);
+                getData.bjteamProjects.push(...e.data)
+                resolve()
+            },
+            fail: function() {
+                console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
     },
     /// 模拟成功提交之后的 操作（更新数据库的数据）
     _logCodes: function(codes) {
@@ -393,11 +484,10 @@ var getData = {
 
     },
     teamInfo: {
-        name: "爱是志愿者协会",
-        totalTime: 23333,
+        name: "",
+        totalTime: 0,
         activities: {
-            doing: [1],
-            done: [0, 2, 3]
+            doing: []
         }
     },
     timeCode: [
@@ -410,8 +500,8 @@ var getData = {
 
     //
     bjvolProjects: [],
-    bjvolRewards: [],
-
+    bjteamProjects: [],
+    bjvolRewards: []
 }
 
 export default getData;

@@ -8,17 +8,12 @@
     </view>
 </view>
 <view class="padding flex text-center text-grey bg-white shadow-warp">
-    <navigator url="/pages/teamDetail/teamDetail?type=0" class="flex flex-sub flex-direction solid-right">
+    <view class="flex flex-sub flex-direction solid-right">
         <view class="text-xxl text-orange">{{teamInfo.totalTime}}</view>
         <view class="margin-top-sm">
             <text class="cuIcon-attentionfill"></text>团队总时长</view>
-    </navigator>
-    <navigator url="/pages/teamDetail/teamDetail?type=1" class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-blue">{{teamInfo.activities.done.length}}</view>
-        <view class="margin-top-sm">
-            <text class="cuIcon-favorfill"></text>已完成活动</view>
-    </navigator>
-    <navigator url="/pages/teamDetail/teamDetail?type=2" class="flex flex-sub flex-direction">
+    </view>
+    <navigator url="/pages/teamDetail/teamDetail?type=2&loggedIn={{loggedIn}}" class="flex flex-sub flex-direction">
         <view class="text-xxl text-green">{{teamInfo.activities.doing.length}}</view>
         <view class="margin-top-sm">
             <text class="cuIcon-fork"></text>进行中活动</view>
@@ -31,53 +26,12 @@
             <text class="text-grey">登录志愿北京</text>
         </view>
     </view>
-    <view class="cu-item arrow" bindtap="showModal" data-modalName="CodeGenModal">
-        <view class="content">
-            <text class="cuIcon-barcode text-green"></text>
-            <text class="text-grey">生成时长码</text>
-        </view>
-    </view>
     <navigator url="/pages/infoSetting/infoSetting?team=1" class="cu-item arrow">
         <view class="content">
             <text class="cuIcon-settings text-black"></text>
             <text class="text-grey">信息设置</text>
         </view>
     </navigator>
-</view>
-
-<view class="cu-modal {{modalName=='CodeGenModal'?'show':''}}">
-    <view class="cu-dialog">
-        <view class="cu-bar bg-white justify-end">
-            <view class="content">生成时长码</view>
-            <view class="action" bindtap="hideModal">
-                <text class="cuIcon-close text-red"></text>
-            </view>
-        </view>
-        <form>
-            <view class="cu-form-group">
-                <view class="title">活动ID</view>
-                <input data-prop="opp_id" bindinput="handleGenChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">岗位ID</view>
-                <input data-prop="job_id" bindinput="handleGenChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">个数</view>
-                <input data-prop="count" bindinput="handleGenChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">时长</view>
-                <input data-prop="time" bindinput="handleGenChanges"></input>
-            </view>
-        </form>
-        <view class="cu-bar bg-white justify-end">
-            <view class="action">
-                <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
-                <button class="cu-btn bg-green margin-left" bindtap="submitTimeCode">确定</button>
-            </view>
-        </view>
-    </view>
 </view>
 
 <view class="cu-modal {{modalName=='LoginModal'?'show':''}}">

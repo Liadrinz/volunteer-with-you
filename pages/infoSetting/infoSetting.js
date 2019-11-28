@@ -1,15 +1,24 @@
-var usersComp;
+var usersComp, teamComp;
 var inputs;
 Page({
     data: {
         volunteerInfo: null,
+        teamInfo: null,
         canSubmit: false,
+        team: false
     },
-    onLoad: function () {
+    onLoad: function (option) {
+        if (option.team === '1') {
+            this.setData({
+                team: true
+            });
+        }
         let pages = getCurrentPages()
         // 获取到 父页面的 user Component 组件
         usersComp = pages[pages.length - 2].selectComponent("#users")
+        teamComp = pages[pages.length - 2].selectComponent("#team")
         this.data.volunteerInfo = usersComp.data.userInfo.volunteerInfo
+        this.data.teamInfo = teamComp.data.teamInfo
         inputs = this.selectAllComponents('#customInput')
         for (let i in inputs) {
             let name = inputs[i].data.name
