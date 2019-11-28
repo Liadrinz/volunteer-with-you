@@ -13,6 +13,8 @@ Page({
         inputs = this.selectAllComponents('#customInput')
         for (let i in inputs) {
             let name = inputs[i].data.name
+            console.log(name)
+            console.log(usersComp.data.userInfo)
             let attr = this.data.volunteerInfo[name]
             if (attr != null) {
                 inputs[i].reset(attr)
@@ -32,13 +34,13 @@ Page({
 
                 for (let i in inputs) {
                     inputs[i].reset(inputs[i].data.value)
-                }
+                } 
                 qq.showToast({
                     title: '提交成功',
                     icon: "success",
                 })
             }).catch((msg)=>{qq.showToast({
-                title: msg,
+                title: "msg",
                 image:"/images/icons/失败.png"
             })})
         } else {

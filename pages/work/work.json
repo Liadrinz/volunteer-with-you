@@ -2,6 +2,8 @@
     "component": true,
     "usingComponents": {
         "publish": "/pages/publish/publish",
-        "handleApply": "/pages/handleApply/handleApply"
-    }
-}
+        "handleApply": "/pages/handleApply/handleApply",
+        "activity": "/pages/activity/activity"
+    } 
+
+} 

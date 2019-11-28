@@ -9,12 +9,13 @@ App({
         // 登录 并获取一些信息
         qq.login({
             success: res => {
-                var that = this
+                var that = this 
                 that.globalData.code = res.code
                 this.db.getVolInfo(res.code).then((value)=>{
+                    console.log(value)
                     that.globalData.userInfo.volunteerInfo = value
                 })
-            }
+            } 
         })
         
         let newUser = 0;  // 新用户
@@ -60,7 +61,7 @@ App({
             }
         })
     },
-    globalData: {
+    globalData: { 
         userInfo: {
             qqUserInfo: null,
             userType: 'stf',

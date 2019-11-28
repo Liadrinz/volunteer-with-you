@@ -7,7 +7,10 @@
         </view>
     </scroll-view>
     <view style="margin-top: 6rem;">
-        <publish wx:if="{{tabCur === 0}}" />
-        <handleApply wx:if="{{tabCur === 1}}" />
+        <!-- <publish id="publish" wx:if="{{tabCur === 0}}" /> -->
+        <view wx:if="{{tabCur == 0}}" bindtouchstart="hideBtn" bindtouchmove="hideBtn" bindtouchcancel="showBtn" bindtouchend="showBtn">
+            <activity id="acts" actType="work" showFloatBtn="{{showFloatBtn}}" activityList="{{activityList}}" />
+        </view>
+        <handleApply wx:if="{{tabCur == 1}}" />
     </view>
 </view>
