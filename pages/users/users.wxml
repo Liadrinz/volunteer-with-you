@@ -37,11 +37,11 @@
         <view class="margin-top-sm"> <text class="cuIcon-attentionfill"></text> 总时长</view>
     </navigator>
     <navigator url="/pages/userDetail/userDetail?type=1" class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-blue">{{userInfo.volunteerInfo.projects.length}}</view>
+        <view class="text-xxl text-blue">{{finishedPosts.length}}</view>
         <view class="margin-top-sm"> <text class="cuIcon-favorfill"></text> 完成数量</view>
     </navigator>
     <navigator url="/pages/userDetail/userDetail?type=2" class="flex flex-sub flex-direction">
-        <view class="text-xxl text-green">{{userInfo.volunteerInfo.projects.length}}</view>
+        <view class="text-xxl text-green">{{ongoingPosts.length}}</view>
         <view class="margin-top-sm"> <text class="cuIcon-fork"></text> 未完成</view>
     </navigator>
 </view>
@@ -106,6 +106,7 @@
                 <text class="cuIcon-close text-red"></text>
             </view>
         </view>
+        <view class="text-sm">(志愿北京信息只会存储在本地)</view>
         <form bindsubmit="loginBJVol" wx:if="{{loggedIn==false}}">
             <view class="padding-xl">
                 <customInput id="loginInfo" name="uname" minLength="6" maxLength="20" placeholder="输入6-20位有效用户名" title="用户名" />

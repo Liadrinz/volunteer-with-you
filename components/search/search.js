@@ -17,24 +17,42 @@ Component({
         },
         onFilterOpen: {
             type: Function,
-            value: () => {}
+            value: () => { }
         },
         onFilterClose: {
             type: Function,
-            value: () => {}
+            value: () => { }
         }
     },
     data: {
-        keywords: ''
+        keywords: '',
+        search: null,
+    },
+    lifetimes: {
+        attached() {
+            console.log(this.data.keywords)
+            let that = this
+            this.setData({
+                search: ()=>{that.properties.onSearch(_packSearchFliter(that.data.keywords, info))   }
+            })
+        }
     },
     methods: {
+        search(info){
+            var fliter = this.selectComponent("#fliter")
+            this.properties.onSearch(_packSearchFliter(this.data.keywords,fliter.filters))
+        },
         handleSearchInput(e) {
             this.setData({
                 keywords: e.detail.value
             });
         },
-        search() {
-            this.properties.onSearch(this.data.keywords);
-        }
     }
 })
+
+var _packSearchFliter = function (keywords, filterInfo) {
+    return {
+        searchkeyword: keywords,
+        ...filterInfo,
+    }
+}

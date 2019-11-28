@@ -37,7 +37,6 @@ Page({
             meClr: 'grey',
             workClr: 'grey'
         })
-        console.log(app.globalData.userInfo.userType)
     },
     toWork() {
         this.setData({
@@ -63,6 +62,7 @@ Page({
             loading: true
         })
         return app.db.getActivities(endIndex, n).then((list, hasmore) => {
+            console.log(list)
             if (hasmore)
                 act.setData({
                     loading: false,

@@ -7,6 +7,8 @@ Component({
         timeCodes: null,
         _toggledTimeCodes: [],
         loggedIn: false,
+        finishedPosts:[],
+        ongoingPosts:[],
     },
     options: {
         addGlobalClass: true,
@@ -18,21 +20,35 @@ Component({
         },
     },
     methods: {
-        updateData: function () {
-            app.db.getVolInfo().then(()=>{
+        updateData: function () { 
+            return app.db.getVolInfo().then(()=>{
                 let userInfo = app.globalData.userInfo
+                let projects = userInfo.volunteerInfo.projects
+                console.log( userInfo.volunteerInfo.projects)
+                this.data.finishedPosts = [];this.data.ongoingPosts=[]
+                for(let i in projects){
+                    if(projects[i].done==true){ 
+                        this.data.finishedPosts.push(projects[i]);
+                    }else{
+                        this.data.ongoingPosts.push(projects[i])
+                    }
+                } 
                 this.setData({
                     userInfo: userInfo,
+                    timeCodes: userInfo.volunteerInfo.timeCodeList,
                     totalTime: this.getTotalTime(),
-                    loggedIn: app.globalData.volToken != null
-                })
+                    loggedIn: app.globalData.volToken != null,
+                    finishedPosts:this.data.finishedPosts,
+                    ongoingPosts:this.data.ongoingPosts,
+                }) 
             })
             //calTotalTime(volInfo.postRewards),
         },
         // timeCode
         getTimeCodes: function () {
-            var tiemCodes = app.db.getTimeCodes()
-            tiemCodes = this._packTiemCodes(tiemCodes)
+            var tiemCodes =this.data.userInfo.volunteerInfo.timeCodeList 
+            //tiemCodes = this._packTiemCodes(tiemCodes)
+            
             this.setData({
                 timeCodes: tiemCodes
             })
@@ -51,6 +67,7 @@ Component({
                 qq.showToast({
                     title: "请先登录",
                     image: "/images/icons/失败.png",
+                    duration:500,
                 })
                 return
             }
@@ -83,7 +100,7 @@ Component({
                 case 1:
                     return this._packRewards(app.db.bjvolProjects)
                 case 2:
-                    return this._getActbyPosts(this.data.userInfo.volunteerInfo.ongoingPosts)
+                    return this.data.ongoingPosts
             }
         },
 

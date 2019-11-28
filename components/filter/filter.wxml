@@ -11,11 +11,11 @@
                     </view>
                     <view class="text-xl padding">
                         <view wx:if="{{field.type === 'date'}}">
-                            <picker mode="date" bindchange="allChangeHandler" data-name="{{field.name}}">
+                            <picker mode="date" bindchange="allChangeHandler" data-name="{{field.attrname}}">
                                 {{filters[field.name]}}</picker>
                         </view>
                         <view wx:if="{{field.type === 'multiple'}}">
-                            <checkbox-group bindchange="allChangeHandler" data-name="{{field.name}}">
+                            <checkbox-group bindchange="allChangeHandler" data-name="{{field.attrname}}">
                                 <view class="cu-form-group" wx:for="{{field.choices}}" wx:for-item="choice">
                                     <view class="title">{{choice}}</view>
                                     <checkbox value="{{choice}}"></checkbox>
@@ -25,7 +25,7 @@
                         <view wx:if="{{field.type === 'text'}}">
                             <view class="title">{{field.name}}</view>
                             <input bindinput="allChangeHandler"
-                                data-name="{{field.name}}">{{filters[field.name]}}</input>
+                                data-name="{{field.attrname}}">{{filters[field.name]}}</input>
                         </view>
                     </view>
                 </view>

@@ -34,13 +34,13 @@ Component({
             for (let field of this.properties.fields) {
                 switch (field.type) {
                     case 'date':
-                        filters[field.name] = new Date().toLocaleDateString().replace(/[^0-9]/g, '-');
+                        filters[field.attrname] = new Date().toLocaleDateString().replace(/[^0-9]/g, '-');
                         break;
                     case 'multiple':
-                        filters[field.name] = [];
+                        filters[field.attrname] = [];
                         break;
                     default:
-                        filters[field.name] = '';
+                        filters[field.attrname] = '';
                         break;
                 }
 
@@ -79,6 +79,7 @@ Component({
         allChangeHandler(e) {
             console.log(e);
             let value = e.detail.value;
+            console.log(this.properties.fields)
             let name = e.currentTarget.dataset.name;
             let filters = this.data.filters;
             filters[name] = value;

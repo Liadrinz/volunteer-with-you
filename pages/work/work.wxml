@@ -8,8 +8,9 @@
     </scroll-view>
     <view style="margin-top: 6rem;">
         <!-- <publish id="publish" wx:if="{{tabCur === 0}}" /> -->
-        <view wx:if="{{tabCur == 0}}" bindtouchstart="hideBtn" bindtouchmove="hideBtn" bindtouchcancel="showBtn" bindtouchend="showBtn">
+        <view wx:if="{{tabCur == 0}}">
             <activity id="acts" actType="work" showFloatBtn="{{showFloatBtn}}" activityList="{{activityList}}" />
+
         </view>
         <handleApply wx:if="{{tabCur == 1}}" />
     </view>

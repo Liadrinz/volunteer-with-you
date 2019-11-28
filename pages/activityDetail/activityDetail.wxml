@@ -6,20 +6,19 @@
   <view class="flex justify-center align-center flex-direction" bindtap="hideModal">
     <view class="margin-xs cu-card case text-bold text-xl">{{"【"+activity.id+"】"+activity.title}} </view>
     {{activity.isDone == true?"【已结项】":""}}
-    <image class="padding-lg" style="width:{{autoSize.width}}px;height:{{autoSize.height}}px"
-      src="{{activity.picture?activity.picture:'/images/noimg_opp.jpg'}}" bindload="autoImage" />
+    <image class="padding-lg" style="width:{{autoSize.width}}px;height:{{autoSize.height}}px" src="{{activity.picture?activity.picture:'/images/noimg_opp.jpg'}}" bindload="autoImage" />
     <view class="response padding-sm">
       <view class="flex margin-xs">
         <view class="flex-sub text-bold">项目地点</view>
         <view class="flex-twice">{{activity.location}}</view>
       </view>
-      <view class="flex margin-xs">
-        <view class="flex-sub text-bold">招募日期</view>
-        <view class="flex-twice">{{activity.beginRegTime +" 至 "+ activity.endRegTime}}</view>
-      </view>
-      <view class="flex margin-xs">
+      <view class="flex margin-xs solid-top solid-top solid-black">
         <view class="flex-sub text-bold">项目日期</view>
-        <view class="flex-twice">{{activity.startTime +" 至 "+ activity.endTime}}</view>
+        <view class="flex-twice">
+          <text style="text-align:center">
+            {{activity.startTime }}\n 至 \n{{ activity.endTime}}
+          </text>
+        </view>
       </view>
       <view class="flex margin-xs">
         <view class="flex-sub text-bold">服务时间</view>
@@ -31,7 +30,7 @@
     <view class="cu-item shadow">
       <view class="bg-grey text-black text-lg padding-xs flex justify-between align-center">
         <view class="text-df">
-          {{"岗位"+ (index+1)+":" + item.postname+"   计划招募:"+item.max+"   已招募:"+item.volunteerList.length}}
+          {{"岗位"+ (index+1)+":" + item.postname+" 计划招募:"+item.max+" 已招募:"+item.volunteers.length}}
         </view>
         <view wx:if="{{activity.isDone == true}}" class="cu-btn round bg-gray df">
           已结项

@@ -38,8 +38,9 @@ Component({
     lifetimes: {
         // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
         attached: function() {
+            console.log(validator[this.data.validateFunc](this.data.defaultvalue))
             this.setData({
-                viable:validator[this.data.validateFunc](this.data.defaultvalue),
+                viable:validator[this.data.validateFunc](this.data.defaultvalue,this.properties.minLength),
                 value:this.data.defaultvalue
             })
         },

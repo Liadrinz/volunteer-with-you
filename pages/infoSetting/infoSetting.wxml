@@ -8,7 +8,7 @@
             <text class="cuIcon-titles text-orange"></text> 个人信息
         </view>
     </view>
-	<customInput id="customInput" name="name" maxLength="10" placeholder="姓名" title="姓名"/>
+	<customInput id="customInput" name="name" minLength="1" maxLength="10" placeholder="姓名" title="姓名"/>
 	<customInput id="customInput" name="tel" maxLength="11" placeholder="输入11位有效手机号" title="手机号码" type="number" validateFunc="phone"/>
 	<customInput id="customInput" name='grade' maxLength="10" minLength="10" placeholder="输入10位有效班级号" title="班级" type="number"/>
 	<customInput id="customInput" name="schoolid" maxLength="10" minLength="10" placeholder="输入10位有效学号" title="学号" type="number"/>

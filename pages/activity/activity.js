@@ -8,7 +8,7 @@ Component({
             type: Boolean,
             value: true
         },
-        actType: {
+        actType: { 
             type: String,
             value: ''
         },
@@ -35,12 +35,13 @@ Component({
             console.log(k);
         },
         filter: (f) => {
+            console.log(f)
             console.log(f);
         },
         filterFields: [
-            { name: "开始时间", type: "date" },
-            { name: "结束时间", type: "date" },
-            { name: "地区", type: "multiple", choices: app.db.getAllLocations()}
+            { name: "开始时间",attrname:"startTime",type: "date" },
+            { name: "结束时间",attrname:"endTime",type: "date" },
+            { name: "地区",attrname:"location", type: "multiple", choices: app.db.getAllLocations()}
         ]
     },
     methods: {

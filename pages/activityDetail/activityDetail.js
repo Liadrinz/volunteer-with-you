@@ -26,7 +26,7 @@ Page({
                 that.setData({
                     autoSize: { width: res.windowWidth, height: res.windowWidth / imgScale }
                 })
-            }
+            } 
         })
     },
     updatePost: function (activity = this.data.activity) {
@@ -37,7 +37,7 @@ Page({
             for (let p in posts) {
                 console.log(p)
                 console.log(posts[p])
-                posts[p].isApplyed = (posts[p].volunteerList.indexOf(app.globalData.userInfo.volunteerInfo.id) != -1)
+                posts[p].isApplyed = (posts[p].volunteers.indexOf(app.globalData.userInfo.volunteerInfo.id) != -1)
                 console.log(posts[p])
             }
             console.log(posts) 
@@ -61,7 +61,7 @@ Page({
         })
     },
     canclePost: function (e) {
-        app.canclePost(e.target.dataset.post).then(() => {
+        app.db.canclePost(e.target.dataset.post).then(() => {
             qq.showToast({
                 title: "取消成功",
             })

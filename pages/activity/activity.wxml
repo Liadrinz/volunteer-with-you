@@ -10,7 +10,7 @@
                 <text class="cuIcon-add"></text>
                 发布活动
             </view>
-        </navigator>
+        </navigator> 
     </view> -->
 
     <view class="cu-list menu" style="padding-bottom: 4rem;">

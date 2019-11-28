@@ -1,7 +1,7 @@
 <cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}">
     <view slot="backText">返回</view>
     <view slot="content">发布活动</view>
-</cu-custom>
+</cu-custom> 
 <view bindtouchmove="hidePubBtn" bindtouchend="showPubBtn">
     <form>
         <view class="margin-top">
@@ -34,10 +34,6 @@
                 <view class="action">
                     <button class="cu-btn bg-red shadow" data-index="{{i}}" bindtap="deletePost" ><text class="cuIcon-delete"></text>删除</button>
                 </view>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">岗位ID</view>
-                <input data-index="{{i}}" data-prop="id" value="{{post.id}}" bindinput="handlePostChanges">{{post.id}}</input>
             </view>
             <view class="cu-form-group">
                 <view class="title">岗位名称</view>

@@ -15,22 +15,21 @@ Page({
         usersComp = pages[pages.length-2].selectComponent("#users")
     },
     onShow:function(){
-        console.log(this.data.type)
-        usersComp.updateData()
-        this.setData({
-            infos2show : usersComp.getInfo2Show(this.data.type)
+        usersComp.updateData().then(()=>{
+            this.setData({
+                infos2show : usersComp.getInfo2Show(this.data.type)
+            })
+            switch(this.data.type){
+                case 0:
+                    this.showFinished()
+                    break
+                case 1:
+                    this.showOnGoing()
+                    break
+                default:
+                    break
+            }
         })
-        console.log(this.data.infos2show)
-        switch(this.data.type){
-            case 0:
-                this.showFinished()
-                break
-            case 1:
-                this.showOnGoing()
-                break
-            default:
-                break
-        }
     },
     showOnGoing(){
     },
