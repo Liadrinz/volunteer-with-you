@@ -64,7 +64,15 @@
   <form>
     <view class="margin-top">
       <view class="cu-form-group">
+        <view class="title">绑定志愿北京项目ID</view>
+        <input data-prop="title" value="{{activity.opp_id}}" bindinput="handleActChanges"></input>
+      </view>
+      <view class="cu-form-group">
         <view class="title">项目名称</view>
+        <input data-prop="title" value="{{activity.title}}" bindinput="handleActChanges"></input>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">志愿北京</view>
         <input data-prop="title" value="{{activity.title}}" bindinput="handleActChanges"></input>
       </view>
       <view class="cu-form-group">
@@ -84,6 +92,25 @@
         <textarea data-prop="projectDetail" value="{{activity.projectDetail}}" bindinput="handleActChanges"
           auto-height="true" maxlength="-1"></textarea>
       </view>
+      <view class="cu-bar bg-white margin-top">
+        <view class="action">
+          图片介绍
+        </view>
+      </view>
+      <view class="cu-form-group">
+        <view class="grid col-1 grid-square flex-sub">
+          <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage"
+            data-url="{{imgList[index]}}">
+            <image src='{{imgList[index]}}' mode='aspectFill'></image>
+            <view class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+              <text class="cuIcon-close"></text>
+            </view>
+          </view>
+          <view class="solids" bindtap="chooseImage" wx:if="{{imgList.length<1}}">
+            <text class="cuIcon-cameraadd"></text>
+          </view>
+        </view>
+      </view>
     </view>
     <view wx:for="{{posts}}" wx:for-item="post" wx:for-index="i" class="margin-top">
       <view class="cu-bar bg-white solid-bottom margin-top">
@@ -96,8 +123,8 @@
         </view>
       </view>
       <view class="cu-form-group">
-        <view class="title">岗位ID</view>
-        <input data-index="{{i}}" data-prop="id" value="{{post.id}}" bindinput="handlePostChanges">{{post.id}}</input>
+        <view class="title">志愿北京岗位ID</view>
+        <input data-index="{{i}}" data-prop="id" value="{{post.job_id}}" bindinput="handlePostChanges">{{post.job_id}}</input>
       </view>
       <view class="cu-form-group">
         <view class="title">岗位名称</view>
@@ -119,8 +146,7 @@
         <textarea data-index="{{i}}" data-prop="postDetail" value="{{post.postDetail}}" bindinput="handlePostChanges"
           auto-height="true" maxlength="-1"></textarea>
       </view>
-      <view wx:for="{{post.volunteerList}}" wx:for-item="vol"
-        wx:for-index="j">
+      <view wx:for="{{post.volunteerList}}" wx:for-item="vol" wx:for-index="j">
         <view class="cu-bar bg-white solid-bottom">
           <view class="action text-xl">
             <text class="cuIcon-title text-orange"></text>志愿者{{j + 1}}
@@ -131,23 +157,19 @@
           </view>
         </view>
         <form>
-            <view class="cu-form-group">
-              <view class="title">姓名</view>
-              <text>{{vol.name}}</text>
-            </view>
-            <view class="cu-form-group">
-              <view class="title">学号</view>
-              <text>{{vol.schoolid}}</text>
-            </view>
-            <view class="cu-form-group">
-              <view class="title">信誉度</view>
-              <text>{{vol.credit}}</text>
-            </view>
-            <view class="cu-form-group">
-              <view class="title">服务时长</view>
-              <text>{{vol.hour}}</text>
-            </view>
-          </form>
+          <view class="cu-form-group">
+            <view class="title">姓名</view>
+            <text>{{vol.name}}</text>
+          </view>
+          <view class="cu-form-group">
+            <view class="title">学号</view>
+            <text>{{vol.schoolid}}</text>
+          </view>
+          <view class="cu-form-group">
+            <view class="title">信誉度</view>
+            <text>{{vol.credit}}</text>
+          </view>
+        </form>
       </view>
     </view>
     <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="addPost">

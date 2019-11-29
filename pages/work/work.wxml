@@ -1,16 +1,16 @@
 <view>
-    <scroll-view scroll-x class="fixed bg-white nav" style="margin-top: 4rem;">
+    <!-- <scroll-view scroll-x class="fixed bg-white nav" style="margin-top: 4rem;">
         <view class="flex text-center">
             <view class="cu-item flex-sub {{index === tabCur?'text-orange cur':''}}" wx:for="{{tabs.length}}" wx:key bindtap="tabSelect" data-id="{{index}}">
                 {{tabs[index]}}
             </view>
         </view>
-    </scroll-view>
-    <view style="margin-top: 6rem;">
+    </scroll-view> -->
+    <view style="margin-top: 4rem;">
         <!-- <publish id="publish" wx:if="{{tabCur === 0}}" /> -->
-        <view wx:if="{{tabCur == 0}}" bindtouchstart="hideBtn" bindtouchmove="hideBtn" bindtouchcancel="showBtn" bindtouchend="showBtn">
+        <view bindtouchstart="hideBtn" bindtouchmove="hideBtn" bindtouchcancel="showBtn" bindtouchend="showBtn">
             <activity id="acts" actType="work" showFloatBtn="{{showFloatBtn}}" activityList="{{activityList}}" />
         </view>
-        <handleApply wx:if="{{tabCur == 1}}" />
+        <!-- <handleApply wx:if="{{tabCur == 1}}" /> -->
     </view>
 </view>

@@ -1,6 +1,6 @@
 <view>
     <view style="padding-top: .5rem;">
-        <search onSearch="{{search}}" onFilter="{{filter}}" filterFields="{{filterFields}}" />
+        <search wx:if="{{actType !== 'bv'}}" onSearch="{{search}}" onFilter="{{filter}}" filterFields="{{filterFields}}" />
     </view>
     <!-- (封装了的)发布活动按钮 -->
     <floatButton title="发布活动" wx:if="{{actType === 'work' && showFloatBtn}}" url="/pages/publishDetail/publishDetail"
@@ -46,8 +46,8 @@
             </view>
             <image style="width: 200rpx; height: 200rpx;" src="/images/vol.jpg" mode="aspectFill" />
         </navigator>
-        <view class="cu-list menu">
-            <view class="cu-item" wx:elif="{{actType === 'bv'}}" wx:for="{{activityList}}" wx:for-index="idx"
+        <view wx:elif="{{actType === 'bv'}}" class="cu-list menu">
+            <view class="cu-item"  wx:for="{{activityList}}" wx:for-index="idx"
                 wx:for-item="act">
                 <view class="content padding-tb-sm">
                     <view>
@@ -64,28 +64,5 @@
         </view>
         <view wx:if="{{loading}}" class="cu-load bg-gradual-red {{!isrunout?'loading':'over'}}"></view>
         <!-- <view class="text-grey margin-top" style="text-align: center;">无更多活动</view> -->
-    </view>
-</view>
-
-<view class="cu-modal {{modalShown?'show':''}}">
-    <view class="cu-dialog">
-        <view class="cu-bar bg-white justify-end">
-            <view class="content">生成时长码</view>
-            <view class="action" bindtap="hideModal">
-                <text class="cuIcon-close text-red"></text>
-            </view>
-        </view>
-        <form bindsubmit="genCodeSubmit">
-            <view class="padding-xl">
-                <customInput name="count" placeholder="时长码个数" title="个数" />
-                <customInput name="time" placeholder="时长码可用时长（小时）" title="时长" />
-            </view>
-            <view class="cu-bar bg-white justify-end">
-                <view class="action">
-                    <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
-                    <button class="cu-btn bg-green margin-left" form-type="submit">确定</button>
-                </view>
-            </view>
-        </form>
     </view>
 </view>

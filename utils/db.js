@@ -7,7 +7,8 @@ var getData = {
         curActivityID: 0,
         curApplyID: 0,
         serverUrl: "http://10.28.205.190:8081/",
-        spiderUrl: "http://lego24.cn/",
+        spiderUrl: "http://lego24.cn/spider/",
+        staticUrl: "http://10.28.205.190:8888/"
     },
     getVolInfo: function() {
         qq.showLoading({
@@ -415,14 +416,14 @@ var getData = {
     getAllLocations: function() {
         return ['北邮幼儿园', '地铁西土城站', '北京国际会议中心'];
     },
-    publishEvent: function(opp_form, job_list) {
+    publishEvent: function(opp_form, job_list, team_id) {
         return new Promise((resolve, reject) => qq.request({
-            url: getData._privateData.serverUrl + "project/add",
+            url: getData._privateData.serverUrl + "project/add?team_id=" + team_id,
             method: 'POST',
-            header: { 'content-type': 'application/x-www-form-urlencoded' },
+            header: { 'content-type': 'application/json' },
             data: {
                 ...opp_form,
-                ...job_list[0]
+                posts: job_list
             },
             success: function(e) {
                 if (e.data == "forbidden") {
@@ -437,12 +438,16 @@ var getData = {
             complete: qq.hideLoading
         }))
     },
-    updateEvent: function(opp_form, job_list) {
+    updateEvent: function(opp_form, job_list, team_id) {
         return new Promise((resolve, reject) => qq.request({
-            url: getData._privateData.serverUrl + "project/update",
-            method: 'PUT',
-            header: { 'content-type': 'application/x-www-form-urlencoded' },
-            data: opp_form,
+            url: getData._privateData.serverUrl + "project/update?team=" + team_id,
+            method: 'POST',
+            header: { 'content-type': 'application/json' },
+            data: {
+                ...opp_form,
+                team: team_id,
+                posts: job_list
+            },
             success: function(e) {
                 if (e.data == "forbidden") {
                     reject();
@@ -452,6 +457,29 @@ var getData = {
             },
             fail: function() {
                 console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    uploadImage: function(imgUrl) {
+        qq.showLoading({
+            title: '上传中',
+            mask: true
+        })
+        return new Promise((resolve, reject) => qq.uploadFile({
+            url: getData._privateData.serverUrl + "test/file",
+            name: 'file',
+            filePath: imgUrl,
+            success: function(e) {
+                let res = JSON.parse(e.data);
+                if (res.code != 0) {
+                    reject(e);
+                } else {
+                    resolve(res);
+                }
+            },
+            fail: function() {
+                console.log("fail");
             },
             complete: qq.hideLoading
         }))
