@@ -63,6 +63,8 @@ Page({
             act['picture'] = app.db._privateData.staticUrl + paths[paths.length - 1];
             app.db.publishEvent(act, this.data.posts, app.globalData.userInfo.volunteerInfo.id);
             qq.navigateBack();
+            let pages = getCurrentPages();
+            pages[pages.length - 2].refresh();
         }).catch((e) => {
             console.log(e);
         })
