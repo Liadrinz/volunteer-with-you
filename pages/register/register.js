@@ -133,7 +133,7 @@ Page({
                 image: "/images/icons/失败.png",
             })
         }
-    }, 
+    },
     teamformSubmit: function (e) {
         console.log(e.detail.value)
         if (this.data.canSubmit) {
@@ -142,8 +142,12 @@ Page({
                     inputs[i].reset(inputs[i].data.value)
                 }
                 qq.showToast({
-                    title: '提交成功', 
+                    title: '提交成功',
                     icon: "success",
+                })
+                qq.navigateBack();
+                qq.navigateTo({
+                    url: '/pages/index/index'
                 })
             }).catch((msg) => {
                 qq.showToast({

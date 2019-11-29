@@ -26,12 +26,12 @@
     </form>
     <form wx:if="{{userType==='stf'}}"  bindsubmit="teamformSubmit" bindvalidate="validateCallBack">
         <view class="margin-top">
-            	<customInput id="customInput" name="name" maxLength="10" placeholder="团队名称" title="团队名称"/>
+            	<customInput id="customInput" name="teamname" maxLength="10" placeholder="团队名称" title="团队名称"/> 
 	<customInput id="customInput" name="tel" maxLength="11" placeholder="输入11位有效手机号" title="负责人手机号码" type="number" validateFunc="phone"/>
 	<customInput id="customInput" name='grade' maxLength="10" minLength="10" placeholder="输入10位有效班级号" title="负责人班级" type="number"/>
 	<customInput id="customInput" name="schoolid" maxLength="10" minLength="10" placeholder="输入10位有效学号" title="负责人学号" type="number"/>
 	<customInput id="customInput" name="qq" maxLength="15" minLength="6" placeholder="输入联系用qq号" title="负责人qq号" type="number"/>
-    	<customInput id="customInput" name="identity" maxLength="20" minLength="6" placeholder="身份证号" title="身份证号" type="number"/>
+    	<customInput id="customInput" name="identity" maxLength="20" minLength="6" placeholder="身份证号" title="身份证号" type="number"/>  
             <view class="cu-form-group">
                 <view class="title">团队介绍</view>
                 <input data-prop="teamdescription" bindinput="handleAllChanges"></input>

@@ -165,7 +165,7 @@ Page({
             app.db.uploadImage(this.data.imgList[0]).then((data) => {
                 let paths = data.data.split('/');
                 act['picture'] = app.db._privateData.staticUrl + paths[paths.length - 1];
-                app.db.updateEvent(act, this.data.posts, 1).then(() => {
+                app.db.updateEvent(act, this.data.posts, app.globalData.userInfo.volunteerInfo.id).then(() => {
                     qq.navigateBack();
                     qq.showToast({
                         title: '修改成功'

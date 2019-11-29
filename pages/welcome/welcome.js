@@ -21,7 +21,7 @@ Page({
         })
     },
     loginAsVol() {
-        app.db.getVolInfo().then(() => {
+        app.db.getVolInfo().then(() => { 
             app.globalData.userInfo.userType = 'vol';
             qq.navigateTo({
                 url: '/pages/index/index'
