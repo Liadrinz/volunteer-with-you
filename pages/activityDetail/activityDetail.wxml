@@ -30,7 +30,7 @@
     <view class="cu-item shadow">
       <view class="bg-grey text-black text-lg padding-xs flex justify-between align-center">
         <view class="text-df">
-          {{"岗位"+ (index+1)+":" + item.postname+" 计划招募:"+item.max+" 已招募:"+item.volunteers.length}}
+          {{"岗位"+ (index+1)+":" + item.postname+" 计划招募:"+item.max+" 已报名"+item.volunteers.length}}
         </view>
         <view wx:if="{{activity.isDone == true}}" class="cu-btn round bg-gray df">
           已结项
@@ -60,7 +60,6 @@
   </view> 
 </view>
 <view wx:elif="{{actType === 'work'}}">
-      <image class="padding-lg" style="width:{{autoSize.width}}px;height:{{autoSize.height}}px;" src="{{activity.picture?activity.picture:'/images/noimg_opp.jpg'}}" bindload="autoImage"/>
   <form> 
     <view class="margin-top">
       <view class="cu-form-group">

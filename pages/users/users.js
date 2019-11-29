@@ -25,27 +25,29 @@ Component({
                 let userInfo = app.globalData.userInfo
                 let projects = userInfo.volunteerInfo.projects
                 console.log( userInfo.volunteerInfo.projects)
-                this.data.finishedPosts = [];this.data.ongoingPosts=[]
+                //this.data.finishedPosts = [];
+                this.data.ongoingPosts=[]
                 for(let i in projects){
-                    if(projects[i].done==true){ 
-                        this.data.finishedPosts.push(projects[i]);
-                    }else{
+                    // if(projects[i].done==true){ 
+                    //     this.data.finishedPosts.push(projects[i]);
+                    // }else{
                         this.data.ongoingPosts.push(projects[i])
-                    }
+                    //}
                 } 
                 this.setData({
                     userInfo: userInfo,
                     timeCodes: userInfo.volunteerInfo.timeCodeList,
                     totalTime: this.getTotalTime(),
                     loggedIn: app.globalData.volToken != null,
-                    finishedPosts:this.data.finishedPosts,
+                    //finishedPosts:this.data.finishedPosts,
+                    finishedPosts:app.db.bjvolProjects,
                     ongoingPosts:this.data.ongoingPosts,
                 }) 
             })
             //calTotalTime(volInfo.postRewards),
         },
         // timeCode
-        getTimeCodes: function () {
+        getTimeCodes: function () {  
             var tiemCodes =this.data.userInfo.volunteerInfo.timeCodeList 
             //tiemCodes = this._packTiemCodes(tiemCodes)
             
@@ -124,6 +126,7 @@ Component({
                     title: "登录成功",
                 })
                 this.hideModal()
+
             }).catch((value) => {
                 qq.showToast({
                     title: "账号或密码错误",
@@ -175,7 +178,7 @@ Component({
         },
         showTimeCode: function (e) {
             this.getTimeCodes();
-            this.showModal(e)
+            this.showModal(e) 
         },
         hideModal: function () {
             this.setData({
@@ -232,6 +235,7 @@ Component({
         // tests 分布之后删除
         getTotalTime() {
             let bjProjects = app.db.bjvolProjects
+            console.log(bjProjects.length)
             this.data.totalTime = 0
             for (let i in bjProjects) {
                 this.data.totalTime += parseFloat(bjProjects[i].time)

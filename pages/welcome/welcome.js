@@ -3,6 +3,7 @@ const app = getApp();
 Page({
     data: {
         userType: null,
+        
     },
     onLoad() {
         app.appLogin().then((userType) => {
@@ -10,9 +11,6 @@ Page({
                 userType: userType
             })
         })
-        // this.setData({
-        //     userType : app.globalData.userInfo.userType
-        // })
     },
     loginAsStf() {
         app.db.getTeamInfo().then(() => {
@@ -31,16 +29,17 @@ Page({
         })
     },
     registerAsStf() {
-        if (app.globalData.userInfo.userType == 'none') {
+        if (app.globalData.userInfo.userType == 'none' ) {
             qq.showToast({
                 title: "请先注册志愿者",
                 image: "/images/icons/失败.png"
             })
+        }else{
+            app.globalData.userInfo.userType = 'stf';
+            qq.navigateTo({
+                url: '/pages/register/register'
+            });
         }
-        app.globalData.userInfo.userType = 'stf';
-        qq.navigateTo({
-            url: '/pages/register/register'
-        });
     },
     registerAsVol() {
         app.globalData.userInfo.userType = 'vol';

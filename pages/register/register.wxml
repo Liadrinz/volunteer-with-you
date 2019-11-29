@@ -2,28 +2,13 @@
     <view slot="content">{{userType === 'vol' ? '注册' : '创建团队'}}</view>
 </cu-custom>
 <view>
-    <form wx:if="{{userType==='vol'}}">
+    <form wx:if="{{userType==='vol'}}" bindsubmit="volformSubmit" bindvalidate="validateCallBack">
         <view class="margin-top">
-            <view class="cu-form-group">
-                <view class="title">姓名</view>
-                <input data-prop="name" bindinput="handleAllChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">手机号码</view>
-                <input data-prop="tel" bindinput="handleAllChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">年级</view>
-                <input data-prop="grade" bindinput="handleAllChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">学号</view>
-                <input data-prop="schoolid" bindinput="handleAllChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">QQ号</view>
-                <input data-prop="qq" bindinput="handleAllChanges"></input>
-            </view>
+            	<customInput id="customInput" name="name" minLength="1" maxLength="10" placeholder="姓名" title="姓名"/>
+	<customInput id="customInput" name="tel" maxLength="11" placeholder="输入11位有效手机号" title="手机号码" type="number" validateFunc="phone"/>
+	<customInput id="customInput" name='grade' maxLength="10" minLength="10" placeholder="输入10位有效班级号" title="班级" type="number"/>
+	<customInput id="customInput" name="schoolid" maxLength="10" minLength="10" placeholder="输入10位有效学号" title="学号" type="number"/>
+	<customInput id="customInput" name="qq" maxLength="15" minLength="6" placeholder="输入联系用qq号" title="qq号" type="number"/>
             <view class="cu-form-group">
                 <view class="title">身份证号</view>
                 <input data-prop="identity" bindinput="handleAllChanges"></input>
@@ -33,40 +18,26 @@
                 <input data-prop="description" bindinput="handleAllChanges"></input>
             </view>
         </view>
-        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="register">
+        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" form-type="submit">
             <view class="text-xl">
                 注册
             </view>
         </button>
     </form>
-    <form wx:if="{{userType==='stf'}}">
+    <form wx:if="{{userType==='stf'}}"  bindsubmit="teamformSubmit" bindvalidate="validateCallBack">
         <view class="margin-top">
-            <view class="cu-form-group">
-                <view class="title">团队名称</view>
-                <input data-prop="teamname" bindinput="handleAllChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">负责人电话</view>
-                <input data-prop="tel" bindinput="handleAllChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">负责人QQ</view>
-                <input data-prop="qq" bindinput="handleAllChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">负责人学号</view>
-                <input data-prop="schoolid" bindinput="handleAllChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">负责人身份证号</view>
-                <input data-prop="identity" bindinput="handleAllChanges"></input>
-            </view>
+            	<customInput id="customInput" name="name" maxLength="10" placeholder="团队名称" title="团队名称"/>
+	<customInput id="customInput" name="tel" maxLength="11" placeholder="输入11位有效手机号" title="负责人手机号码" type="number" validateFunc="phone"/>
+	<customInput id="customInput" name='grade' maxLength="10" minLength="10" placeholder="输入10位有效班级号" title="负责人班级" type="number"/>
+	<customInput id="customInput" name="schoolid" maxLength="10" minLength="10" placeholder="输入10位有效学号" title="负责人学号" type="number"/>
+	<customInput id="customInput" name="qq" maxLength="15" minLength="6" placeholder="输入联系用qq号" title="负责人qq号" type="number"/>
+    	<customInput id="customInput" name="identity" maxLength="20" minLength="6" placeholder="身份证号" title="身份证号" type="number"/>
             <view class="cu-form-group">
                 <view class="title">团队介绍</view>
                 <input data-prop="teamdescription" bindinput="handleAllChanges"></input>
             </view>
         </view>
-        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="createTeam">
+        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" form-type="submit">
             <view class="text-xl">
                 创建团队
             </view>

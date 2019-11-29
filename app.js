@@ -22,19 +22,21 @@ var app = App({
 
         this.appLogin()
         // 获取用户qq信息
-        qq.getSetting({
+        qq.getSetting({ 
             success: res => { 
+                console.log(res)
                 if (res.authSetting['scope.userInfo']) {
                     // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                     qq.getUserInfo({
                         success: res => {
                             this.globalData.userInfo.qqUserInfo = res.userInfo
+                            console.log(this.globalData.userInfo.qqUserInfo)
 
                             if (this.userInfoReadyCallback) {
                                 this.userInfoReadyCallback(res)
                             }
                         }
-                    })
+                    }) 
                 }
             }
         })
@@ -48,22 +50,18 @@ var app = App({
             success: res => {
                 var that = this
                 that.globalData.code = res.code
-                // this.db.getVolInfo(res.code).then((value) => {
-                //     that.globalData.userInfo.volunteerInfo = value
-                // }) 
                 this.db.userLogin().then((userType) => {
                     resolve(userType)
-                })
-
+                }) 
             },
             complete: qq.hideLoading
-        }))
+        })) 
     }
     ,
     globalData: { 
         userInfo: {
             qqUserInfo: null,
-            userType: 'stf', 
+            userType: 'vol', 
             volunteerInfo: null,
         },
         openId: null, 
@@ -72,4 +70,4 @@ var app = App({
         code: null, 
     }, 
     db: db 
-})    
+})      

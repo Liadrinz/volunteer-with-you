@@ -143,7 +143,7 @@
                 <checkbox-group bindchange="toggleCode">
                     <view class="flex margin-bottom-xs" wx:for="{{timeCodes}}">
                         <view class="flex basis-sm padding-xs solid align-center justify-center "><view class="text-cut">{{item.code}}</view></view>
-                        <view class="flex basis-lg padding-xs solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{item.activityTitle}}</view></view>
+                        <view class="flex basis-lg padding-xs solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{item.detail}}</view></view>
                         <view class="basis-xs padding-xs solid"><checkbox value="{{index}}" style="transform: scale(0.7,0.7);"/></view>
                     </view>
                 </checkbox-group>

@@ -1,1 +1,8 @@
-{}
+{
+    "usingComponents": {
+        "activity": "/pages/activity/activity",
+        "users": "/pages/users/users",
+        "work": "/pages/work/work",
+        "customInput":"/components/customInput/customInput"
+    }
+}

@@ -19,7 +19,7 @@
                 以团队工作者身份登录
             </view>
         </button>
-        <button wx:else class="flex justify-center cu-btn round {{userType == 'none'?'bg-grey':'bg-orange'}} lg margin" bindtap="registerAsStf">
+        <button wx:else  class="flex justify-center cu-btn round  {{userType == 'none'?'bg-grey':'bg-orange'}} lg margin" bindtap="registerAsStf">
             <view class="text-xl">
                 创建新团队
             </view>
