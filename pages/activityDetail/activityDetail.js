@@ -11,7 +11,7 @@ Page({
             location: '',
             startTime: '',
             endTime: '',
-            projectDetail: ''
+            projectDetial: ''
         },
         imgList: [],
     },
@@ -108,7 +108,7 @@ Page({
         let prop = e.currentTarget.dataset.prop;
         let act = this.data.activity;
         act[prop] = e.detail.value;
-        this.setData({ act: act });
+        this.setData({ activity: act });
     },
     handlePostChanges(e) {
         let ds = e.currentTarget.dataset;

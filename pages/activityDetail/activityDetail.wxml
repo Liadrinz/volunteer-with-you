@@ -22,7 +22,7 @@
       </view>
       <view class="flex margin-xs">
         <view class="flex-sub text-bold">服务时间</view>
-        <view class="flex-twice">{{activity.projectDetail}}</view>
+        <view class="flex-twice">{{activity.projectDetial}}</view>
       </view>
     </view>
   </view>
@@ -88,7 +88,7 @@
       </view>
       <view class="cu-form-group">
         <view class="title">项目详情</view>
-        <textarea data-prop="projectDetail" value="{{activity.projectDetail}}" bindinput="handleActChanges"
+        <textarea data-prop="projectDetial" value="{{activity.projectDetial}}" bindinput="handleActChanges"
           auto-height="true" maxlength="-1"></textarea>
       </view>
       <view class="cu-bar bg-white margin-top">
