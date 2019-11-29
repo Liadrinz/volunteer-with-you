@@ -10,15 +10,15 @@ Page({
             location: '',
             startTime: today,
             endTime: today,
-            projectDetail: ''
-        }
+            projectDetial: ''
+        },
+        imgList: []
     },
     _getPostForm() {
         return {
-            id: '',
             postname: '',
             requirement: '',
-            postDetail: '',
+            postDetial: '',
             max: '',
         };
     },
@@ -46,7 +46,7 @@ Page({
     handlePostChanges(e) {
         let ds = e.currentTarget.dataset;
         let posts = this.data.posts;
-        posts[ds.index][ds.prop] = e.detail.value;
+        posts[ds.index][ds.prop] = e.detial.value;
         this.setData({ posts: posts });
     },
     hidePubBtn() {
@@ -55,18 +55,49 @@ Page({
     publishAct() {
         let act = {};
         Object.assign(act, this.data.activity);
-        act['startTime'] += " 00:00:00";
-        act['endTime'] += " 00:00:00";
-        app.db.publishEvent(act, this.data.posts).then(() => {
-            qq.showToast({
-                title: "提交成功"
-            })
-            qq.navigateBack()
-        }).catch(() => {
-            qq.showToast({
-                image:"/images/icons/失败.png",
-                title: "失败"
-            })
+        act['startTime'] = new Date()
+        act['endTime'] = new Date()
+        app.db.uploadImage(this.data.imgList[0]).then((data) => {
+            let paths = data.data.split('/');
+            act['picture'] = app.db._privateData.staticUrl + paths[paths.length - 1];
+            app.db.publishEvent(act, this.data.posts, 1);
+        }).catch((e) => {
+            console.log(e);
+        })
+    },
+    chooseImage() {
+        qq.chooseImage({
+            count: 1, //默认9
+            sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album'], //从相册选择
+            success: (res) => {
+                if (this.data.imgList.length != 0) {
+                    this.setData({
+                        imgList: this.data.imgList.concat(res.tempFilePaths)
+                    })
+                } else {
+                    this.setData({
+                        imgList: res.tempFilePaths
+                    })
+                }
+                console.log(this.data.imgList);
+            }
+        });
+    },
+    delImg(e) {
+        wx.showModal({
+            title: '删除确认',
+            content: '确定要删除这张照片?',
+            cancelText: '取消',
+            confirmText: '确定',
+            success: res => {
+                if (res.confirm) {
+                    this.data.imgList.splice(e.currentTarget.dataset.index, 1);
+                    this.setData({
+                        imgList: this.data.imgList
+                    })
+                }
+            }
         })
     }
 })

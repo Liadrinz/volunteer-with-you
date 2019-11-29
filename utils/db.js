@@ -6,10 +6,11 @@ var getData = {
     _privateData: {
         curActivityID: 0,
         curApplyID: 0,
-        serverUrl: "http://10.28.205.190:8081/", ///"http://10.28.205.190:8081/""http://localhost:8081/",
-        spiderUrl: "http://lego24.cn/spider",
+        serverUrl: "http://10.28.205.190:8081/",
+        spiderUrl: "http://lego24.cn/spider/",
+        staticUrl: "http://10.28.205.190:8888/"
     },
-    registe: function (infos, type) {
+    registe: function(infos, type) {
         qq.showLoading({
             title: "请求中"
         })
@@ -19,7 +20,7 @@ var getData = {
                 type: type,
                 ...infos,
             },
-            success: function (e) {
+            success: function(e) {
                 if (e.data.code == 0) {
                     getData.app.globalData.userInfo.userType = e.data.userType
                     getData.app.globalData.volunteerInfo = e.data.info
@@ -31,13 +32,13 @@ var getData = {
             complete: qq.hideLoading,
         }))
     },
-    userLogin: function () {
+    userLogin: function() {
         qq.showLoading({
             title: "登录中"
         })
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.serverUrl + "/v/login/" + getData.app.globalData.code,
-            success: function (e) {
+            success: function(e) {
                 if (e.data.code == 0) {
                     getData.app.globalData.userInfo.volunteerInfo = e.data.data
                     resolve(e.header.type)
@@ -48,23 +49,23 @@ var getData = {
             complete: qq.hideLoading,
         }))
     },
-    getVolInfo: function () {
+    getVolInfo: function() {
         qq.showLoading({
             title: "同步志愿者信息"
         })
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.serverUrl + "v/login/" + getData.app.globalData.code,
-            success: function (e) {
+            success: function(e) {
                 getData.app.globalData.userInfo.volunteerInfo = e.data.data
                 resolve(e.data.data)
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
         }))
     },
-    getTeamInfo: function () {
+    getTeamInfo: function() {
         qq.showLoading({
             title: "同步中",
         })
@@ -73,20 +74,20 @@ var getData = {
             data: {
                 js_code: getData.app.globalData.code,
             },
-            success: function (e) {
+            success: function(e) {
                 if (e.data.code == 0) {
                     getData.app.globalData.userInfo.volunteerInfo = e.data.data
                     resolve()
                 } else
                     reject(e.data.msg)
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading,
         }))
     },
-    setTeamInfo: function (teamInfo) {
+    setTeamInfo: function(teamInfo) {
         qq.showLoading({
             title: "提交中",
         })
@@ -99,7 +100,7 @@ var getData = {
             header: {
                 'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
-            success: function (e) {
+            success: function(e) {
                 console.log(e)
                 if (e.data.code == 0) {
                     getData.app.globalData.userInfo.volunteerInfo = e.data.data
@@ -108,7 +109,7 @@ var getData = {
                     reject(e.data.msg)
 
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             method: "POST",
@@ -123,14 +124,14 @@ var getData = {
         })
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.serverUrl + "BV/post/get/w/" + bvProjectId,
-            success: function (e) {
+            success: function(e) {
                 if (e.data.code == 0) {
                     resolve(e.data.data)
                 } else
                     reject(e.data.msg)
 
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading,
@@ -138,12 +139,12 @@ var getData = {
 
     },
     // 返回下n个活动 
-    getActivities: function (startId, n) {
+    getActivities: function(startId, n) {
         return new Promise((resolve, reject) => {
             getData.qq.request({
                 url: getData._privateData.serverUrl + "project/getRange",
                 data: { startId: startId, amount: n },
-                success: function (res) {
+                success: function(res) {
                     var recvList = res.data.data
                     if (recvList == "null")
                         reject()
@@ -153,12 +154,12 @@ var getData = {
             })
         })
     },
-    getFliteActs: function (startId, n, filter) {
+    getFliteActs: function(startId, n, filter) {
         return new Promise((resolve, reject) => {
             getData.qq.request({
                 url: getData._privateData.serverUrl + "project/getRange",
                 data: { startId: startId, amount: n, ...filter },
-                success: function (res) {
+                success: function(res) {
                     var recvList = res.data.data
                     if (recvList == "null")
                         reject()
@@ -169,14 +170,14 @@ var getData = {
         })
     },
     // 通过id 返回 对应的活动 
-    getActivity: async function (id) {
+    getActivity: async function(id) {
         qq.showLoading({
             title: "刷新中"
         })
         return new Promise((resolve, reject) => {
             getData.qq.request({
                 url: getData._privateData.serverUrl + "project/get/" + id,
-                success: function (res) {
+                success: function(res) {
                     console.log(res)
                     if (res.data.code == 0) {
                         var act = res.data.data
@@ -190,15 +191,15 @@ var getData = {
         })
         return getData.activityList[id]
     },
-    getActivityPosts: function (activity) {
+    getActivityPosts: function(activity) {
         var posts = []
         for (let i in activity.posts) { posts.push(getData.postList[activity.posts[i]]) }
         return posts;
     },
-    getApply: function (id) {
+    getApply: function(id) {
         return this.applyList[id];
     },
-    acceptApply: function (applies) {
+    acceptApply: function(applies) {
         qq.showLoading({
             title: "处理中"
         })
@@ -206,9 +207,9 @@ var getData = {
             getData.qq.request({
                 url: getData._privateData.serverUrl + "project/applier/get",
                 data: {
-                    applies:applies
+                    applies: applies
                 },
-                success: function (res) {
+                success: function(res) {
                     console.log(res)
                     if (res.data.code == 0) {
                         resolve()
@@ -220,7 +221,7 @@ var getData = {
             })
         })
     },
-    getAppliers: function (project_id) {
+    getAppliers: function(project_id) {
         qq.showLoading({
             title: "获取数据中"
         })
@@ -230,7 +231,7 @@ var getData = {
                 data: {
                     project_id: project_id
                 },
-                success: function (res) {
+                success: function(res) {
                     console.log(res)
                     if (res.data.code == 0) {
                         var act = res.data.data
@@ -243,17 +244,17 @@ var getData = {
             })
         })
     },
-    getReawrdInfo: function (id) {
+    getReawrdInfo: function(id) {
         return getData.postRewards[id]
     },
     //Post 相关
-    getPost: function (id) {
+    getPost: function(id) {
         return getData.postList[id]
     },
-    setPost: function (post) {
+    setPost: function(post) {
         getData.postList[post.id] = post
     },
-    applyPost: function (post) {
+    applyPost: function(post) {
         qq.showLoading({
             title: "申请中",
         })
@@ -265,39 +266,39 @@ var getData = {
             },
             method: "POST",
             header: { "content-type": "application/x-www-form-urlencoded" },
-            success: function (e) {
+            success: function(e) {
                 if (e.data.code == 0)
                     resolve(e.data.error)
                 else
                     reject(e.data.msg)
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
         }))
     },
 
-    canclePost: function (post) {
+    canclePost: function(post) {
         qq.showLoading({
             title: "申请中",
         })
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.serverUrl + "post/volunteer/del/" + this.app.globalData.userInfo.volunteerInfo.id + "/" + post.id,
-            success: function (e) {
+            success: function(e) {
                 if (e.data.code == 0)
                     resolve()
                 else
                     reject(e.data.msg)
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             method: "DELETE",
             complete: qq.hideLoading
         }))
     },
-    setVolInfo: function (volInfo) {
+    setVolInfo: function(volInfo) {
         console.log(volInfo)
         qq.showLoading({
             title: "提交中",
@@ -311,7 +312,7 @@ var getData = {
             header: {
                 'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
-            success: function (e) {
+            success: function(e) {
                 console.log(e)
                 if (e.data.code == 0) {
                     getData.app.globalData.userInfo.volunteerInfo = e.data.data
@@ -320,14 +321,14 @@ var getData = {
                     reject(e.data.msg)
 
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             method: "PUT",
             complete: qq.hideLoading,
         }))
     },
-    getTimeCodes: function () {
+    getTimeCodes: function() {
         var result = []
         for (let t in getData.timeCode) {
             if (getData.timeCode[t].volID == getData.volunteerInfo.id) {
@@ -349,7 +350,7 @@ var getData = {
                 'content-type': "application/x-www-form-urlencoded"
             },
             method: "POST",
-            success: function (e) {
+            success: function(e) {
                 if (e.data == "forbidden")
                     reject(false)
                 else {
@@ -358,7 +359,7 @@ var getData = {
                 }
 
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
@@ -379,14 +380,14 @@ var getData = {
                 'content-type': "application/json"
             },
             method: "POST",
-            success: function (e) {
+            success: function(e) {
                 console.log(e)
                 if (e.data.code == 0) {
                     resolve()
                 }
 
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
@@ -405,7 +406,7 @@ var getData = {
                 'content-type': "application/x-www-form-urlencoded"
             },
             method: "POST",
-            success: function (e) {
+            success: function(e) {
                 if (e.data == "forbidden")
                     reject(false)
                 else {
@@ -414,7 +415,7 @@ var getData = {
                 }
 
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
@@ -428,11 +429,11 @@ var getData = {
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.spiderUrl + "my_projects",
             data: { token: getData.app.globalData.volToken },
-            success: function (e) {
+            success: function(e) {
                 getData.bjvolProjects.push(...e.data)
                 resolve()
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
@@ -446,11 +447,11 @@ var getData = {
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.spiderUrl + "my_hour",
             data: { token: getData.app.globalData.volToken },
-            success: function (e) {
+            success: function(e) {
                 getData.bjvolRewards.push(...e.data)
                 resolve()
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
@@ -464,11 +465,11 @@ var getData = {
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.spiderUrl + "team_hour",
             data: { token: getData.app.globalData.volToken },
-            success: function (e) {
+            success: function(e) {
                 getData.teamInfo.totalTime = e.data;
                 resolve()
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
@@ -487,14 +488,14 @@ var getData = {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: formData,
-            success: function (e) {
+            success: function(e) {
                 if (e.data == "forbidden" || e.data === 'bad request')
                     reject(false)
                 else {
                     resolve(resolve, reject)
                 }
             },
-            fail: function (e) {
+            fail: function(e) {
                 console.log('fail')
             },
             complete: this.qq.hideLoading
@@ -508,20 +509,20 @@ var getData = {
                 opp_id: opp_id,
                 job_id: job_id
             },
-            success: function (e) {
+            success: function(e) {
                 if (e.data == "forbidden")
                     reject(false)
                 else {
                     resolve(e.data)
                 }
             },
-            fail: function (e) {
+            fail: function(e) {
                 console.log('fail')
             }
         }))
     },
     // 确定每一个
-    logExistCodes: function (timecodes) {
+    logExistCodes: function(timecodes) {
         for (let i in timecodes) {
             if (getData.timeCode.indexOf(timecodes[i]) != -1) {
                 getData._logCodes(timecodes[i])
@@ -529,21 +530,21 @@ var getData = {
         }
     },
     /// 模拟 页面中的提交操作
-    logInputCodes: function (timecodeInput) {
+    logInputCodes: function(timecodeInput) {
         qq.showLoading({ title: "提交中" })
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.spiderUrl + "use_code",
             method: "POST",
             header: { 'content-type': 'application/json' },
             data: { code: timecodeInput },
-            success: function (e) {
+            success: function(e) {
                 if (e.data == "forbidden") {
                     reject()
                 } else {
                     resolve()
                 }
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
@@ -551,7 +552,7 @@ var getData = {
 
     },
     // 调/get_projects
-    getBJTeamProjectInfo: function () {
+    getBJTeamProjectInfo: function() {
         qq.showLoading({
             title: "同步项目数据",
             mask: true
@@ -559,19 +560,19 @@ var getData = {
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.spiderUrl + "get_projects",
             data: { token: getData.app.globalData.volToken },
-            success: function (e) {
+            success: function(e) {
                 getData.bjteamProjects.splice(0);
                 getData.bjteamProjects.push(...e.data)
                 resolve()
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
         }))
     },
     /// 模拟成功提交之后的 操作（更新数据库的数据）
-    _logCodes: function (codes) {
+    _logCodes: function(codes) {
         let date = new Date()
         var dateString = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
         if (codes.length != null) {
@@ -587,49 +588,76 @@ var getData = {
             getData.volunteerInfo.postRewards.push(id)
         }
     },
-    getAllLocations: function () {
+    getAllLocations: function() {
         return ['北邮幼儿园', '地铁西土城站', '北京国际会议中心'];
     },
-    publishEvent: function (opp_form, job_list) {
+    publishEvent: function(opp_form, job_list) {
         qq.showLoading({
             title: "提交中"
         })
         return new Promise((resolve, reject) => qq.request({
-            url: getData._privateData.serverUrl + "project/add",
+            url: getData._privateData.serverUrl + "project/add?team_id=" + team_id,
             method: 'POST',
-            header: { 'content-type': 'application/x-www-form-urlencoded' },
+            header: { 'content-type': 'application/json' },
             data: {
                 ...opp_form,
-                ...job_list[0]
+                posts: job_list
             },
-            success: function (e) {
+            success: function(e) {
                 if (e.data == "forbidden") {
                     reject();
                 } else {
                     resolve();
                 }
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
             },
             complete: qq.hideLoading
         }))
     },
-    updateEvent: function (opp_form, job_list) {
+    updateEvent: function(opp_form, job_list, team_id) {
         return new Promise((resolve, reject) => qq.request({
-            url: getData._privateData.serverUrl + "project/update",
-            method: 'PUT',
-            header: { 'content-type': 'application/x-www-form-urlencoded' },
-            data: opp_form,
-            success: function (e) {
+            url: getData._privateData.serverUrl + "project/update?team=" + team_id,
+            method: 'POST',
+            header: { 'content-type': 'application/json' },
+            data: {
+                ...opp_form,
+                team: team_id,
+                posts: job_list
+            },
+            success: function(e) {
                 if (e.data == "forbidden") {
                     reject();
                 } else {
                     resolve();
                 }
             },
-            fail: function () {
+            fail: function() {
                 console.log("fail")
+            },
+            complete: qq.hideLoading
+        }))
+    },
+    uploadImage: function(imgUrl) {
+        qq.showLoading({
+            title: '上传中',
+            mask: true
+        })
+        return new Promise((resolve, reject) => qq.uploadFile({
+            url: getData._privateData.serverUrl + "test/file",
+            name: 'file',
+            filePath: imgUrl,
+            success: function(e) {
+                let res = JSON.parse(e.data);
+                if (res.code != 0) {
+                    reject(e);
+                } else {
+                    resolve(res);
+                }
+            },
+            fail: function() {
+                console.log("fail");
             },
             complete: qq.hideLoading
         }))

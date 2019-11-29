@@ -23,7 +23,26 @@
             </view>
             <view class="cu-form-group">
                 <view class="title">项目详情</view>
-                <textarea data-prop="projectDetail" bindinput="handleActChanges" auto-height="true" maxlength="-1"></textarea>
+                <textarea data-prop="projectDetial" bindinput="handleActChanges" auto-height="true"></textarea>
+            </view>
+        </view>
+        <view class="cu-bar bg-white margin-top">
+            <view class="action">
+                图片介绍
+            </view>
+        </view>
+        <view class="cu-form-group">
+            <view class="grid col-1 grid-square flex-sub">
+                <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage"
+                    data-url="{{imgList[index]}}">
+                    <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                    <view class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+                        <text class="cuIcon-close"></text>
+                    </view>
+                </view>
+                <view class="solids" bindtap="chooseImage" wx:if="{{imgList.length<1}}">
+                    <text class="cuIcon-cameraadd"></text>
+                </view>
             </view>
         </view>
         <view wx:for="{{posts}}" wx:for-item="post" wx:for-index="i" class="margin-top">
@@ -32,24 +51,29 @@
                     <text class="cuIcon-title text-orange"></text>岗位{{i + 1}}
                 </view>
                 <view class="action">
-                    <button class="cu-btn bg-red shadow" data-index="{{i}}" bindtap="deletePost" ><text class="cuIcon-delete"></text>删除</button>
+                    <button class="cu-btn bg-red shadow" data-index="{{i}}" bindtap="deletePost"><text
+                            class="cuIcon-delete"></text>删除</button>
                 </view>
             </view>
             <view class="cu-form-group">
                 <view class="title">岗位名称</view>
-                <input data-index="{{i}}" data-prop="postname" value="{{post.postname}}" bindinput="handlePostChanges">{{post.postname}}</input>
+                <input data-index="{{i}}" data-prop="postname" value="{{post.postname}}"
+                    bindinput="handlePostChanges">{{post.postname}}</input>
             </view>
             <view class="cu-form-group">
                 <view class="title">岗位条件</view>
-                <input data-index="{{i}}" data-prop="requirement" value="{{post.requirement}}" bindinput="handlePostChanges">{{post.requirement}}</input>
+                <input data-index="{{i}}" data-prop="requirement" value="{{post.requirement}}"
+                    bindinput="handlePostChanges">{{post.requirement}}</input>
             </view>
             <view class="cu-form-group">
-                    <view class="title">最大人数</view>
-                    <input data-index="{{i}}" data-prop="max" value="{{post.max}}" bindinput="handlePostChanges">{{post.max}}</input>
-                </view>
+                <view class="title">最大人数</view>
+                <input data-index="{{i}}" data-prop="max" value="{{post.max}}"
+                    bindinput="handlePostChanges">{{post.max}}</input>
+            </view>
             <view class="cu-form-group">
                 <view class="title">岗位描述</view>
-                <textarea data-index="{{i}}" data-prop="postDetail" value="{{post.postDetail}}" bindinput="handlePostChanges" auto-height="true" maxlength="-1"></textarea>
+                <textarea data-index="{{i}}" data-prop="postDetial" value="{{post.postDetial}}"
+                    bindinput="handlePostChanges" auto-height="true" maxlength="-1"></textarea>
             </view>
         </view>
         <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="addPost">

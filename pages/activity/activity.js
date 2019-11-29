@@ -43,7 +43,6 @@ Component({
             { name: "结束时间", attrname: "endTime", type: "date" },
             { name: "地区", attrname: "location", type: "multiple", choices: app.db.getAllLocations() }
         ],
-        modalShown: false,
         genCodeForm: {
             opp_id: '',
             job_id: '',
@@ -53,16 +52,6 @@ Component({
         }
     },
     methods: {
-        showModal() {
-            this.setData({
-                modalShown: true
-            })
-        },
-        hideModal() {
-            this.setData({
-                modalShown: false
-            })
-        },
         genCode(e) {
             let ds = e.currentTarget.dataset;
             qq.navigateTo({
@@ -75,27 +64,6 @@ Component({
             //     genCodeForm: form
             // })
             // this.showModal()
-        },
-        genCodeSubmit(e) {
-            let form = e.detail.value;
-            let formTotal = this.data.genCodeForm;
-            formTotal.count = form.count;
-            formTotal.time = form.time;
-            app.db.generateCode(formTotal)
-                .then(() => {
-                    qq.showToast({
-                        title: "生成成功"
-                    })
-                    this.setData({
-                        modalShown: false
-                    })
-                })
-                .catch(() => {
-                    qq.showToast({
-                        title: "生成失败",
-                        image: "/images/icons/失败.png",
-                    })
-                })
         }
     }
 })
