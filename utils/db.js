@@ -17,7 +17,7 @@ var getData = {
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.serverUrl + "",
             data: {
-                type: type,
+                type: type, 
                 ...infos,
             },
             success: function(e) {
@@ -39,6 +39,7 @@ var getData = {
         return new Promise((resolve, reject) => qq.request({
             url: getData._privateData.serverUrl + "/v/login/" + getData.app.globalData.code,
             success: function(e) {
+                console.log(e)
                 if (e.data.code == 0) {
                     getData.app.globalData.userInfo.volunteerInfo = e.data.data
                     resolve(e.header.type)
@@ -75,6 +76,7 @@ var getData = {
                 js_code: getData.app.globalData.code,
             },
             success: function(e) {
+                console.log(e)
                 if (e.data.code == 0) {
                     getData.app.globalData.userInfo.volunteerInfo = e.data.data
                     resolve()
@@ -591,7 +593,7 @@ var getData = {
     getAllLocations: function() {
         return ['北邮幼儿园', '地铁西土城站', '北京国际会议中心'];
     },
-    publishEvent: function(opp_form, job_list) {
+    publishEvent: function(opp_form, job_list, team_id) {
         qq.showLoading({
             title: "提交中"
         })

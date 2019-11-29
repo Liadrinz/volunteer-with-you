@@ -38,15 +38,16 @@ Page({
         })
     },
     handleActChanges(e) {
+        console.log(e);
         let prop = e.currentTarget.dataset.prop;
         let act = this.data.activity;
         act[prop] = e.detail.value;
-        this.setData({ act: act });
+        this.setData({ activity: act });
     },
     handlePostChanges(e) {
         let ds = e.currentTarget.dataset;
         let posts = this.data.posts;
-        posts[ds.index][ds.prop] = e.detial.value;
+        posts[ds.index][ds.prop] = e.detail.value;
         this.setData({ posts: posts });
     },
     hidePubBtn() {
@@ -55,12 +56,13 @@ Page({
     publishAct() {
         let act = {};
         Object.assign(act, this.data.activity);
-        act['startTime'] = new Date()
-        act['endTime'] = new Date()
+        act['startTime'] = new Date(act['startTime'])
+        act['endTime'] = new Date(act['endTime'])
         app.db.uploadImage(this.data.imgList[0]).then((data) => {
             let paths = data.data.split('/');
             act['picture'] = app.db._privateData.staticUrl + paths[paths.length - 1];
-            app.db.publishEvent(act, this.data.posts, 1);
+            app.db.publishEvent(act, this.data.posts, app.globalData.userInfo.volunteerInfo.id);
+            qq.navigateBack();
         }).catch((e) => {
             console.log(e);
         })
