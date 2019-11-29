@@ -58,16 +58,23 @@ Page({
         Object.assign(act, this.data.activity);
         act['startTime'] = new Date(act['startTime'])
         act['endTime'] = new Date(act['endTime'])
-        app.db.uploadImage(this.data.imgList[0]).then((data) => {
-            let paths = data.data.split('/');
-            act['picture'] = app.db._privateData.staticUrl + paths[paths.length - 1];
+        if (this.data.imgList.length > 0) {
+            app.db.uploadImage(this.data.imgList[0]).then((data) => {
+                let paths = data.data.split('/');
+                act['picture'] = app.db._privateData.staticUrl + paths[paths.length - 1];
+                app.db.publishEvent(act, this.data.posts, app.globalData.userInfo.volunteerInfo.id);
+                qq.navigateBack();
+                let pages = getCurrentPages();
+                pages[pages.length - 2].refresh();
+            }).catch((e) => {
+                console.log(e);
+            })
+        } else {
             app.db.publishEvent(act, this.data.posts, app.globalData.userInfo.volunteerInfo.id);
             qq.navigateBack();
             let pages = getCurrentPages();
             pages[pages.length - 2].refresh();
-        }).catch((e) => {
-            console.log(e);
-        })
+        }
     },
     chooseImage() {
         qq.chooseImage({
