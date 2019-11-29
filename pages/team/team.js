@@ -30,11 +30,14 @@ Component({
     },
     methods: {
         updateData: function () {
-            let teamInfo = this.data.teamInfo;
-            teamInfo.activities.doing = app.db.bjteamProjects;
-            teamInfo['totalTime'] = app.db.teamInfo.totalTime;
-            this.setData({
-                teamInfo: teamInfo
+            app.db.getTeamInfo().then(()=>{
+                let teamInfo = this.data.teamInfo;
+                teamInfo.activities.doing = app.db.bjteamProjects;
+                teamInfo['totalTime'] = app.db.teamInfo.totalTime;
+                this.setData({
+                    teamInfo: teamInfo,
+                    userInfo: app.globalData.userInfo
+                })
             })
         },
         getTeamInfo() {

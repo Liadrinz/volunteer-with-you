@@ -1,0 +1,85 @@
+<cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">时长码分配</view>
+</cu-custom>
+<view bindtouchmove="hidePubBtn" bindtouchend="showPubBtn">
+    <form>
+        <view class="margin-top">
+            <view class="cu-form-group">
+                <view class="title">个数</view>
+                <input data-prop="count" bindinput="handleChanges"></input>
+            </view>
+            <view class="cu-form-group">
+                <view class="title">时长</view>
+                <input data-prop="time" bindinput="handleChanges"></input>
+            </view>
+        </view>
+        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="genCodeSubmit">
+            <view class="text-xl">
+                生成时长码
+            </view>
+        </button>
+    </form>
+    <view wx:for="{{codeGroups}}" wx:for-index="i" wx:for-item="code">
+        <view class="cu-bar bg-white solid-bottom">
+            <view class="action text-xl">
+                <text class="cuIcon-title text-orange"></text>时长码组{{i + 1}}
+            </view>
+            <view class="action">
+                <button class="cu-btn bg-green shadow" data-index="{{i}}" bindtap="assignCode"><text
+                        class="cuIcon-people"></text>分配给志愿者</button>
+            </view>
+        </view>
+        <form>
+            <view class="cu-form-group text-sm">
+                <view class="title">时长码</view>
+                <text wx:for="{{code.codes}}" wx:for-item="code">{{code}};<br/></text>
+            </view>
+            <view class="cu-form-group">
+                <view class="title">时长</view>
+                <text>{{code.time}}</text>
+            </view>
+            <view class="cu-form-group">
+                <view class="title">数量</view>
+                <text>{{code.codes.length}}</text>
+            </view>
+        </form>
+    </view>
+</view>
+
+
+
+<view class="cu-modal {{modalName=='assignModal'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">分配时长码 {{toggles.length+'/'+codeGroups[codeGroupIdx].codes.length}}</view>
+            <view class="action" bindtap="hideModal">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <scroll-view scroll-y="true" style="height:200px">
+            <view>
+                <view class="flex">
+                    <view class="basis-xs solid padding-xs">id</view>
+                    <view class="basis-sm solid padding-xs">姓名</view>
+                    <view class="basis-lg solid padding-xs">学号</view>
+                    <view class="basis-xs solid padding-xs"><checkbox bindtap="selectall" checked="{{selectall}}"/></view>
+                </view>
+                <checkbox-group bindchange="toggleVol">
+                    <view class="flex margin-bottom-xs" wx:for="{{volList}}">
+                        <view class="flex basis-xs padding-xs solid align-center justify-center "><view class="text-cut">{{item.id}}</view></view>
+                        <view class="flex basis-sm padding-xs solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{item.name}}</view></view>
+                        <view class="flex basis-lg padding-xs solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{item.schoolid}}</view></view>
+                        <view class="basis-xs padding-xs solid"><checkbox disabled="{{reachLimit == true && !volList[index].ischecked}}" value="{{index}}"  style="transform: scale(0.7,0.7);"/></view>
+                    </view>
+                </checkbox-group>
+            </view>
+        </scroll-view>
+        <view class="cu-bar bg-white justify-end">
+            <view class="action">
+                <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+                <button class="cu-btn bg-green margin-left" bindtap="assign">录入</button>
+            </view>
+        </view>
+    </view>
+</view>

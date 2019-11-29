@@ -65,13 +65,16 @@ Component({
         },
         genCode(e) {
             let ds = e.currentTarget.dataset;
-            let form = this.data.genCodeForm;
-            form.opp_id = ds.opp;
-            form.job_id = ds.job;
-            this.setData({
-                genCodeForm: form
+            qq.navigateTo({
+                url: '/pages/code/code?opp_id=' + ds.opp + '&job_id=' + ds.job
             })
-            this.showModal()
+            // let form = this.data.genCodeForm;
+            // form.opp_id = ds.opp;
+            // form.job_id = ds.job;
+            // this.setData({
+            //     genCodeForm: form
+            // })
+            // this.showModal()
         },
         genCodeSubmit(e) {
             let form = e.detail.value;

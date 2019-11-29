@@ -14,9 +14,11 @@ Page({
         onGetAct: null,
     },
     onLoad() {
+        this.setData({
+            userType:app.globalData.userInfo.userType,
+        })
         if (this.data.userType === 'vol') this.toVol()
         else this.toWork()
-        app.globalData.indexPageModel = this
         this.onLoaded()
 
     },

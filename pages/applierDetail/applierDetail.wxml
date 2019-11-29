@@ -11,20 +11,20 @@
                     {{"岗位"+ (i+1)+":" + post.postname+" 计划招募:"+post.max+" 已招募:"+post.volunteers.length}}
                 </view>
             </view>
-            <view class="flex">
-                <view class="basis-xs solid padding-xs align-center justify-center"><view>id</view></view>
-                <view class="flex basis-lg solid padding-xs align-center justify-center"><view>学号</view></view>
-                <view class="flex basis-sm solid padding-xs align-center justify-center"><view>姓名</view></view>
-                <view class="flex basis-xs solid padding-xs align-center justify-center"><view>信誉</view></view>
-                <view class="flex basis-xs solid padding-xs align-center justify-center"></view>
-            </view>
-            <checkbox-group bindchange="toggleCode">
+                <view class="flex">
+                    <view class="flex basis-xs solid padding-sm align-center justify-center"><view>id</view></view>
+                    <view class="flex basis-lg solid padding-xs align-center justify-center"><view>学号</view></view>
+                    <view class="flex basis-sm solid padding-xs align-center justify-center"><view>姓名</view></view>
+                    <view class="flex basis-xs solid padding-xs align-center justify-center"><view>信誉</view></view>
+                    <view class="flex basis-xs solid padding-xs align-center justify-center"><checkbox bindtap="selectAll" data-pindex="{{i}}" checked="{{post.selectall}}" style="transform: scale(0.7,0.7);"/></view>
+                </view>
+            <checkbox-group bindchange="selectVol">
                 <view class=" flex bg-white" wx:for="{{post.volunteers}}" wx:for-index="j" wx:for-item="vol">
-                    <view class="flex basis-xs padding-xs solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{vol.id}}</view></view>
+                    <view class="flex basis-xs padding-sm solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{vol.id}}</view></view>
                     <view class="flex basis-lg padding-xs solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{vol.schoolid}}</view></view>
                     <view class="flex basis-sm padding-xs solid align-center justify-center "><view class="text-cut">{{vol.name}}</view></view>
                     <view class="flex basis-xs padding-xs solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{vol.credit}}</view></view>
-                    <view class="basis-xs padding-xs solid"><checkbox value="{{j}}" style="transform: scale(0.7,0.7);" /> </view>
+                    <view class="basis-xs padding-xs solid"><checkbox disabled="{{!vol.select && post.selectNum == post.max}}" checked="{{vol.select}}" value="{{[i,j]}}" style="transform: scale(0.7,0.7);" /> </view>
                 </view>
             </checkbox-group>
         </view>
@@ -33,12 +33,11 @@
     <view>
         <checkbox-group bindchange="toggleCode" data-postIndex="{{i}}">
             <view class="flex margin-bottom-xs" wx:for="{{timeCodes}}">
-                <view class="flex basis-sm padding-xs solid align-center justify-center "><view class="text-cut">{{item.code}}</view></view>
+                <view class="flex basis-sm padding-sm solid align-center justify-center "><view class="text-cut">{{item.code}}</view></view>
                 <view class="flex basis-lg padding-xs solid  align-center justify-center " style="min-width: 0;"><view class="text-cut">{{item.activityTitle}}</view></view>
                 <view class="basis-xs padding-xs solid"><checkbox value="{{index}}" style="transform: scale(0.7,0.7);"/></view>
             </view>
         </checkbox-group>
     </view>
 </view>
-
 

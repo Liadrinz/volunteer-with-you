@@ -6,16 +6,16 @@ var app = App({
         this.db.qq = qq;
         this.db.app = this;
         // 获取系统的布局信息 设置系统样式
-        qq.getSystemInfo({
+        qq.getSystemInfo({ 
             success: e => {
                 this.globalData.StatusBar = e.statusBarHeight;
                 let capsule = wx.getMenuButtonBoundingClientRect();
                 if (capsule) {
                     this.globalData.Custom = capsule;
                     this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
-                } else {
+                } else { 
                     this.globalData.CustomBar = e.statusBarHeight + 50;
-                }
+                } 
             }
         })
         //this.db.getVolInfo();
@@ -50,7 +50,7 @@ var app = App({
                 that.globalData.code = res.code
                 // this.db.getVolInfo(res.code).then((value) => {
                 //     that.globalData.userInfo.volunteerInfo = value
-                // })
+                // }) 
                 this.db.userLogin().then((userType) => {
                     resolve(userType)
                 })
@@ -72,4 +72,4 @@ var app = App({
         code: null, 
     }, 
     db: db 
-})   
+})    

@@ -17,7 +17,7 @@ Page({
         // 获取到 父页面的 user Component 组件
         if(this.data.team){
             teamComp = pages[pages.length - 2].selectComponent("#team")
-            this.data.teamInfo = usersComp.data.userInfo.volunteerInfo
+            this.data.teamInfo = teamComp.data.userInfo.volunteerInfo
         }else{
             usersComp = pages[pages.length - 2].selectComponent("#users")
             this.data.volunteerInfo = usersComp.data.userInfo.volunteerInfo

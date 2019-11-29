@@ -2,7 +2,7 @@
 	<view slot="backText">返回</view>
 	<view slot="content">{{team ? '团队' : '个人'}}信息</view>
 </cu-custom>
-<form wx:if="{{!team}}" bindvalidate="validateCallBack" bindsubmit="formSubmit" bindreset="formReset">
+<form wx:if="{{!team}}" bindvalidate="validateCallBack" bindsubmit="volformSubmit" bindreset="formReset">
     <view class="cu-bar bg-white solid-bottom margin-top">
         <view class="action">
             <text class="cuIcon-titles text-orange"></text> 个人信息
@@ -25,7 +25,7 @@
         <button hover-class="bg-black" class="bg-grey basis-df margin-lr" form-type="reset">重置</button>
     </view>
 </form>
-<form wx:else bindvalidate="validateCallBack" bindsubmit="formSubmit" bindreset="formReset">
+<form wx:else bindvalidate="validateCallBack" bindsubmit="teamformSubmit" bindreset="formReset">
     <view class="cu-bar bg-white solid-bottom margin-top">
         <view class="action">
             <text class="cuIcon-titles text-orange"></text> 团队信息

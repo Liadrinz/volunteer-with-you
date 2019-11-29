@@ -9,7 +9,8 @@
         "pages/teamDetail/teamDetail",
         "pages/applyDetail/applyDetail",
         "pages/infoSetting/infoSetting",
-        "pages/applierDetail/applierDetail"
+        "pages/applierDetail/applierDetail",
+        "pages/code/code"
     ],
     "window": {
         "backgroundTextStyle": "light",
