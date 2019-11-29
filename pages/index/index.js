@@ -13,6 +13,9 @@ Page({
         actList: [],
         onGetAct: null,
     },
+    refresh() {
+        this.onLoad();
+    },
     onLoad() {
         this.setData({
             userType:app.globalData.userInfo.userType,
