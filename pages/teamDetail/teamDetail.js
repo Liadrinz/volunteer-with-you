@@ -4,8 +4,6 @@ const app = getApp();
 
 Page({
     data: {
-        type: '',
-        doneAct: [],
         doingAct: [],
         volunteers: []
     },
@@ -16,36 +14,25 @@ Page({
         }
     },
     onLoad(option) {
-        this.setData({
-            type: option.type
-        })
-        if (option.type == 1 || option.type == 2) {
-            let pages = getCurrentPages();
-            teamComp = pages[pages.length-2].selectComponent("#team");
-            teamInfo = teamComp.getTeamInfo();
-            if (option.type == 1) {
-                let doneAct = this.data.doneAct;
-                let doneIds = teamInfo.activities.done;
-                for (let id of doneIds) {
-                    doneAct.push(app.db.getActivity(id));
-                }
-                this.setData({
-                    doneAct: doneAct
-                });
-            } else if (option.type == 2) {
-                let doingAct = this.data.doingAct;
-                let doingIds = teamInfo.activities.doing;
-                for (let id of doingIds) {
-                    doingAct.push(app.db.getActivity(id));
-                }
-                this.setData({
-                    doingAct: doingAct
-                });
-            }
-        } else {
-            this.addVol();
+        if (option.loggedIn === 'false') {
+            qq.showToast({
+                title: "请先登录",
+                image: "/images/icons/失败.png",
+            })
+            qq.navigateBack();
         }
-    },
+        let pages = getCurrentPages();
+        teamComp = pages[pages.length-2].selectComponent("#team");
+        teamInfo = teamComp.getTeamInfo();
+        let doingAct = this.data.doingAct;
+        for (let item of app.db.bjteamProjects) {
+            item["title"] = item["name"]
+            doingAct.push(item);
+        }
+        this.setData({
+            doingAct: doingAct
+        });
+    }, 
     addVol() {
         let volunteers = this.data.volunteers;
         volunteers.push(this._getVolunteer());
@@ -70,6 +57,7 @@ Page({
         })
     },
     sendCode() {
-        console.log(this.data.volunteers);
+        let data = this.data.volunteers;
+        console.log(data);
     }
 })

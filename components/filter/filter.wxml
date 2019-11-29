@@ -12,7 +12,7 @@
                     <view class="text-xl padding">
                         <view wx:if="{{field.type === 'date'}}">
                             <picker mode="date" bindchange="allChangeHandler" data-name="{{field.attrname}}">
-                                {{filters[field.name]}}</picker>
+                                {{filters[field.attrname]}}</picker>
                         </view>
                         <view wx:if="{{field.type === 'multiple'}}">
                             <checkbox-group bindchange="allChangeHandler" data-name="{{field.attrname}}">
@@ -23,9 +23,9 @@
                             </checkbox-group>
                         </view>
                         <view wx:if="{{field.type === 'text'}}">
-                            <view class="title">{{field.name}}</view>
+                            <view class="title">{{field.attrname}}</view>
                             <input bindinput="allChangeHandler"
-                                data-name="{{field.attrname}}">{{filters[field.name]}}</input>
+                                data-name="{{field.attrname}}">{{filters[field.attrname]}}</input>
                         </view>
                     </view>
                 </view>

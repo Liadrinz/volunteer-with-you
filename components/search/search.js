@@ -33,7 +33,7 @@ Component({
             console.log(this.data.keywords)
             let that = this
             this.setData({
-                search: ()=>{that.properties.onSearch(_packSearchFliter(that.data.keywords, info))   }
+                search: (info)=>{that.properties.onSearch(_packSearchFliter(that.data.keywords, info))   }
             })
         }
     },

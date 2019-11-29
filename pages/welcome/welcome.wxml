@@ -3,29 +3,26 @@
         <text class="text-sl">志愿邮你</text>
     </view>
     <!-- 多重身份 -->
-    <view wx:if="{{registered === '1'}}">
-        <button class="flex justify-center cu-btn round bg-green lg margin" bindtap="loginAsVol">
+    <view wx:if="{{userType != null}}">
+        <button wx:if="{{userType== 'both' || userType == 'vol'}}" class="flex justify-center cu-btn round bg-green lg margin" bindtap="loginAsVol">
             <view class="text-xl">
                 以志愿者身份登录
             </view>
         </button>
-        <button class="flex justify-center cu-btn round bg-green lg margin" bindtap="loginAsStf">
-            <view class="text-xl">
-                以团队工作者身份登录
-            </view>
-        </button>
-    </view>
-    <!-- 未注册 -->
-    <view wx:elif="{{registered === '0'}}">
-        <button class="flex justify-center cu-btn round bg-green lg margin" bindtap="registerAsStf">
-            <view class="text-xl">
-                创建新团队
-            </view>
-        </button>
-        <button class="flex justify-center cu-btn round bg-green lg margin" bindtap="registerAsVol">
+        <button wx:else class="flex justify-center cu-btn round bg-orange lg margin" bindtap="registerAsVol">
             <view class="text-xl">
                 注册为志愿者
             </view>
         </button>
+        <button wx:if="{{userType == 'both' || userType == 'stf'}}" class="flex justify-center cu-btn round bg-green lg margin" bindtap="loginAsStf">
+            <view class="text-xl">
+                以团队工作者身份登录
+            </view>
+        </button>
+        <button wx:else class="flex justify-center cu-btn round {{userType == 'none'?'bg-grey':'bg-orange'}} lg margin" bindtap="registerAsStf">
+            <view class="text-xl">
+                创建新团队
+            </view>
+        </button> 
     </view>
 </view>

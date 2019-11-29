@@ -2,12 +2,17 @@ const app = getApp();
 
 Page({
     data: {
-        registered: true
+        userType: null,
     },
-    onLoad(option) {
-        this.setData({
-            registered: option.registered
-        })
+    onLoad() {
+        app.appLogin().then((userType) => {
+            this.setData({
+                userType : userType
+            })            
+        }) 
+        // this.setData({
+        //     userType : app.globalData.userInfo.userType
+        // })
     },
     loginAsStf() {
         app.globalData.userInfo.userType = 'stf';
@@ -22,6 +27,12 @@ Page({
         })
     },
     registerAsStf() {
+        if(app.globalData.userInfo.userType == 'none'){
+            qq.showToast({
+                title:"请先注册志愿者",
+                image:"/images/icons/失败.png"
+            })
+        }
         app.globalData.userInfo.userType = 'stf';
         qq.navigateTo({
             url: '/pages/register/register'

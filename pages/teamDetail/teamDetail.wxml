@@ -1,44 +1,7 @@
-<view wx:if="{{type == 1 || type == 2}}">
+<view>
     <cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}">
         <view slot="backText">返回</view>
-        <view slot="content">{{type == 1 ? '已完成' : '进行中'}}</view>
+        <view slot="content">进行中活动</view>
     </cu-custom>
-    <activity showFloatBtn="{{false}}" actType="work" activityList="{{type == 1 ? doneAct : doingAct}}" />
-</view>
-
-<view wx:elif="{{type == 0}}">
-    <cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}">
-        <view slot="backText">返回</view>
-        <view slot="content">时长录入</view>
-    </cu-custom>
-    <form>
-        <view wx:for="{{volunteers}}" wx:for-index="i" wx:for-item="volunteer" class="margin-top">
-            <view class="cu-bar bg-white solid-bottom margin-top">
-                <view class="action text-xl">
-                    <text class="cuIcon-title text-orange"></text>志愿者{{i + 1}}
-                </view>
-                <view class="action">
-                    <button wx:if="{{volunteers.length !== 1}}" class="cu-btn bg-red shadow" data-index="{{i}}" bindtap="deleteVol"><text class="cuIcon-delete"></text>删除</button>
-                </view>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">志愿者编号</view>
-                <input placeholder="请务必核实志愿者编号" value="{{volunteer.volID}}" data-index="{{i}}" data-prop="volID" bindinput="handleVolChanges"></input>
-            </view>
-            <view class="cu-form-group">
-                <view class="title">录入时长（小时）</view>
-                <input placeholder="单次录入不能超过50小时" value="{{volunteer.time}}" data-index="{{i}}" data-prop="time" bindinput="handleVolChanges"></input>
-            </view>
-        </view>
-        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="addVol">
-            <view class="text-xl">
-                添加志愿者
-            </view>
-        </button>
-        <button class="flex justify-center cu-btn round bg-gradual-green lg margin" bindtap="sendCode">
-            <view class="text-xl">
-                给以上志愿者发送时长码
-            </view>
-        </button>
-    </form>
+    <activity showFloatBtn="{{false}}" actType="bv" activityList="{{doingAct}}" />
 </view>

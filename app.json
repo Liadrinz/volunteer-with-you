@@ -1,14 +1,15 @@
 {
     "pages": [
+        "pages/welcome/welcome",
         "pages/index/index",
         "pages/register/register",
-        "pages/welcome/welcome",
         "pages/activityDetail/activityDetail",
         "pages/userDetail/userDetail",
         "pages/publishDetail/publishDetail",
         "pages/teamDetail/teamDetail",
         "pages/applyDetail/applyDetail",
-        "pages/infoSetting/infoSetting"
+        "pages/infoSetting/infoSetting",
+        "pages/applierDetail/applierDetail"
     ],
     "window": {
         "backgroundTextStyle": "light",

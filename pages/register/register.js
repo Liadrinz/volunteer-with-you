@@ -5,7 +5,7 @@ Page({
         userType: '',
         vol: {
             name: '',
-            tel: '',
+            tel: '',   
             grade: '',
             schoolid: '',
             qq: '',
@@ -21,7 +21,7 @@ Page({
             teamdescription: ''
         }
     },
-    onLoad(option) {
+    onLoad(option) { 
         this.setData({
             userType: app.globalData.userInfo.userType
         })
@@ -31,23 +31,28 @@ Page({
         if (this.data.userType === 'vol') {
             let vol = this.data.vol;
             vol[prop] = e.detail.value;
-            console.log(vol);
         } else {
             let team = this.data.team;
             team[prop] = e.detail.value;
-            console.log(team);
         }
     },
     register() {
-        qq.navigateBack();
-        qq.navigateTo({
-            url: '/pages/index/index'
+        app.db.setVolInfo(this.data.vol).then(()=>{
+            qq.showToast({
+                title:"注册成功",
+            })    
+            qq.navigateBack();
+            qq.navigateTo({
+                url: '/pages/index/index'
+            })
         })
     },
     createTeam() {
-        qq.navigateBack();
-        qq.navigateTo({
-            url: '/pages/index/index'
+        app.db.setTeamInfo(this.data.team).then(()=>{
+            qq.navigateBack();
+            qq.navigateTo({
+                url: '/pages/index/index'
+            })
         })
     }
 });

@@ -8,33 +8,54 @@
     </view>
 </view>
 <view class="padding flex text-center text-grey bg-white shadow-warp">
-    <navigator url="/pages/teamDetail/teamDetail?type=0" class="flex flex-sub flex-direction solid-right">
+    <view class="flex flex-sub flex-direction solid-right">
         <view class="text-xxl text-orange">{{teamInfo.totalTime}}</view>
         <view class="margin-top-sm">
             <text class="cuIcon-attentionfill"></text>团队总时长</view>
-        </navigator>
-    <navigator url="/pages/teamDetail/teamDetail?type=1" class="flex flex-sub flex-direction solid-right">
-        <view class="text-xxl text-blue">{{teamInfo.activities.done.length}}</view>
-        <view class="margin-top-sm">
-            <text class="cuIcon-favorfill"></text>已完成活动</view>
-    </navigator>
-    <navigator url="/pages/teamDetail/teamDetail?type=2" class="flex flex-sub flex-direction">
+    </view>
+    <navigator url="/pages/teamDetail/teamDetail?type=2&loggedIn={{loggedIn}}" class="flex flex-sub flex-direction">
         <view class="text-xxl text-green">{{teamInfo.activities.doing.length}}</view>
         <view class="margin-top-sm">
             <text class="cuIcon-fork"></text>进行中活动</view>
     </navigator>
 </view>
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-    <view class="cu-item arrow">
-        <view class="content" bindtap="CopyLink" data-link="https://github.com/weilanwl/ColorUI">
-            <text class="cuIcon-formfill text-green"></text>
-            <text class="text-grey">生成时长码</text>
+    <view class="cu-item arrow" bindtap="showModal" data-modalName="LoginModal">
+        <view class="content">
+            <text class="cuIcon-message text-black"></text>
+            <text class="text-grey">登录志愿北京</text>
         </view>
     </view>
-    <view class="cu-item arrow">
-        <view class="content" bindtap="CopyLink" data-link="https://github.com/weilanwl/ColorUI">
+    <navigator url="/pages/infoSetting/infoSetting?team=1" class="cu-item arrow">
+        <view class="content">
             <text class="cuIcon-settings text-black"></text>
             <text class="text-grey">信息设置</text>
+        </view>
+    </navigator>
+</view>
+
+<view class="cu-modal {{modalName=='LoginModal'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">登录志愿北京</view>
+            <view class="action" bindtap="hideModal">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <form bindsubmit="loginBJVol" wx:if="{{loggedIn==false}}">
+            <view class="padding-xl">
+                <customInput id="loginInfo" name="uname" minLength="6" maxLength="20" placeholder="输入6-20位有效用户名" title="用户名" />
+                <customInput id="loginInfo" name="upass" minLength="8" maxLength="20" placeholder="输入8-20位的有效密码" title="密码" inputType="password" />
+            </view>
+            <view class="cu-bar bg-white justify-end">
+                <view class="action">
+                    <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+                    <button class="cu-btn bg-green margin-left" form-type="submit">确定</button>
+                </view>
+            </view>
+        </form>
+        <view wx:else class="text-bold text-xl padding-xl">
+            您已登录
         </view>
     </view>
 </view>

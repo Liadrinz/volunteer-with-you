@@ -2,52 +2,72 @@ const app = getApp()
 
 Page({
     data: {
-        activity: null,
-        posts: null,
+        posts: [],
         autoSize: {},
-        actType: '',  // work/vol
+        actType: '', // work/vol
+        activity: {
+            title: '',
+            location: '',
+            startTime: '',
+            endTime: '',
+            projectDetail: ''
+        }
     },
-    onLoad: function (option) {
+    onLoad: function(option) {
         var that = this
         app.db.getActivity(option.id).then((value) => {
+            let posts = that.data.posts;
+            let data = this.updatePost(value);
+            console.log(data)
+            if (data) {
+                posts.push(...data);
+            }
             that.setData({
                 activity: value,
-                posts: this.updatePost(value),
+                posts: posts,
                 actType: option.actType
             })
         })
     },
+    _getPostForm() {
+        return {
+            id: '',
+            postname: '',
+            requirement: '',
+            postDetail: '',
+            max: '',
+        };
+    },
     // 事件函数
-    autoImage: function (e) {
+    autoImage: function(e) {
         var imgScale = e.detail.width / e.detail.height
         var that = this
         wx.getSystemInfo({
-            success: function (res) {
+            success: function(res) {
                 that.setData({
                     autoSize: { width: res.windowWidth, height: res.windowWidth / imgScale }
                 })
-            } 
+            }
         })
     },
-    updatePost: function (activity = this.data.activity) {
+    updatePost: function(activity = this.data.activity) {
         // 由于post 可能随时更新（剩余职位数量）
         app.db.getActivity(activity.id).then((act) => {
             let posts = act.posts
 
-            for (let p in posts) {
-                console.log(p)
-                console.log(posts[p])
-                posts[p].isApplyed = (posts[p].volunteers.indexOf(app.globalData.userInfo.volunteerInfo.id) != -1)
-                console.log(posts[p])
+            if(app.globalData.userInfo.userType == "vol"){
+                for (let p in posts) { 
+                    if (posts[p].volunteers)
+                        posts[p].isApplyed = (posts[p].volunteers.indexOf(app.globalData.userInfo.volunteerInfo.id) != -1)
+                }
             }
-            console.log(posts) 
             this.setData({
                 posts: posts
             })
         })
     },
     // 回调app方法访问数据库
-    applyPost: function (e) {
+    applyPost: function(e) {
         app.db.applyPost(e.target.dataset.post).then(() => {
             qq.showToast({
                 title: "申请成功",
@@ -60,7 +80,7 @@ Page({
             })
         })
     },
-    canclePost: function (e) {
+    canclePost: function(e) {
         app.db.canclePost(e.target.dataset.post).then(() => {
             qq.showToast({
                 title: "取消成功",
@@ -73,7 +93,34 @@ Page({
             })
         })
     },
-    deleteAct: function () {
+    handleActChanges(e) {
+        let prop = e.currentTarget.dataset.prop;
+        let act = this.data.activity;
+        act[prop] = e.detail.value;
+        this.setData({ act: act });
+    },
+    handlePostChanges(e) {
+        let ds = e.currentTarget.dataset;
+        let posts = this.data.posts;
+        posts[ds.index][ds.prop] = e.detail.value;
+        this.setData({ posts: posts });
+    },
+    addPost() {
+        let posts = this.data.posts;
+        posts.push(this._getPostForm());
+        this.setData({
+            posts: posts
+        })  
+    },
+    deletePost(e) {
+        let index = e.currentTarget.dataset.index;
+        let posts = this.data.posts;
+        posts.splice(index, 1);
+        this.setData({
+            posts: posts
+        })
+    },
+    deleteAct: function() {
         qq.showModal({
             title: '确认',
             content: '确定要删除此活动吗?',
@@ -87,5 +134,23 @@ Page({
 
             }
         })
+    },
+    deleteVol(e) {
+        let ds = e.currentTarget.dataset;
+        let i = parseInt(ds.postindex),
+            j = parseInt(ds.volindex);
+        let posts = this.data.posts;
+        posts[i].volunteerList.splice(j, 1);
+        this.setData({
+            posts: posts
+        })
+    },
+    updateAct() {
+        console.log(this.data.activity, this.data.posts)
+    },
+    uploadImage(){
+        qq.chooseImage({
+
+        }) 
     }
 })

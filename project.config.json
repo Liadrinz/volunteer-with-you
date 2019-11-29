@@ -12,7 +12,7 @@
 		"nodeModules": true,
 		"uglifyFileName": true
 	},
-	"qqLibVersion": "1.8.0",
+	"qqLibVersion": "1.1.7",
 	"compileType": "miniprogram",
 	"createTime": 1573118594855,
 	"accessTime": 1573118594855,

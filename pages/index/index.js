@@ -62,7 +62,6 @@ Page({
             loading: true
         })
         return app.db.getActivities(endIndex, n).then((list, hasmore) => {
-            console.log(list)
             if (hasmore)
                 act.setData({
                     loading: false,
