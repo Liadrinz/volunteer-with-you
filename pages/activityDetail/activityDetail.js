@@ -31,6 +31,7 @@ Page({
                 let url = app.db._privateData.staticUrl + paths[paths.length - 1]
                 imgList.push(url);
             }
+            value.projectDetial = value.projectDetail;
             that.setData({
                 activity: value,
                 posts: posts,

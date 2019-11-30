@@ -17,6 +17,9 @@ Page({
         this.onLoad();
     },
     onLoad() {
+        qq.showShareMenu({
+            showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+        })
         this.setData({
             userType:app.globalData.userInfo.userType,
         })

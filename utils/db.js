@@ -6,9 +6,9 @@ var getData = {
     _privateData: {
         curActivityID: 0,
         curApplyID: 0,
-        serverUrl: "http://10.28.205.190:8081/",
+        serverUrl: "http://lego24.cn/api/",
         spiderUrl: "http://lego24.cn/spider/",
-        staticUrl: "http://10.28.205.190:8888/"
+        staticUrl: "http://lego24.cn/static/"
     },
     registe: function(infos, type) {
         qq.showLoading({

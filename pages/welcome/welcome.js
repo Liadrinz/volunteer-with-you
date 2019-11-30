@@ -3,9 +3,12 @@ const app = getApp();
 Page({
     data: {
         userType: null,
-        
+
     },
     onLoad() {
+        qq.showShareMenu({
+            showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+        })
         app.appLogin().then((userType) => {
             this.setData({
                 userType: userType
@@ -21,7 +24,7 @@ Page({
         })
     },
     loginAsVol() {
-        app.db.getVolInfo().then(() => { 
+        app.db.getVolInfo().then(() => {
             app.globalData.userInfo.userType = 'vol';
             qq.navigateTo({
                 url: '/pages/index/index'
@@ -29,12 +32,12 @@ Page({
         })
     },
     registerAsStf() {
-        if (app.globalData.userInfo.userType == 'none' ) {
+        if (app.globalData.userInfo.userType == 'none') {
             qq.showToast({
                 title: "请先注册志愿者",
                 image: "/images/icons/失败.png"
             })
-        }else{
+        } else {
             app.globalData.userInfo.userType = 'stf';
             qq.navigateTo({
                 url: '/pages/register/register'
