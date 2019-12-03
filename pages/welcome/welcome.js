@@ -9,6 +9,9 @@ Page({
         qq.showShareMenu({
             showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
         })
+
+    },
+    onShow(){
         app.appLogin().then((userType) => {
             this.setData({
                 userType: userType
@@ -40,16 +43,16 @@ Page({
         })
     },
     registerAsStf(e) {
-        if (e.detail.errMsg == "getUserInfo:fail auth deny") {
-            return
-        }
-        this.getUserInfo(e)
-        if (app.globalData.userInfo.userType == 'none') {
+        if (this.data.userType == 'none') {
             qq.showToast({
                 title: "请先注册志愿者",
                 image: "/images/icons/失败.png"
             })
         } else {
+            if (e.detail.errMsg == "getUserInfo:fail auth deny") {
+                return
+            }
+            this.getUserInfo(e)
             app.globalData.userInfo.userType = 'stf';
             qq.navigateTo({
                 url: '/pages/register/register'
