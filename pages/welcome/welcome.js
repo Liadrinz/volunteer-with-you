@@ -15,7 +15,11 @@ Page({
             })
         })
     },
-    loginAsStf() {
+    loginAsStf(e) {
+        if (e.detail.errMsg == "getUserInfo:fail auth deny") {
+            return
+        }
+        this.getUserInfo(e)
         app.db.getTeamInfo().then(() => {
             app.globalData.userInfo.userType = 'stf';
             qq.navigateTo({
@@ -23,7 +27,11 @@ Page({
             })
         })
     },
-    loginAsVol() {
+    loginAsVol(e) {
+        if (e.detail.errMsg == "getUserInfo:fail auth deny") {
+            return
+        }
+        this.getUserInfo(e)
         app.db.getVolInfo().then(() => {
             app.globalData.userInfo.userType = 'vol';
             qq.navigateTo({
@@ -31,7 +39,11 @@ Page({
             })
         })
     },
-    registerAsStf() {
+    registerAsStf(e) {
+        if (e.detail.errMsg == "getUserInfo:fail auth deny") {
+            return
+        }
+        this.getUserInfo(e)
         if (app.globalData.userInfo.userType == 'none') {
             qq.showToast({
                 title: "请先注册志愿者",
@@ -44,10 +56,17 @@ Page({
             });
         }
     },
-    registerAsVol() {
+    registerAsVol(e) {
+        if (e.detail.errMsg == "getUserInfo:fail auth deny") {
+            return
+        }
+        this.getUserInfo(e)
         app.globalData.userInfo.userType = 'vol';
         qq.navigateTo({
             url: '/pages/register/register'
         });
+    },
+    getUserInfo(e) {
+        app.globalData.userInfo.qqUserInfo = e.detail.userInfo;
     }
 })

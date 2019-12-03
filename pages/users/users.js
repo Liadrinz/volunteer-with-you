@@ -24,7 +24,6 @@ Component({
             return app.db.getVolInfo().then(()=>{
                 let userInfo = app.globalData.userInfo
                 let projects = userInfo.volunteerInfo.projects
-                console.log( userInfo.volunteerInfo.projects)
                 //this.data.finishedPosts = [];
                 this.data.ongoingPosts=[]
                 for(let i in projects){

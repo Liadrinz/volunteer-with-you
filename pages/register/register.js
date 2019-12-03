@@ -50,7 +50,7 @@ Page({
             team[prop] = e.detail.value;
         }
     },
-    register() {
+    register(e) {
         app.db.setVolInfo(this.data.vol).then(() => {
             for (let i in inputs) {
                 let name = inputs[i].data.name

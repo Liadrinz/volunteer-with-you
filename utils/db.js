@@ -37,7 +37,7 @@ var getData = {
             title: "登录中"
         })
         return new Promise((resolve, reject) => qq.request({
-            url: getData._privateData.serverUrl + "/v/login/" + getData.app.globalData.code,
+            url: getData._privateData.serverUrl + "v/login/" + getData.app.globalData.code,
             success: function(e) {
                 if (e.data.code == 0) {
                     getData.app.globalData.userInfo.volunteerInfo = e.data.data
