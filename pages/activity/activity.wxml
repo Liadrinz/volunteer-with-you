@@ -1,6 +1,6 @@
 <view>
     <view style="padding-top: .5rem;">
-        <search wx:if="{{actType !== 'bv'}}" onSearch="{{search}}" onFilter="{{filter}}" filterFields="{{filterFields}}" />
+        <!-- <search wx:if="{{actType !== 'bv'}}" onSearch="{{search}}" onFilter="{{filter}}" filterFields="{{filterFields}}" /> -->
     </view>
     <!-- (封装了的)发布活动按钮 -->
     <floatButton title="发布活动" wx:if="{{actType === 'work' && showFloatBtn}}" url="/pages/publishDetail/publishDetail"

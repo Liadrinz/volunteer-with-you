@@ -30,7 +30,6 @@ Component({
     },
     lifetimes: {
         attached() {
-            console.log(this.data.keywords)
             let that = this
             this.setData({
                 search: (info)=>{that.properties.onSearch(_packSearchFliter(that.data.keywords, info))   }
@@ -39,7 +38,7 @@ Component({
     },
     methods: {
         search(info){
-            var fliter = this.selectComponent("#fliter")
+            var fliter = this.selectComponent("#filter")
             this.properties.onSearch(_packSearchFliter(this.data.keywords,fliter.filters))
         },
         handleSearchInput(e) {

@@ -4,7 +4,7 @@
     <floatButton bindtap="rejectAll" posX="right: 1rem;" title="批量拒绝" wx:if="{{selected.length > 0 && btnShown}}"
         btnClass="cu-btn round bg-gradual-red lg" iconClass="cuIcon-close" />
     <view style="padding-top: .5rem;">
-        <search onSearch="{{search}}" />
+        <!-- <search onSearch="{{search}}" /> -->
     </view>
     <checkbox-group bindchange="handleCheck" class="cu-list menu" style="padding-bottom: 4rem;">
         <view class="text-xl flex justify-end padding">
