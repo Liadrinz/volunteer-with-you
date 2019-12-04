@@ -33,6 +33,10 @@ Page({
             act = this.selectComponent("#acts")
         else
             act = this.selectComponent("#work").data.activityComp;
+        page = 1;
+        this.setData({
+            actList:[]
+        })
         this.getNextActs(10)
     },
     onReachBottom(prop) {

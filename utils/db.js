@@ -165,8 +165,10 @@ var getData = {
                 data: { page: page, amount: n },
                 success: function (res) {
                     var recvList = res.data.data
-                    if (recvList == "null" || recvList.length == 0)
+                    if (recvList == "null" || recvList.length == 0){
                         reject()
+                        return
+                    }
                     for (let r of recvList) {
                         r.startTime = r.startTime.split('T')[0]
                         r.endTime = r.endTime.split('T')[0]
