@@ -27,6 +27,7 @@ var app = App({
         qq.showLoading({
             title: "加载中"
         })
+
         return new Promise((resolve, reject) => qq.login({
             success: res => {
                 var that = this

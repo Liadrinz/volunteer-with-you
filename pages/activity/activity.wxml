@@ -10,7 +10,7 @@
             <view class="text-xl">
                 <text class="cuIcon-add"></text>
                 发布活动
-            </view>
+            </view> 
         </navigator> 
     </view> -->
 
@@ -23,10 +23,10 @@
                 </view>
                 <view wx:if="{{actType === 'vol'}}">
                     <view class="text-sm">
-                        <text class="text-grey padding">报名时间: {{act.beginRegTime}}</text>
+                        <text class="text-grey padding">报名时间: {{act.startTime}}</text>
                     </view>
                     <view class="text-sm">
-                        <text class="text-grey padding">活动时间: {{act.beginTime}}</text>
+                        <text class="text-grey padding">活动时间: {{act.endTime}}</text>
                     </view>
                     <view class="text-sm">
                         <text class="text-grey padding">活动地点: {{act.location}}</text>
@@ -34,10 +34,10 @@
                 </view>
                 <view wx:elif="{{actType === 'work'}}">
                     <view class="text-sm">
-                        <text class="text-grey padding">报名时间: {{act.beginRegTime}}</text>
+                        <text class="text-grey padding">报名时间: {{act.startTime}}</text>
                     </view>
                     <view class="text-sm">
-                        <text class="text-grey padding">活动时间: {{act.beginTime}}</text>
+                        <text class="text-grey padding">活动时间: {{act.endTime}}</text>
                     </view>
                     <view class="text-sm">
                         <text class="text-grey padding">活动地点: {{act.location}}</text>

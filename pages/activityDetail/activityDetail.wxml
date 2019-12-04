@@ -1,17 +1,17 @@
 <cu-custom CustomBar="height:4rem;" bgColor="bg-gradual-red" isBack="{{true}}">
   <view slot="backText">返回</view>
   <view slot="content">详情</view>
-</cu-custom>
+</cu-custom> 
 <view wx:if="{{actType === 'vol'}}">
   <view class="flex justify-center align-center flex-direction" bindtap="hideModal">
-    <view class="margin-xs cu-card case text-bold text-xl">{{"【"+activity.id+"】"+activity.title}} </view>
+    <view class="margin-xs cu-card case text-bold text-xl">{{"【"+activity.id+"】"+activity.title}} </view> 
     {{activity.isDone == true?"【已结项】":""}}
-    <image class="padding-lg" style="width:{{autoSize.width}}px;height:{{autoSize.height}}px" src="{{activity.picture?activity.picture:'/images/noimg_opp.jpg'}}" bindload="autoImage" />
+    <image class="padding-lg" style="width:{{autoSize.width}}px;height:{{autoSize.height}}px" src="{{activity.picture!=null?activity.picture:'/images/noimg_opp.jpg'}}" bindload="autoImage" />
     <view class="response padding-sm">
       <view class="flex margin-xs">
         <view class="flex-sub text-bold">项目地点</view>
         <view class="flex-twice">{{activity.location}}</view>
-      </view>
+      </view> 
       <view class="flex margin-xs solid-top solid-top solid-black">
         <view class="flex-sub text-bold">项目日期</view>
         <view class="flex-twice">
@@ -25,7 +25,7 @@
         <view class="flex-twice">{{activity.projectDetial}}</view>
       </view>
     </view>
-  </view>
+  </view> 
   <view class="cu-card case" wx:for="{{posts}}">
     <view class="cu-item shadow">
       <view class="bg-grey text-black text-lg padding-xs flex justify-between align-center">

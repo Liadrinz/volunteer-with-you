@@ -1,5 +1,5 @@
 const app = getApp();
-var endIndex = 1;
+var page = 1;
 var act;
 
 Page({
@@ -69,7 +69,8 @@ Page({
         act.setData({
             loading: true
         })
-        return app.db.getActivities(endIndex, n).then((list, hasmore) => {
+        return app.db.getActivities(page, n).then((list, hasmore) => {
+            console.log(list)
             if (hasmore)
                 act.setData({
                     loading: false,
@@ -82,7 +83,7 @@ Page({
             this.setData({
                 actList: this.data.actList,
             })
-            endIndex = this.data.actList.length + 1
+            page = page + 1
         }).catch(() => {
             act.setData({
                 isrunout: true,

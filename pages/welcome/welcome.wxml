@@ -14,7 +14,7 @@
                 注册为志愿者
             </view>
         </button>
-        <button wx:if="{{userType == 'both' || userType == 'stf'}}" class="flex justify-center cu-btn round bg-green lg margin" open-type="getUserInfo" bindgetuserinfo="loginAsVol">
+        <button wx:if="{{userType == 'both' || userType == 'stf'}}" class="flex justify-center cu-btn round bg-green lg margin" open-type="getUserInfo" bindgetuserinfo="loginAsStf">
             <view class="text-xl">
                 以团队工作者身份登录
             </view>
